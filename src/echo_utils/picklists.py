@@ -1,7 +1,7 @@
 import polars as pl
 
 
-class PickListSet:
+class PickList:
     df: pl.DataFrame
 
     def __init__(self, df: pl.DataFrame):
@@ -14,7 +14,7 @@ class PickListSet:
         return self.df.to_string()
 
     def from_csv(path: str):
-        return PickListSet(pl.read_csv(path))
+        return PickList(pl.read_csv(path))
 
     def _totvols(self):
         return self.df.group_by(["Destination Plate Name", "Destination Well"]).agg(
