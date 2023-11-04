@@ -1,0 +1,8 @@
+build/
+
+*.egg-info
+*.pyc
+
+# test files on cge's machine
+test/
+scratch.ipynb
