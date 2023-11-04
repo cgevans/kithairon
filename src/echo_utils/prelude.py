@@ -1,5 +1,5 @@
 from .surveys import Survey
-from .picklists import PickListSet
+from .picklists import PickList
 from .labware import Labware
 
-__all__ = ["Survey", "PickListSet", "Labware"]
+__all__ = ["Survey", "PickList", "Labware"]
