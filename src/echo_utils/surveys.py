@@ -1,6 +1,5 @@
 import polars as pl
 from pydantic_xml import BaseXmlModel, attr, element
-from pydantic import constr
 import numpy as np
 import functools
 from typing import TYPE_CHECKING, Callable
