@@ -1,14 +1,17 @@
-import functools
 import os
 from datetime import datetime
 from enum import Enum
 from logging import getLogger
-from typing import TYPE_CHECKING, Callable, cast
+from typing import TYPE_CHECKING, Callable, Literal, overload
 
 import numpy as np
 import polars as pl
-from pydantic import PositiveInt, model_validator
+from pydantic import NonNegativeInt, model_validator
 from pydantic_xml import BaseXmlModel, attr, element
+
+from kithairon._util import _WELL_ALPHABET
+
+from .labware import Labware
 
 log = getLogger(__name__)
 
@@ -19,17 +22,14 @@ class SurveyType(Enum):
     UNKNOWN = 3
 
 
-if TYPE_CHECKING:
-    import matplotlib.pyplot as plt
+if TYPE_CHECKING:  # pragma: no cover
+    import matplotlib.pyplot as plt  # noqa
     from matplotlib.axes import Axes
 
 
-_WELL_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-
 class WellSurvey(BaseXmlModel, tag="w"):
-    row: PositiveInt = attr(name="r")
-    column: PositiveInt = attr(name="c")
+    row: NonNegativeInt = attr(name="r")
+    column: NonNegativeInt = attr(name="c")
     well: str = attr(name="n")
     volume: float = attr(name="vl")
     current_volume: float = attr(name="cvl")
@@ -134,9 +134,31 @@ class EchoReportHeader(BaseXmlModel, tag="reportheader"):
 
 class EchoReportRecord(BaseXmlModel, tag="record"):
     SrcPlateName: str = element()
+    """The name of the plate surveyed (necessarily a source plate for a ReportRecord).
+
+    .. warning::
+
+        It is not currently known whether multiple plates can be present in a single report, or
+        if this is just redundantly specified for every well.
+    """
     SrcPlateBarcode: str = element()
+    """The barcode of the plate surveyed (necessarily a source plate for a ReportRecord).
+
+    .. warning::
+
+        It is not currently known whether multiple plates can be present in a single report, or
+        if this is just redundantly specified for every well.
+    """
     SrcPlateType: str = element()
+    """The surveyed plate type.
+
+    .. warning::
+
+        It is not currently known whether multiple plate types can be present in a single report, or
+        if this is just redundantly specified for every well.
+    """
     SrcWell: str = element()
+    """The surveyed well, in standard, non-zero padded format (eg, "A1" or "C12", not "A01")."""
     SurveyFluidHeight: float = element()
     SurveyFluidVolume: float = element()
     FluidComposition: float = element()  # FIXME
@@ -196,13 +218,14 @@ class Survey:
     supports:
 
       - Medman / raw surveys
-      - Cherry Pick surveys
+      - Cherry Pick and Plate Reformat surveys
     """
 
     raw: PlateSurveyXML | EchoSurveyReport
 
     @property
     def plate_barcode(self) -> str | None:
+        "The plate barcode, or None if not present."
         match self.raw:
             case PlateSurveyXML():
                 bc = self.raw.plate_barcode
@@ -216,7 +239,8 @@ class Survey:
             return bc
 
     @property
-    def plate_name(self) -> str:
+    def plate_name(self) -> str | None:
+        "The plate name, if present (may not be present in Medman surveys)."
         match self.raw:
             case PlateSurveyXML():
                 return self.raw.plate_name
@@ -224,16 +248,17 @@ class Survey:
                 return self.raw.reportbody.records[0].SrcPlateName
 
     @plate_name.setter
-    def plate_name(self, value: str) -> None:
+    def plate_name(self, value: str | None) -> None:
         match self.raw:
             case PlateSurveyXML():
                 self.raw.plate_name = value
             case EchoSurveyReport():
                 for record in self.raw.reportbody.records:
-                    record.SrcPlateName = value
+                    record.SrcPlateName = value if value is not None else ""  # FIXME
 
     @property
     def date(self) -> datetime | None:
+        """The date of the survey, as a datetime object."""
         match self.raw:
             case PlateSurveyXML():
                 return self.raw.timestamp
@@ -244,7 +269,7 @@ class Survey:
 
     @property
     def well_extents(self) -> tuple[int, int, int, int]:
-        """Return the extents of the wells in the survey."""
+        """Return the extents of the wells in the survey, as (rstart, rend, cstart, cend).)"""
         df = self._dataframe
         return (
             df.get_column("row").min(),
@@ -255,10 +280,31 @@ class Survey:
 
     @property
     def shape(self) -> tuple[int, int]:
+        "The shape of the survey.  This may differ from the full plate size."
         return (
             self.well_extents[1] - self.well_extents[0],
             self.well_extents[3] - self.well_extents[2],
         )
+
+    @property
+    def plate_type(self) -> str:
+        "The plate type surveyed (as a string)."
+        match self.raw:
+            case PlateSurveyXML():
+                return self.raw.plate_type
+            case EchoSurveyReport():
+                return self.raw.reportbody.records[0].SrcPlateType
+            case _:
+                raise ValueError("Unknown survey type")
+
+    @plate_type.setter
+    def plate_type(self, value: str) -> None:
+        match self.raw:
+            case PlateSurveyXML():
+                self.raw.plate_type = value
+            case EchoSurveyReport():
+                for record in self.raw.reportbody.records:
+                    record.SrcPlateType = value
 
     @property
     def _dataframe(self) -> pl.DataFrame:
@@ -291,52 +337,163 @@ class Survey:
             case _:
                 raise ValueError("Unknown survey type")
 
-    @property
-    def volumes_array(self) -> np.ndarray:
-        """Returns an array of volumes."""
-        arr = np.full(self.shape, np.nan)
+    @overload
+    def volumes_array(
+        self,
+        *,
+        full_plate: bool | None = None,
+        labware: Labware | None = None,
+        _return_full_plate_decision: Literal[True],
+    ) -> tuple[np.ndarray, bool]:
+        ...
+
+    @overload
+    def volumes_array(
+        self,
+        *,
+        full_plate: bool | None = None,
+        labware: Labware | None = None,
+        _return_full_plate_decision: Literal[False],
+    ) -> np.ndarray:
+        ...
+
+    @overload
+    def volumes_array(
+        self, *, full_plate: bool | None = None, labware: Labware | None = None
+    ) -> np.ndarray:
+        ...
+
+    def volumes_array(
+        self,
+        *,
+        full_plate: bool | None = None,
+        labware: Labware | None = None,
+        _return_full_plate_decision: bool = False,
+    ) -> np.ndarray | tuple[np.ndarray, bool]:
+        """Return an array of well volumes from the survey.
+
+        Parameters
+        ----------
+        full_plate : bool | None, optional
+            Return the full plate (requires labware definitions), or just the region surveyed, by default None, which chooses
+            based on whether labware definitions available for the plate type.
+        labware : Labware | None, optional
+            Labware definitions, by default None, which tries to load from the module default (not yet implemented).
+
+        Returns
+        -------
+        np.ndarray
+            Surveyed well volumes, in µL.  Un-surveyed wells are np.nan.  Failures are 0.
+        """
+        match full_plate:
+            case True:
+                if labware is None:
+                    raise ValueError("Labware definitions required for full_plate")
+                try:
+                    shape: tuple[int, int] = labware[self.plate_type].shape
+                    full_plate = True
+                except KeyError:
+                    raise ValueError(
+                        f"Labware definitions for {self.plate_type} not found"
+                    )
+            case False:
+                we = self.well_extents
+                shape = self.shape
+            case None:
+                if labware is None:
+                    shape = (
+                        self.well_extents[1] - self.well_extents[0],
+                        self.well_extents[3] - self.well_extents[2],
+                    )
+                    full_plate = False
+                else:
+                    try:
+                        shape = labware[self.plate_type].shape
+                        full_plate = True
+                    except KeyError:
+                        we = self.well_extents
+                        full_plate = False
+                        shape = self.shape
+            case _:
+                raise TypeError(f"Invalid value for full_plate: {full_plate}")
+
+        arr = np.full(shape, np.nan)
+
         we = self.well_extents
         df = self._dataframe
-        arr[
-            df.get_column("row") - we[0], df.get_column("column") - we[2]
-        ] = df.get_column("volume")
-        return arr
+        if full_plate:
+            arr[df["row"], df["column"]] = df["volume"]
+        else:
+            arr[df["row"] - we[0], df["column"] - we[2]] = df["volume"]
+
+        if _return_full_plate_decision:
+            return arr, full_plate
+        else:
+            return arr
 
     def plot_volumes(
         self,
+        *,
+        full_plate: bool | None = None,
+        labware: Labware | None = None,
         ax: "Axes | None" = None,
         annot: bool = True,
         annot_fmt: str = ".0f",
         cbar: bool = False,
         title: str | Callable | None = None,
+        vmin: float | None = 0,
+        vmax: float | None = None,
+        cmap: str | None = None,
     ) -> "Axes":
-        import matplotlib.pyplot as plt
-        import seaborn as sns
+        """Plot the volumes in the survey.
 
-        rstart, rend, cstart, cend = self.well_extents
+        Parameters
+        ----------
+        full_plate : bool | None, optional
+            Return the full plate (may require labware definitions), by default None (see :meth:`volumes_array`)
+        labware : Labware | None, optional
+            Labware definitions, by default None (see :meth:`volumes_array`)
+        ax : Axes | None, optional
+            Axes to use
+        annot : bool, optional
+            Annotate well volumes, by default True
+        annot_fmt : str, optional
+            Format string for annotations, by default ".0f"
+        cbar : bool, optional
+            Whether to include a colorbar, by default False
+        title : str | Callable | None, optional
+            Plot title, by default None (a default title is generated). If a callable, it is called with the survey as an argument.
+            If a string, it is used as a f-string with the survey as an argument (eg, `"{plate_barcode}".format(survey)`).
+        vmin : float | None, optional
+            Minimum plot value for colors, by default 0
+        vmax : float | None, optional
+            Maximum plot value for colors, by default None
+        cmap : str | None, optional
+            Colormap to use, by default None
 
-        va = self.volumes_array
-        if ax is None:
-            fig, ax = plt.subplots(figsize=(6 + int(cbar), 4))
+        Returns
+        -------
+        Axes
+        """
 
-        p = sns.heatmap(
-            va,
-            annot=annot,
-            fmt=annot_fmt,
-            cmap="viridis",
-            ax=ax,
-            cbar=cbar,
-            cbar_kws={"label": "well volume (µL)"},
-            annot_kws={"fontsize": 6},
+        from kithairon._util import plot_plate_array
+
+        rstart, _, cstart, _ = self.well_extents
+        va, is_full_plate = self.volumes_array(
+            full_plate=full_plate, labware=labware, _return_full_plate_decision=True
         )
 
-        assert ax is not None
-        # put x tick labels on top
-        ax.xaxis.tick_top()
-        ax.set_aspect("equal")
-        # set y tick labels by alphabet
-        ax.set_yticklabels(_WELL_ALPHABET[rstart:rend])
-        ax.set_xticklabels([str(i + 1) for i in range(cstart, cend)])
+        ax = plot_plate_array(
+            va,
+            annot=annot,
+            annot_fmt=annot_fmt,
+            cbar=cbar,
+            vmin=vmin,
+            vmax=vmax,
+            cmap=cmap,
+            ax=ax,
+            topleft_offset=(0, 0) if is_full_plate else (rstart, cstart),
+        )
 
         if title is None:
             te = ["Volumes"]
@@ -350,8 +507,10 @@ class Survey:
         else:
             title = title(self)
 
+        assert isinstance(title, str)
+
         ax.set_title(title)
-        return p
+        return ax
 
     def __init__(self, raw: PlateSurveyXML | EchoSurveyReport):
         self.raw = raw

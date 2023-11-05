@@ -1,9 +1,13 @@
-from typing import Sequence
+from typing import TYPE_CHECKING, Sequence
 
 import polars as pl
+from loguru import logger
 
 from kithairon.labware import Labware
 from kithairon.surveys import Survey
+
+if TYPE_CHECKING:  # pragma: no cover
+    from networkx import DiGraph, MultiDiGraph
 
 
 class PickList:
@@ -33,6 +37,54 @@ class PickList:
             pl.col("Transfer Volume").sum().alias("total_volume")
         )
 
+    def plate_transfer_graph(self) -> "DiGraph":
+        """A graph of plate usage (source plate -> destination plate)"""
+        from networkx import DiGraph, is_directed_acyclic_graph
+
+        plate_txs = (
+            self.df.lazy()
+            .group_by(
+                "Source Plate Name", "Destination Plate Name", maintain_order=True
+            )
+            .agg(
+                pl.col("Transfer Volume").sum(),
+                pl.col("Transfer Volume").count().alias("n_txs"),
+            )
+            .unique(maintain_order=True)
+        ).collect()
+
+        G = DiGraph()
+        for sn, dn, txv, txn in plate_txs.iter_rows():
+            G.add_edge(sn, dn, tot_vol=txv, n_txs=txn)
+
+        if not is_directed_acyclic_graph(G):
+            logger.warning("Plate transfer graph is not a DAG")
+
+        return G
+
+    def well_transfer_multigraph(self) -> "MultiDiGraph":
+        """A multigraph of each transfer."""
+        from networkx import MultiDiGraph, is_directed_acyclic_graph
+
+        well_txs = (
+            self.df.lazy().select(
+                "Source Plate Name",
+                "Source Well",
+                "Destination Plate Name",
+                "Destination Well",
+                "Transfer Volume",
+            )
+        ).collect()
+
+        G = MultiDiGraph()
+        for sn, sw, dn, dw, tx in well_txs.iter_rows():
+            G.add_edge((sn, sw), (dn, dw), weight=tx)
+
+        if not is_directed_acyclic_graph(G):
+            logger.warning("Well transfer graph is not a DAG")
+
+        return G
+
     def validate(
         self,
         labware: Labware | None = None,
@@ -53,7 +105,7 @@ class PickList:
         )
 
         if len(dest_plate_types_per_name) > 0:
-            print("Plate Name appears with multiple Plate Types:")
+            logger.error("Plate Name appears with multiple Plate Types: {}")
             print(dest_plate_types_per_name)
 
         src_plate_types_per_name = (
@@ -102,6 +154,8 @@ class PickList:
                 print("Transfer volumes are not multiples of drop volume:")
                 print(wrongvolume)
                 errors.append("Transfer volumes are not multiples of drop volume")
+
+        return errors
 
     def get_contents(
         self,

@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<EchoLabware>
+	<sourceplates>
+		<plateinfo platetype="Corning_1536COC_HiBase" manufacturer="Corning" lotnumber="None"
+			partnumber="P-07800" rows="32" cols="48" location="Left" a1offsetx="11015"
+			a1offsety="7940" centerspacingx="2247" centerspacingy="2247" plateheight="10400"
+			skirtheight="2410" wellwidth="1530" wellcapacity="6" bottominset="4.7"
+			centerwellposx="106304.715" centerwellposy="37935.4654" minwellvol="2" maxwellvol="6"
+			maxvoltotal="2000" minvolume="2.5" dropvolume="2.5" />
+		<plateinfo platetype="Labcyte_1536COC_LoBase" manufacturer="Labcyte" lotnumber="04250426"
+			partnumber="P-05850" rows="32" cols="48" location="Left" a1offsetx="11005"
+			a1offsety="7865" centerspacingx="2249" centerspacingy="2251" plateheight="10400"
+			skirtheight="2410" wellwidth="1530" wellcapacity="6" bottominset="1"
+			centerwellposx="106264.878" centerwellposy="37937.694" minwellvol="2" maxwellvol="6"
+			maxvoltotal="2000" minvolume="2.5" dropvolume="2.5" />
+		<plateinfo platetype="Labcyte_384COC_LV" manufacturer="Labcyte" lotnumber="04380103"
+			partnumber="P-05710" rows="16" cols="24" location="Left" a1offsetx="12130"
+			a1offsety="8990" centerspacingx="4500" centerspacingy="4500" plateheight="7500"
+			skirtheight="2410" wellwidth="2000" wellcapacity="20" bottominset="1.4"
+			centerwellposx="105144" centerwellposy="39280" minwellvol="6.5" maxwellvol="10.5"
+			maxvoltotal="3000" minvolume="2.5" dropvolume="2.5" />
+		<plateinfo platetype="Labcyte_384PP_StdV" manufacturer="Labcyte" lotnumber="04090130"
+			partnumber="P-05525" rows="16" cols="24" location="Left" a1offsetx="12130"
+			a1offsety="8990" centerspacingx="4500" centerspacingy="4500" plateheight="14400"
+			skirtheight="2410" wellwidth="3300" wellcapacity="50" bottominset="2.1"
+			centerwellposx="105098.226" centerwellposy="39100.7964" minwellvol="20" maxwellvol="50"
+			maxvoltotal="10000" minvolume="2.5" dropvolume="2.5" />
+		<plateinfo platetype="Labcyte_LDV_384" manufacturer="Labcyte" lotnumber="04380103"
+			partnumber="P-05710" rows="16" cols="24" location="None" a1offsetx="12130"
+			a1offsety="8990" centerspacingx="4500" centerspacingy="4506" plateheight="10400"
+			skirtheight="2410" wellwidth="1540" wellcapacity="20" bottominset="4.5"
+			centerwellposx="105162.368" centerwellposy="39009.261" minwellvol="2.5" maxwellvol="12"
+			maxvoltotal="5000" minvolume="2.5" dropvolume="2.5" />
+	</sourceplates>
+	<destinationplates>
+		<plateinfo platetype="Aurora_3456COC_00017829" manufacturer="Aurora Discovery"
+			lotnumber="123456" partnumber="00017829" rows="48" cols="72" location="Right"
+			a1offsetx="10700" a1offsety="8400" centerspacingx="1500" centerspacingy="1500"
+			plateheight="8500" skirtheight="6100" wellwidth="900" wellcapacity="2" bottominset="1.4"
+			centerwellposx="107124" centerwellposy="36873" dropvolume="2.5" />
+		<plateinfo platetype="Greiner_1536HiBasePS_782096" manufacturer="Greiner" lotnumber="1"
+			partnumber="782096" rows="32" cols="48" location="None" a1offsetx="10900"
+			a1offsety="7865" centerspacingx="2250" centerspacingy="2250" plateheight="10400"
+			skirtheight="2410" wellwidth="1530" wellcapacity="6" bottominset="5.25"
+			centerwellposx="106784" centerwellposy="38158" dropvolume="2.5" />
+		<plateinfo platetype="Greiner_384PS_781096" manufacturer="Greiner" lotnumber="1"
+			partnumber="781096" rows="16" cols="24" location="Left" a1offsetx="12200"
+			a1offsety="8990" centerspacingx="4500" centerspacingy="4500" plateheight="14700"
+			skirtheight="2410" wellwidth="3300" wellcapacity="50" bottominset="5"
+			centerwellposx="105484" centerwellposy="39283" dropvolume="2.5" />
+		<plateinfo platetype="Corning_1536COC_HiBase_Dest" manufacturer="Corning" lotnumber="None"
+			partnumber="P-07800" rows="32" cols="48" location="None" a1offsetx="11015"
+			a1offsety="7940" centerspacingx="2247" centerspacingy="2247" plateheight="10400"
+			skirtheight="2410" wellwidth="1530" wellcapacity="6" bottominset="4.7"
+			centerwellposx="106550" centerwellposy="38550" dropvolume="2.5" />
+		<plateinfo platetype="Labcyte_1536COC_LoBase_Dest" manufacturer="Labcyte"
+			lotnumber="04250426" partnumber="P-05850" rows="32" cols="48" location="None"
+			a1offsetx="11005" a1offsety="7865" centerspacingx="2249" centerspacingy="2251"
+			plateheight="10400" skirtheight="2410" wellwidth="1530" wellcapacity="6" bottominset="1"
+			centerwellposx="106550" centerwellposy="38550" dropvolume="2.5" />
+		<plateinfo platetype="Labcyte_384COC_LV_Dest" manufacturer="Labcyte" lotnumber="04380103"
+			partnumber="P-05710" rows="16" cols="24" location="None" a1offsetx="12130"
+			a1offsety="8990" centerspacingx="4500" centerspacingy="4500" plateheight="7500"
+			skirtheight="2410" wellwidth="2000" wellcapacity="20" bottominset="1.4"
+			centerwellposx="105300" centerwellposy="39800" dropvolume="2.5" />
+		<plateinfo platetype="Labcyte_384PP_StdV_Dest" manufacturer="Labcyte" lotnumber="04090130"
+			partnumber="P-05525" rows="16" cols="24" location="Left" a1offsetx="12130"
+			a1offsety="8990" centerspacingx="4500" centerspacingy="4500" plateheight="14400"
+			skirtheight="2410" wellwidth="3300" wellcapacity="50" bottominset="2.1"
+			centerwellposx="105300" centerwellposy="39800" dropvolume="2.5" />
+		<plateinfo platetype="Labcyte_LDV_384_Dest" manufacturer="Labcyte" lotnumber="04380103"
+			partnumber="P-05710" rows="16" cols="24" location="None" a1offsetx="12130"
+			a1offsety="8990" centerspacingx="4500" centerspacingy="4506" plateheight="10400"
+			skirtheight="2410" wellwidth="1540" wellcapacity="20" bottominset="4.5"
+			centerwellposx="105187.519" centerwellposy="39130.1719" dropvolume="2.5" />
+		<plateinfo platetype="96_Well_Plate" manufacturer="Other" lotnumber="0" partnumber="0"
+			rows="8" cols="12" location="None" a1offsetx="14630" a1offsety="11490"
+			centerspacingx="9000" centerspacingy="9000" plateheight="14450" skirtheight="2410"
+			wellwidth="6000" wellcapacity="300" bottominset="0" centerwellposx="103554"
+			centerwellposy="41283" dropvolume="2.5" />
+	</destinationplates>
+</EchoLabware>

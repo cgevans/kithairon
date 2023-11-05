@@ -1,0 +1,3460 @@
+<?xml version="1.0"?>
+<platesurvey name="384PP_AQ_BP" barcode="UnknownBarCode" date="2023-10-29 18:31:12.000"
+    serial_number="E5XX-12345" vtl="0" original="1" frmt="1" rows="16" cols="24" totalWells="384">
+    <w r="0" c="0" n="A1" vl="8.006" cvl="8.006" status="" fld="AQ" fldu="" x="56005.004" y="71691"
+        s="100" fsh="100" fsinh="100" t="0.689" ct="0.689" b="0.539" fth="0.689" ftinh="0.689" o="0"
+        a="NONE">
+        <e t="AVG" x="56005.004" y="71691" z="17901.84">
+            <f t="FW BB" o="30.837" v="1.718" />
+            <f t="FW TB1" o="31.377" v="1.437" />
+            <f t="SR" o="32.305" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="1" n="A2" vl="0" cvl="0"
+        status="Data missing for well (1th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60486.897" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60486.897" y="71691" z="17901.84">
+            <f t="EW BB" o="30.853" v="1.703" />
+            <f t="EW TB" o="31.395" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="2" n="A3" vl="0" cvl="0"
+        status="Data missing for well (1th row, 3th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="64968.791" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64968.791" y="71691" z="17901.84">
+            <f t="EW BB" o="30.861" v="1.703" />
+            <f t="EW TB" o="31.403" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="3" n="A4" vl="0" cvl="0"
+        status="Data missing for well (1th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69450.684" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.543" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69450.684" y="71691" z="17901.84">
+            <f t="EW BB" o="30.865" v="1.703" />
+            <f t="EW TB" o="31.409" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="4" n="A5" vl="24.819" cvl="24.819" status="" fld="AQ" fldu="" x="73932.578"
+        y="71691" s="100" fsh="0" fsinh="100" t="1.997" ct="1.997" b="0.536" fth="0.798"
+        ftinh="1.997" o="0" a="NONE">
+        <e t="AVG" x="73932.578" y="71691" z="17901.84">
+            <f t="FW BB" o="30.871" v="1.703" />
+            <f t="FW TB1" o="31.407" v="1.546" />
+            <f t="SR" o="34.097" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="5" n="A6" vl="0" cvl="0"
+        status="Data missing for well (1th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78414.471" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.539" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78414.471" y="71691" z="17901.84">
+            <f t="EW BB" o="30.875" v="1.703" />
+            <f t="EW TB" o="31.415" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="6" n="A7" vl="0" cvl="0"
+        status="Data missing for well (1th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82896.365" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82896.365" y="71691" z="17901.84">
+            <f t="EW BB" o="30.873" v="1.671" />
+            <f t="EW TB" o="31.419" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="7" n="A8" vl="0" cvl="0"
+        status="Data missing for well (1th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87378.258" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87378.258" y="71691" z="17901.84">
+            <f t="EW BB" o="30.873" v="1.703" />
+            <f t="EW TB" o="31.415" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="8" n="A9" vl="0" cvl="0"
+        status="Data missing for well (1th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91860.152" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91860.152" y="71691" z="17901.84">
+            <f t="EW BB" o="30.871" v="1.734" />
+            <f t="EW TB" o="31.413" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="9" n="A10" vl="0" cvl="0"
+        status="Data missing for well (1th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96342.045" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96342.045" y="71691" z="17901.84">
+            <f t="EW BB" o="30.877" v="1.734" />
+            <f t="EW TB" o="31.419" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="10" n="A11" vl="0" cvl="0"
+        status="Data missing for well (1th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100823.939" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100823.939" y="71691" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.765" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="11" n="A12" vl="0" cvl="0"
+        status="Data missing for well (1th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105305.832" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105305.832" y="71691" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.718" />
+            <f t="EW TB" o="31.423" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="12" n="A13" vl="0" cvl="0"
+        status="Data missing for well (1th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109787.726" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109787.726" y="71691" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.734" />
+            <f t="EW TB" o="31.425" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="13" n="A14" vl="0" cvl="0"
+        status="Data missing for well (1th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114269.619" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114269.619" y="71691" z="17901.84">
+            <f t="EW BB" o="30.899" v="1.734" />
+            <f t="EW TB" o="31.443" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="14" n="A15" vl="0" cvl="0"
+        status="Data missing for well (1th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118751.513" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118751.513" y="71691" z="17901.84">
+            <f t="EW BB" o="30.877" v="1.703" />
+            <f t="EW TB" o="31.421" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="15" n="A16" vl="0" cvl="0"
+        status="Data missing for well (1th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123233.406" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123233.406" y="71691" z="17901.84">
+            <f t="EW BB" o="30.871" v="1.734" />
+            <f t="EW TB" o="31.419" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="16" n="A17" vl="0" cvl="0"
+        status="Data missing for well (1th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127715.3" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127715.3" y="71691" z="17901.84">
+            <f t="EW BB" o="30.875" v="1.671" />
+            <f t="EW TB" o="31.423" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="17" n="A18" vl="0" cvl="0"
+        status="Data missing for well (1th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132197.193" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132197.193" y="71691" z="17901.84">
+            <f t="EW BB" o="30.875" v="1.718" />
+            <f t="EW TB" o="31.427" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="18" n="A19" vl="0" cvl="0"
+        status="Data missing for well (1th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136679.087" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136679.087" y="71691" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.734" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="19" n="A20" vl="0" cvl="0"
+        status="Data missing for well (1th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141160.98" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141160.98" y="71691" z="17901.84">
+            <f t="EW BB" o="30.879" v="1.734" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="20" n="A21" vl="0" cvl="0"
+        status="Data missing for well (1th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145642.874" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145642.874" y="71691" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.734" />
+            <f t="EW TB" o="31.431" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="21" n="A22" vl="0" cvl="0"
+        status="Data missing for well (1th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150124.767" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.552"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150124.767" y="71691" z="17901.84">
+            <f t="EW BB" o="30.877" v="1.718" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="22" n="A23" vl="0" cvl="0"
+        status="Data missing for well (1th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154606.661" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.554"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154606.661" y="71691" z="17901.84">
+            <f t="EW BB" o="30.871" v="1.609" />
+            <f t="EW TB" o="31.425" v="3.984" />
+        </e>
+    </w>
+    <w r="0" c="23" n="A24" vl="0" cvl="0"
+        status="Data missing for well (1th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159088.554" y="71691" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159088.554" y="71691" z="17901.84">
+            <f t="EW BB" o="30.863" v="1.703" />
+            <f t="EW TB" o="31.415" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="0" n="B1" vl="9.645" cvl="9.645" status="" fld="AQ" fldu="" x="56011.195" y="67209"
+        s="100" fsh="100" fsinh="100" t="0.83" ct="0.83" b="0.539" fth="0.83" ftinh="0.83" o="0"
+        a="NONE">
+        <e t="AVG" x="56011.195" y="67209" z="17901.84">
+            <f t="FW BB" o="30.853" v="1.703" />
+            <f t="FW TB1" o="31.393" v="1.468" />
+            <f t="SR" o="32.511" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="1" n="B2" vl="0" cvl="0"
+        status="Data missing for well (2th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60493.089" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.54" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60493.089" y="67209" z="17901.84">
+            <f t="EW BB" o="30.871" v="1.703" />
+            <f t="EW TB" o="31.411" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="2" n="B3" vl="0" cvl="0"
+        status="Data missing for well (2th row, 3th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="64974.982" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64974.982" y="67209" z="17901.84">
+            <f t="EW BB" o="30.871" v="1.703" />
+            <f t="EW TB" o="31.417" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="3" n="B4" vl="0" cvl="0"
+        status="Data missing for well (2th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69456.876" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69456.876" y="67209" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.718" />
+            <f t="EW TB" o="31.423" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="4" n="B5" vl="25.955" cvl="25.955" status="" fld="AQ" fldu="" x="73938.769"
+        y="67209" s="100" fsh="0" fsinh="100" t="2.079" ct="2.079" b="0.536" fth="0.831"
+        ftinh="2.079" o="0" a="NONE">
+        <e t="AVG" x="73938.769" y="67209" z="17901.84">
+            <f t="FW BB" o="30.883" v="1.734" />
+            <f t="FW TB1" o="31.419" v="1.578" />
+            <f t="SR" o="34.219" v="3.906" />
+        </e>
+    </w>
+    <w r="1" c="5" n="B6" vl="0" cvl="0"
+        status="Data missing for well (2th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78420.663" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78420.663" y="67209" z="17901.84">
+            <f t="EW BB" o="30.889" v="1.765" />
+            <f t="EW TB" o="31.431" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="6" n="B7" vl="0" cvl="0"
+        status="Data missing for well (2th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82902.556" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82902.556" y="67209" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.765" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="7" n="B8" vl="0" cvl="0"
+        status="Data missing for well (2th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87384.45" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87384.45" y="67209" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.781" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="8" n="B9" vl="0" cvl="0"
+        status="Data missing for well (2th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91866.343" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91866.343" y="67209" z="17901.84">
+            <f t="EW BB" o="30.897" v="1.75" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="9" n="B10" vl="0" cvl="0"
+        status="Data missing for well (2th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96348.237" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96348.237" y="67209" z="17901.84">
+            <f t="EW BB" o="30.911" v="1.812" />
+            <f t="EW TB" o="31.457" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="10" n="B11" vl="0" cvl="0"
+        status="Data missing for well (2th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100830.13" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.539"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100830.13" y="67209" z="17901.84">
+            <f t="EW BB" o="30.937" v="1.781" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="11" n="B12" vl="0" cvl="0"
+        status="Data missing for well (2th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105312.024" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105312.024" y="67209" z="17901.84">
+            <f t="EW BB" o="30.907" v="1.765" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="12" n="B13" vl="0" cvl="0"
+        status="Data missing for well (2th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109793.917" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109793.917" y="67209" z="17901.84">
+            <f t="EW BB" o="30.909" v="1.765" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="13" n="B14" vl="0" cvl="0"
+        status="Data missing for well (2th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114275.811" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114275.811" y="67209" z="17901.84">
+            <f t="EW BB" o="30.933" v="1.765" />
+            <f t="EW TB" o="31.475" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="14" n="B15" vl="0" cvl="0"
+        status="Data missing for well (2th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118757.704" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.543"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118757.704" y="67209" z="17901.84">
+            <f t="EW BB" o="30.911" v="1.843" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="15" n="B16" vl="0" cvl="0"
+        status="Data missing for well (2th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123239.598" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123239.598" y="67209" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.781" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="16" n="B17" vl="0" cvl="0"
+        status="Data missing for well (2th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127721.491" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127721.491" y="67209" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.765" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="17" n="B18" vl="0" cvl="0"
+        status="Data missing for well (2th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132203.385" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132203.385" y="67209" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.765" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="18" n="B19" vl="0" cvl="0"
+        status="Data missing for well (2th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136685.278" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.552"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136685.278" y="67209" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.765" />
+            <f t="EW TB" o="31.443" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="19" n="B20" vl="0" cvl="0"
+        status="Data missing for well (2th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141167.172" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141167.172" y="67209" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.718" />
+            <f t="EW TB" o="31.443" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="20" n="B21" vl="0" cvl="0"
+        status="Data missing for well (2th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145649.065" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145649.065" y="67209" z="17901.84">
+            <f t="EW BB" o="30.887" v="1.781" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="21" n="B22" vl="0" cvl="0"
+        status="Data missing for well (2th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150130.959" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150130.959" y="67209" z="17901.84">
+            <f t="EW BB" o="30.887" v="1.765" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="22" n="B23" vl="0" cvl="0"
+        status="Data missing for well (2th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154612.852" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154612.852" y="67209" z="17901.84">
+            <f t="EW BB" o="30.883" v="1.75" />
+            <f t="EW TB" o="31.433" v="3.984" />
+        </e>
+    </w>
+    <w r="1" c="23" n="B24" vl="0" cvl="0"
+        status="Data missing for well (2th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159094.746" y="67209" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159094.746" y="67209" z="17901.84">
+            <f t="EW BB" o="30.875" v="1.75" />
+            <f t="EW TB" o="31.427" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="0" n="C1" vl="12.803" cvl="12.803" status="" fld="AQ" fldu="" x="56005.004"
+        y="62727" s="100" fsh="100" fsinh="100" t="1.101" ct="1.101" b="0.54" fth="1.101"
+        ftinh="1.101" o="0" a="NONE">
+        <e t="AVG" x="56005.004" y="62727" z="17901.84">
+            <f t="FW BB" o="30.871" v="1.718" />
+            <f t="FW TB1" o="31.411" v="1.5" />
+            <f t="SR" o="32.895" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="1" n="C2" vl="0" cvl="0"
+        status="Data missing for well (3th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60486.897" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60486.897" y="62727" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.765" />
+            <f t="EW TB" o="31.427" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="2" n="C3" vl="0" cvl="0"
+        status="Data missing for well (3th row, 3th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="64968.791" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64968.791" y="62727" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.734" />
+            <f t="EW TB" o="31.427" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="3" n="C4" vl="0" cvl="0"
+        status="Data missing for well (3th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69450.684" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69450.684" y="62727" z="17901.84">
+            <f t="EW BB" o="30.883" v="1.703" />
+            <f t="EW TB" o="31.427" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="4" n="C5" vl="25.418" cvl="25.418" status="" fld="AQ" fldu="" x="73932.578"
+        y="62727" s="100" fsh="0" fsinh="100" t="2.04" ct="2.04" b="0.538" fth="0.816" ftinh="2.04"
+        o="0" a="NONE">
+        <e t="AVG" x="73932.578" y="62727" z="17901.84">
+            <f t="FW BB" o="30.887" v="1.703" />
+            <f t="FW TB1" o="31.425" v="1.515" />
+            <f t="SR" o="34.173" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="5" n="C6" vl="0" cvl="0"
+        status="Data missing for well (3th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78414.471" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78414.471" y="62727" z="17901.84">
+            <f t="EW BB" o="30.895" v="1.687" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="6" n="C7" vl="0" cvl="0"
+        status="Data missing for well (3th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82896.365" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82896.365" y="62727" z="17901.84">
+            <f t="EW BB" o="30.901" v="1.734" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="7" n="C8" vl="0" cvl="0"
+        status="Data missing for well (3th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87378.258" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87378.258" y="62727" z="17901.84">
+            <f t="EW BB" o="30.901" v="1.765" />
+            <f t="EW TB" o="31.447" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="8" n="C9" vl="0" cvl="0"
+        status="Data missing for well (3th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91860.152" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91860.152" y="62727" z="17901.84">
+            <f t="EW BB" o="30.905" v="1.812" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="9" n="C10" vl="0" cvl="0"
+        status="Data missing for well (3th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96342.045" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.543"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96342.045" y="62727" z="17901.84">
+            <f t="EW BB" o="30.917" v="1.812" />
+            <f t="EW TB" o="31.461" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="10" n="C11" vl="0" cvl="0"
+        status="Data missing for well (3th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100823.939" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100823.939" y="62727" z="17901.84">
+            <f t="EW BB" o="30.929" v="1.812" />
+            <f t="EW TB" o="31.475" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="11" n="C12" vl="0" cvl="0"
+        status="Data missing for well (3th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105305.832" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105305.832" y="62727" z="17901.84">
+            <f t="EW BB" o="30.919" v="1.781" />
+            <f t="EW TB" o="31.465" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="12" n="C13" vl="0" cvl="0"
+        status="Data missing for well (3th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109787.726" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109787.726" y="62727" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.781" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="13" n="C14" vl="0" cvl="0"
+        status="Data missing for well (3th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114269.619" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114269.619" y="62727" z="17901.84">
+            <f t="EW BB" o="30.935" v="1.765" />
+            <f t="EW TB" o="31.481" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="14" n="C15" vl="0" cvl="0"
+        status="Data missing for well (3th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118751.513" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118751.513" y="62727" z="17901.84">
+            <f t="EW BB" o="30.911" v="1.781" />
+            <f t="EW TB" o="31.461" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="15" n="C16" vl="0" cvl="0"
+        status="Data missing for well (3th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123233.406" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123233.406" y="62727" z="17901.84">
+            <f t="EW BB" o="30.903" v="1.781" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="16" n="C17" vl="0" cvl="0"
+        status="Data missing for well (3th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127715.3" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127715.3" y="62727" z="17901.84">
+            <f t="EW BB" o="30.899" v="1.781" />
+            <f t="EW TB" o="31.451" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="17" n="C18" vl="0" cvl="0"
+        status="Data missing for well (3th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132197.193" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132197.193" y="62727" z="17901.84">
+            <f t="EW BB" o="30.899" v="1.765" />
+            <f t="EW TB" o="31.451" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="18" n="C19" vl="0" cvl="0"
+        status="Data missing for well (3th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136679.087" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136679.087" y="62727" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.765" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="19" n="C20" vl="0" cvl="0"
+        status="Data missing for well (3th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141160.98" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141160.98" y="62727" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.734" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="20" n="C21" vl="0" cvl="0"
+        status="Data missing for well (3th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145642.874" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.554"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145642.874" y="62727" z="17901.84">
+            <f t="EW BB" o="30.883" v="1.765" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="21" n="C22" vl="0" cvl="0"
+        status="Data missing for well (3th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150124.767" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.553"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150124.767" y="62727" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.765" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="22" n="C23" vl="0" cvl="0"
+        status="Data missing for well (3th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154606.661" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154606.661" y="62727" z="17901.84">
+            <f t="EW BB" o="30.889" v="1.765" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="2" c="23" n="C24" vl="0" cvl="0"
+        status="Data missing for well (3th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159088.554" y="62727" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159088.554" y="62727" z="17901.84">
+            <f t="EW BB" o="30.883" v="1.734" />
+            <f t="EW TB" o="31.433" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="0" n="D1" vl="13.769" cvl="13.769" status="" fld="AQ" fldu="" x="56011.195"
+        y="58245" s="100" fsh="0" fsinh="100" t="1.185" ct="1.185" b="0.542" fth="0.474"
+        ftinh="1.185" o="0" a="NONE">
+        <e t="AVG" x="56011.195" y="58245" z="17901.84">
+            <f t="FW BB" o="30.883" v="1.734" />
+            <f t="FW TB1" o="31.425" v="1.5" />
+            <f t="SR" o="33.021" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="1" n="D2" vl="0" cvl="0"
+        status="Data missing for well (4th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60493.089" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60493.089" y="58245" z="17901.84">
+            <f t="EW BB" o="30.889" v="1.718" />
+            <f t="EW TB" o="31.433" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="2" n="D3" vl="27.09" cvl="27.09" status="" fld="AQ" fldu="" x="64974.982" y="58245"
+        s="100" fsh="0" fsinh="100" t="2.16" ct="2.16" b="0.544" fth="0.864" ftinh="2.16" o="0"
+        a="NONE">
+        <e t="AVG" x="64974.982" y="58245" z="17901.84">
+            <f t="FW BB" o="30.879" v="1.687" />
+            <f t="FW TB1" o="31.423" v="1.484" />
+            <f t="SR" o="34.333" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="3" n="D4" vl="0" cvl="0"
+        status="Data missing for well (4th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69456.876" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69456.876" y="58245" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.718" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="4" n="D5" vl="26.223" cvl="26.223" status="" fld="AQ" fldu="" x="73938.769"
+        y="58245" s="100" fsh="0" fsinh="100" t="2.098" ct="2.098" b="0.54" fth="0.839"
+        ftinh="2.098" o="0" a="NONE">
+        <e t="AVG" x="73938.769" y="58245" z="17901.84">
+            <f t="FW BB" o="30.889" v="1.703" />
+            <f t="FW TB1" o="31.429" v="1.515" />
+            <f t="SR" o="34.255" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="5" n="D6" vl="0" cvl="0"
+        status="Data missing for well (4th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78420.663" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78420.663" y="58245" z="17901.84">
+            <f t="EW BB" o="30.899" v="1.765" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="6" n="D7" vl="0" cvl="0"
+        status="Data missing for well (4th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82902.556" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82902.556" y="58245" z="17901.84">
+            <f t="EW BB" o="30.907" v="1.75" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="7" n="D8" vl="0" cvl="0"
+        status="Data missing for well (4th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87384.45" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87384.45" y="58245" z="17901.84">
+            <f t="EW BB" o="30.911" v="1.781" />
+            <f t="EW TB" o="31.457" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="8" n="D9" vl="0" cvl="0"
+        status="Data missing for well (4th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91866.343" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91866.343" y="58245" z="17901.84">
+            <f t="EW BB" o="30.915" v="1.796" />
+            <f t="EW TB" o="31.461" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="9" n="D10" vl="0" cvl="0"
+        status="Data missing for well (4th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96348.237" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96348.237" y="58245" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.781" />
+            <f t="EW TB" o="31.467" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="10" n="D11" vl="0" cvl="0"
+        status="Data missing for well (4th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100830.13" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100830.13" y="58245" z="17901.84">
+            <f t="EW BB" o="30.929" v="1.828" />
+            <f t="EW TB" o="31.479" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="11" n="D12" vl="0" cvl="0"
+        status="Data missing for well (4th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105312.024" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105312.024" y="58245" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.765" />
+            <f t="EW TB" o="31.481" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="12" n="D13" vl="0" cvl="0"
+        status="Data missing for well (4th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109793.917" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109793.917" y="58245" z="17901.84">
+            <f t="EW BB" o="30.935" v="1.781" />
+            <f t="EW TB" o="31.485" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="13" n="D14" vl="0" cvl="0"
+        status="Data missing for well (4th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114275.811" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114275.811" y="58245" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.796" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="14" n="D15" vl="0" cvl="0"
+        status="Data missing for well (4th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118757.704" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118757.704" y="58245" z="17901.84">
+            <f t="EW BB" o="30.915" v="1.781" />
+            <f t="EW TB" o="31.467" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="15" n="D16" vl="0" cvl="0"
+        status="Data missing for well (4th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123239.598" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123239.598" y="58245" z="17901.84">
+            <f t="EW BB" o="30.909" v="1.812" />
+            <f t="EW TB" o="31.459" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="16" n="D17" vl="0" cvl="0"
+        status="Data missing for well (4th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127721.491" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127721.491" y="58245" z="17901.84">
+            <f t="EW BB" o="30.905" v="1.812" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="17" n="D18" vl="0" cvl="0"
+        status="Data missing for well (4th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132203.385" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132203.385" y="58245" z="17901.84">
+            <f t="EW BB" o="30.901" v="1.765" />
+            <f t="EW TB" o="31.451" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="18" n="D19" vl="0" cvl="0"
+        status="Data missing for well (4th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136685.278" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136685.278" y="58245" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.75" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="19" n="D20" vl="0" cvl="0"
+        status="Data missing for well (4th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141167.172" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141167.172" y="58245" z="17901.84">
+            <f t="EW BB" o="30.889" v="1.734" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="20" n="D21" vl="0" cvl="0"
+        status="Data missing for well (4th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145649.065" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.554"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145649.065" y="58245" z="17901.84">
+            <f t="EW BB" o="30.877" v="1.703" />
+            <f t="EW TB" o="31.431" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="21" n="D22" vl="0" cvl="0"
+        status="Data missing for well (4th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150130.959" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.553"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150130.959" y="58245" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.703" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="22" n="D23" vl="0" cvl="0"
+        status="Data missing for well (4th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154612.852" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154612.852" y="58245" z="17901.84">
+            <f t="EW BB" o="30.887" v="1.75" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="3" c="23" n="D24" vl="0" cvl="0"
+        status="Data missing for well (4th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159094.746" y="58245" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159094.746" y="58245" z="17901.84">
+            <f t="EW BB" o="30.883" v="1.75" />
+            <f t="EW TB" o="31.433" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="0" n="E1" vl="0" cvl="0"
+        status="Data missing for well (5th row, 1th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="56005.004" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56005.004" y="53763" z="17901.84">
+            <f t="EW BB" o="30.897" v="1.734" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="1" n="E2" vl="0" cvl="0"
+        status="Data missing for well (5th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60486.897" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60486.897" y="53763" z="17901.84">
+            <f t="EW BB" o="30.899" v="1.718" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="2" n="E3" vl="25.191" cvl="25.191" status="" fld="AQ" fldu="" x="64968.791"
+        y="53763" s="100" fsh="0" fsinh="100" t="2.024" ct="2.024" b="0.544" fth="0.809"
+        ftinh="2.024" o="0" a="NONE">
+        <e t="AVG" x="64968.791" y="53763" z="17901.84">
+            <f t="FW BB" o="30.887" v="1.687" />
+            <f t="FW TB1" o="31.431" v="1.453" />
+            <f t="SR" o="34.157" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="3" n="E4" vl="0" cvl="0"
+        status="Data missing for well (5th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69450.684" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69450.684" y="53763" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.734" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="4" n="E5" vl="26.553" cvl="26.553" status="" fld="AQ" fldu="" x="73932.578"
+        y="53763" s="100" fsh="0" fsinh="100" t="2.122" ct="2.122" b="0.539" fth="0.848"
+        ftinh="2.122" o="0" a="NONE">
+        <e t="AVG" x="73932.578" y="53763" z="17901.84">
+            <f t="FW BB" o="30.895" v="1.734" />
+            <f t="FW TB1" o="31.435" v="1.468" />
+            <f t="SR" o="34.293" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="5" n="E6" vl="0" cvl="0"
+        status="Data missing for well (5th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78414.471" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78414.471" y="53763" z="17901.84">
+            <f t="EW BB" o="30.903" v="1.765" />
+            <f t="EW TB" o="31.449" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="6" n="E7" vl="0" cvl="0"
+        status="Data missing for well (5th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82896.365" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82896.365" y="53763" z="17901.84">
+            <f t="EW BB" o="30.913" v="1.734" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="7" n="E8" vl="0" cvl="0"
+        status="Data missing for well (5th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87378.258" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.543" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87378.258" y="53763" z="17901.84">
+            <f t="EW BB" o="30.917" v="1.734" />
+            <f t="EW TB" o="31.461" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="8" n="E9" vl="0" cvl="0"
+        status="Data missing for well (5th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91860.152" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91860.152" y="53763" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.765" />
+            <f t="EW TB" o="31.469" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="9" n="E10" vl="0" cvl="0"
+        status="Data missing for well (5th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96342.045" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96342.045" y="53763" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.765" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="10" n="E11" vl="0" cvl="0"
+        status="Data missing for well (5th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100823.939" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100823.939" y="53763" z="17901.84">
+            <f t="EW BB" o="30.937" v="1.765" />
+            <f t="EW TB" o="31.485" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="11" n="E12" vl="0" cvl="0"
+        status="Data missing for well (5th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105305.832" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105305.832" y="53763" z="17901.84">
+            <f t="EW BB" o="30.945" v="1.75" />
+            <f t="EW TB" o="31.493" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="12" n="E13" vl="0" cvl="0"
+        status="Data missing for well (5th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109787.726" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109787.726" y="53763" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.781" />
+            <f t="EW TB" o="31.499" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="13" n="E14" vl="0" cvl="0"
+        status="Data missing for well (5th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114269.619" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114269.619" y="53763" z="17901.84">
+            <f t="EW BB" o="30.935" v="1.812" />
+            <f t="EW TB" o="31.485" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="14" n="E15" vl="0" cvl="0"
+        status="Data missing for well (5th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118751.513" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118751.513" y="53763" z="17901.84">
+            <f t="EW BB" o="30.929" v="1.765" />
+            <f t="EW TB" o="31.479" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="15" n="E16" vl="0" cvl="0"
+        status="Data missing for well (5th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123233.406" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123233.406" y="53763" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.765" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="16" n="E17" vl="0" cvl="0"
+        status="Data missing for well (5th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127715.3" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127715.3" y="53763" z="17901.84">
+            <f t="EW BB" o="30.911" v="1.765" />
+            <f t="EW TB" o="31.461" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="17" n="E18" vl="0" cvl="0"
+        status="Data missing for well (5th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132197.193" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132197.193" y="53763" z="17901.84">
+            <f t="EW BB" o="30.903" v="1.75" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="18" n="E19" vl="0" cvl="0"
+        status="Data missing for well (5th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136679.087" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.554"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136679.087" y="53763" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.75" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="19" n="E20" vl="0" cvl="0"
+        status="Data missing for well (5th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141160.98" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.553"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141160.98" y="53763" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.734" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="20" n="E21" vl="0" cvl="0"
+        status="Data missing for well (5th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145642.874" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.554"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145642.874" y="53763" z="17901.84">
+            <f t="EW BB" o="30.875" v="1.718" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="21" n="E22" vl="0" cvl="0"
+        status="Data missing for well (5th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150124.767" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.556"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150124.767" y="53763" z="17901.84">
+            <f t="EW BB" o="30.877" v="1.718" />
+            <f t="EW TB" o="31.433" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="22" n="E23" vl="0" cvl="0"
+        status="Data missing for well (5th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154606.661" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154606.661" y="53763" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.718" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="4" c="23" n="E24" vl="0" cvl="0"
+        status="Data missing for well (5th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159088.554" y="53763" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159088.554" y="53763" z="17901.84">
+            <f t="EW BB" o="30.887" v="1.703" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="0" n="F1" vl="0" cvl="0"
+        status="Data missing for well (6th row, 1th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="56011.195" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56011.195" y="49281" z="17901.84">
+            <f t="EW BB" o="30.905" v="1.703" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="1" n="F2" vl="0" cvl="0"
+        status="Data missing for well (6th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60493.089" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60493.089" y="49281" z="17901.84">
+            <f t="EW BB" o="30.903" v="1.718" />
+            <f t="EW TB" o="31.449" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="2" n="F3" vl="26.12" cvl="26.12" status="" fld="AQ" fldu="" x="64974.982" y="49281"
+        s="100" fsh="0" fsinh="100" t="2.09" ct="2.09" b="0.544" fth="0.836" ftinh="2.09" o="0"
+        a="NONE">
+        <e t="AVG" x="64974.982" y="49281" z="17901.84">
+            <f t="FW BB" o="30.895" v="1.718" />
+            <f t="FW TB1" o="31.439" v="1.437" />
+            <f t="SR" o="34.255" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="3" n="F4" vl="0" cvl="0"
+        status="Data missing for well (6th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69456.876" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69456.876" y="49281" z="17901.84">
+            <f t="EW BB" o="30.899" v="1.734" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="4" n="F5" vl="26.945" cvl="26.945" status="" fld="AQ" fldu="" x="73938.769"
+        y="49281" s="100" fsh="0" fsinh="100" t="2.15" ct="2.15" b="0.542" fth="0.86" ftinh="2.15"
+        o="0" a="NONE">
+        <e t="AVG" x="73938.769" y="49281" z="17901.84">
+            <f t="FW BB" o="30.901" v="1.734" />
+            <f t="FW TB1" o="31.443" v="1.468" />
+            <f t="SR" o="34.339" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="5" n="F6" vl="0" cvl="0"
+        status="Data missing for well (6th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78420.663" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78420.663" y="49281" z="17901.84">
+            <f t="EW BB" o="30.909" v="1.734" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="6" n="F7" vl="0" cvl="0"
+        status="Data missing for well (6th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82902.556" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82902.556" y="49281" z="17901.84">
+            <f t="EW BB" o="30.915" v="1.734" />
+            <f t="EW TB" o="31.461" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="7" n="F8" vl="0" cvl="0"
+        status="Data missing for well (6th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87384.45" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87384.45" y="49281" z="17901.84">
+            <f t="EW BB" o="30.925" v="1.734" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="8" n="F9" vl="0" cvl="0"
+        status="Data missing for well (6th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91866.343" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91866.343" y="49281" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.765" />
+            <f t="EW TB" o="31.479" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="9" n="F10" vl="0" cvl="0"
+        status="Data missing for well (6th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96348.237" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96348.237" y="49281" z="17901.84">
+            <f t="EW BB" o="30.941" v="1.75" />
+            <f t="EW TB" o="31.489" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="10" n="F11" vl="0" cvl="0"
+        status="Data missing for well (6th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100830.13" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100830.13" y="49281" z="17901.84">
+            <f t="EW BB" o="30.945" v="1.781" />
+            <f t="EW TB" o="31.493" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="11" n="F12" vl="0" cvl="0"
+        status="Data missing for well (6th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105312.024" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105312.024" y="49281" z="17901.84">
+            <f t="EW BB" o="30.953" v="1.765" />
+            <f t="EW TB" o="31.501" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="12" n="F13" vl="0" cvl="0"
+        status="Data missing for well (6th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109793.917" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.552"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109793.917" y="49281" z="17901.84">
+            <f t="EW BB" o="30.955" v="1.781" />
+            <f t="EW TB" o="31.507" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="13" n="F14" vl="0" cvl="0"
+        status="Data missing for well (6th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114275.811" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114275.811" y="49281" z="17901.84">
+            <f t="EW BB" o="30.937" v="1.781" />
+            <f t="EW TB" o="31.487" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="14" n="F15" vl="0" cvl="0"
+        status="Data missing for well (6th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118757.704" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118757.704" y="49281" z="17901.84">
+            <f t="EW BB" o="30.937" v="1.781" />
+            <f t="EW TB" o="31.489" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="15" n="F16" vl="0" cvl="0"
+        status="Data missing for well (6th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123239.598" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123239.598" y="49281" z="17901.84">
+            <f t="EW BB" o="30.927" v="1.734" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="16" n="F17" vl="0" cvl="0"
+        status="Data missing for well (6th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127721.491" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127721.491" y="49281" z="17901.84">
+            <f t="EW BB" o="30.915" v="1.734" />
+            <f t="EW TB" o="31.467" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="17" n="F18" vl="0" cvl="0"
+        status="Data missing for well (6th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132203.385" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132203.385" y="49281" z="17901.84">
+            <f t="EW BB" o="30.903" v="1.734" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="18" n="F19" vl="0" cvl="0"
+        status="Data missing for well (6th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136685.278" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136685.278" y="49281" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.718" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="19" n="F20" vl="0" cvl="0"
+        status="Data missing for well (6th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141167.172" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.553"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141167.172" y="49281" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.734" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="20" n="F21" vl="0" cvl="0"
+        status="Data missing for well (6th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145649.065" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.556"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145649.065" y="49281" z="17901.84">
+            <f t="EW BB" o="30.873" v="1.703" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="21" n="F22" vl="0" cvl="0"
+        status="Data missing for well (6th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150130.959" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.558"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150130.959" y="49281" z="17901.84">
+            <f t="EW BB" o="30.871" v="1.671" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="22" n="F23" vl="0" cvl="0"
+        status="Data missing for well (6th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154612.852" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154612.852" y="49281" z="17901.84">
+            <f t="EW BB" o="30.883" v="1.703" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="5" c="23" n="F24" vl="0" cvl="0"
+        status="Data missing for well (6th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159094.746" y="49281" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159094.746" y="49281" z="17901.84">
+            <f t="EW BB" o="30.887" v="1.718" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="0" n="G1" vl="0" cvl="0"
+        status="Data missing for well (7th row, 1th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="56005.004" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.535" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56005.004" y="44799" z="17901.84">
+            <f t="EW BB" o="30.919" v="1.718" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="1" n="G2" vl="0" cvl="0"
+        status="Data missing for well (7th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60486.897" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60486.897" y="44799" z="17901.84">
+            <f t="EW BB" o="30.915" v="1.703" />
+            <f t="EW TB" o="31.459" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="2" n="G3" vl="27.049" cvl="27.049" status="" fld="AQ" fldu="" x="64968.791"
+        y="44799" s="100" fsh="0" fsinh="100" t="2.157" ct="2.157" b="0.544" fth="0.863"
+        ftinh="2.157" o="0" a="NONE">
+        <e t="AVG" x="64968.791" y="44799" z="17901.84">
+            <f t="FW BB" o="30.903" v="1.703" />
+            <f t="FW TB1" o="31.447" v="1.468" />
+            <f t="SR" o="34.353" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="3" n="G4" vl="0" cvl="0"
+        status="Data missing for well (7th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69450.684" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69450.684" y="44799" z="17901.84">
+            <f t="EW BB" o="30.903" v="1.656" />
+            <f t="EW TB" o="31.447" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="4" n="G5" vl="27.276" cvl="27.276" status="" fld="AQ" fldu="" x="73932.578"
+        y="44799" s="100" fsh="0" fsinh="100" t="2.174" ct="2.174" b="0.54" fth="0.869"
+        ftinh="2.174" o="0" a="NONE">
+        <e t="AVG" x="73932.578" y="44799" z="17901.84">
+            <f t="FW BB" o="30.909" v="1.437" />
+            <f t="FW TB1" o="31.449" v="1.437" />
+            <f t="SR" o="34.377" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="5" n="G6" vl="0" cvl="0"
+        status="Data missing for well (7th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78414.471" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78414.471" y="44799" z="17901.84">
+            <f t="EW BB" o="30.913" v="1.703" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="6" n="G7" vl="0" cvl="0"
+        status="Data missing for well (7th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82896.365" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82896.365" y="44799" z="17901.84">
+            <f t="EW BB" o="30.919" v="1.734" />
+            <f t="EW TB" o="31.463" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="7" n="G8" vl="0" cvl="0"
+        status="Data missing for well (7th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87378.258" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87378.258" y="44799" z="17901.84">
+            <f t="EW BB" o="30.927" v="1.703" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="8" n="G9" vl="0" cvl="0"
+        status="Data missing for well (7th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91860.152" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91860.152" y="44799" z="17901.84">
+            <f t="EW BB" o="30.937" v="1.734" />
+            <f t="EW TB" o="31.483" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="9" n="G10" vl="0" cvl="0"
+        status="Data missing for well (7th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96342.045" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96342.045" y="44799" z="17901.84">
+            <f t="EW BB" o="30.949" v="1.75" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="10" n="G11" vl="0" cvl="0"
+        status="Data missing for well (7th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100823.939" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100823.939" y="44799" z="17901.84">
+            <f t="EW BB" o="30.955" v="1.734" />
+            <f t="EW TB" o="31.503" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="11" n="G12" vl="0" cvl="0"
+        status="Data missing for well (7th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105305.832" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105305.832" y="44799" z="17901.84">
+            <f t="EW BB" o="30.961" v="1.718" />
+            <f t="EW TB" o="31.507" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="12" n="G13" vl="0" cvl="0"
+        status="Data missing for well (7th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109787.726" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109787.726" y="44799" z="17901.84">
+            <f t="EW BB" o="30.965" v="1.796" />
+            <f t="EW TB" o="31.515" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="13" n="G14" vl="0" cvl="0"
+        status="Data missing for well (7th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114269.619" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114269.619" y="44799" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.75" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="14" n="G15" vl="0" cvl="0"
+        status="Data missing for well (7th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118751.513" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118751.513" y="44799" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.734" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="15" n="G16" vl="0" cvl="0"
+        status="Data missing for well (7th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123233.406" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123233.406" y="44799" z="17901.84">
+            <f t="EW BB" o="30.935" v="1.718" />
+            <f t="EW TB" o="31.485" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="16" n="G17" vl="0" cvl="0"
+        status="Data missing for well (7th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127715.3" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127715.3" y="44799" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.75" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="17" n="G18" vl="0" cvl="0"
+        status="Data missing for well (7th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132197.193" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132197.193" y="44799" z="17901.84">
+            <f t="EW BB" o="30.905" v="1.734" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="18" n="G19" vl="0" cvl="0"
+        status="Data missing for well (7th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136679.087" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136679.087" y="44799" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.703" />
+            <f t="EW TB" o="31.443" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="19" n="G20" vl="0" cvl="0"
+        status="Data missing for well (7th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141160.98" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141160.98" y="44799" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.703" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="20" n="G21" vl="0" cvl="0"
+        status="Data missing for well (7th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145642.874" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.554"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145642.874" y="44799" z="17901.84">
+            <f t="EW BB" o="30.875" v="1.703" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="21" n="G22" vl="0" cvl="0"
+        status="Data missing for well (7th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150124.767" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.556"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150124.767" y="44799" z="17901.84">
+            <f t="EW BB" o="30.873" v="1.703" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="22" n="G23" vl="0" cvl="0"
+        status="Data missing for well (7th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154606.661" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.556"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154606.661" y="44799" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.671" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="6" c="23" n="G24" vl="0" cvl="0"
+        status="Data missing for well (7th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159088.554" y="44799" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159088.554" y="44799" z="17901.84">
+            <f t="EW BB" o="30.889" v="1.703" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="0" n="H1" vl="0" cvl="0"
+        status="Data missing for well (8th row, 1th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="56011.195" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.538" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56011.195" y="40317" z="17901.84">
+            <f t="EW BB" o="30.925" v="1.75" />
+            <f t="EW TB" o="31.463" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="1" n="H2" vl="0" cvl="0"
+        status="Data missing for well (8th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60493.089" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.539" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60493.089" y="40317" z="17901.84">
+            <f t="EW BB" o="30.923" v="1.687" />
+            <f t="EW TB" o="31.463" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="2" n="H3" vl="26.863" cvl="26.863" status="" fld="AQ" fldu="" x="64974.982"
+        y="40317" s="100" fsh="0" fsinh="100" t="2.144" ct="2.144" b="0.541" fth="0.857"
+        ftinh="2.144" o="0" a="NONE">
+        <e t="AVG" x="64974.982" y="40317" z="17901.84">
+            <f t="FW BB" o="30.911" v="1.703" />
+            <f t="FW TB1" o="31.453" v="1.437" />
+            <f t="SR" o="34.341" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="3" n="H4" vl="0" cvl="0"
+        status="Data missing for well (8th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69456.876" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69456.876" y="40317" z="17901.84">
+            <f t="EW BB" o="30.917" v="1.703" />
+            <f t="EW TB" o="31.459" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="4" n="H5" vl="26.202" cvl="26.202" status="" fld="AQ" fldu="" x="73938.769"
+        y="40317" s="100" fsh="0" fsinh="100" t="2.096" ct="2.096" b="0.542" fth="0.838"
+        ftinh="2.096" o="0" a="NONE">
+        <e t="AVG" x="73938.769" y="40317" z="17901.84">
+            <f t="FW BB" o="30.915" v="1.734" />
+            <f t="FW TB1" o="31.457" v="1.5" />
+            <f t="SR" o="34.281" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="5" n="H6" vl="0" cvl="0"
+        status="Data missing for well (8th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78420.663" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78420.663" y="40317" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.734" />
+            <f t="EW TB" o="31.465" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="6" n="H7" vl="0" cvl="0"
+        status="Data missing for well (8th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82902.556" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.543" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82902.556" y="40317" z="17901.84">
+            <f t="EW BB" o="30.929" v="1.718" />
+            <f t="EW TB" o="31.473" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="7" n="H8" vl="0" cvl="0"
+        status="Data missing for well (8th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87384.45" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87384.45" y="40317" z="17901.84">
+            <f t="EW BB" o="30.939" v="1.734" />
+            <f t="EW TB" o="31.483" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="8" n="H9" vl="0" cvl="0"
+        status="Data missing for well (8th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91866.343" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91866.343" y="40317" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.718" />
+            <f t="EW TB" o="31.491" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="9" n="H10" vl="0" cvl="0"
+        status="Data missing for well (8th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96348.237" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96348.237" y="40317" z="17901.84">
+            <f t="EW BB" o="30.957" v="1.718" />
+            <f t="EW TB" o="31.503" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="10" n="H11" vl="0" cvl="0"
+        status="Data missing for well (8th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100830.13" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100830.13" y="40317" z="17901.84">
+            <f t="EW BB" o="30.963" v="1.734" />
+            <f t="EW TB" o="31.509" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="11" n="H12" vl="0" cvl="0"
+        status="Data missing for well (8th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105312.024" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105312.024" y="40317" z="17901.84">
+            <f t="EW BB" o="30.971" v="1.734" />
+            <f t="EW TB" o="31.517" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="12" n="H13" vl="0" cvl="0"
+        status="Data missing for well (8th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109793.917" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109793.917" y="40317" z="17901.84">
+            <f t="EW BB" o="30.971" v="1.781" />
+            <f t="EW TB" o="31.515" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="13" n="H14" vl="0" cvl="0"
+        status="Data missing for well (8th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114275.811" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114275.811" y="40317" z="17901.84">
+            <f t="EW BB" o="30.953" v="1.718" />
+            <f t="EW TB" o="31.503" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="14" n="H15" vl="0" cvl="0"
+        status="Data missing for well (8th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118757.704" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118757.704" y="40317" z="17901.84">
+            <f t="EW BB" o="30.955" v="1.734" />
+            <f t="EW TB" o="31.503" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="15" n="H16" vl="0" cvl="0"
+        status="Data missing for well (8th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123239.598" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123239.598" y="40317" z="17901.84">
+            <f t="EW BB" o="30.941" v="1.703" />
+            <f t="EW TB" o="31.489" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="16" n="H17" vl="0" cvl="0"
+        status="Data missing for well (8th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127721.491" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127721.491" y="40317" z="17901.84">
+            <f t="EW BB" o="30.925" v="1.718" />
+            <f t="EW TB" o="31.473" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="17" n="H18" vl="0" cvl="0"
+        status="Data missing for well (8th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132203.385" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132203.385" y="40317" z="17901.84">
+            <f t="EW BB" o="30.911" v="1.703" />
+            <f t="EW TB" o="31.459" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="18" n="H19" vl="0" cvl="0"
+        status="Data missing for well (8th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136685.278" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136685.278" y="40317" z="17901.84">
+            <f t="EW BB" o="30.897" v="1.718" />
+            <f t="EW TB" o="31.447" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="19" n="H20" vl="0" cvl="0"
+        status="Data missing for well (8th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141167.172" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141167.172" y="40317" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.734" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="20" n="H21" vl="0" cvl="0"
+        status="Data missing for well (8th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145649.065" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145649.065" y="40317" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.671" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="21" n="H22" vl="0" cvl="0"
+        status="Data missing for well (8th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150130.959" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150130.959" y="40317" z="17901.84">
+            <f t="EW BB" o="30.883" v="1.671" />
+            <f t="EW TB" o="31.431" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="22" n="H23" vl="0" cvl="0"
+        status="Data missing for well (8th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154612.852" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154612.852" y="40317" z="17901.84">
+            <f t="EW BB" o="30.887" v="1.718" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="7" c="23" n="H24" vl="0" cvl="0"
+        status="Data missing for well (8th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159094.746" y="40317" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159094.746" y="40317" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.765" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="0" n="I1" vl="0" cvl="0"
+        status="Data missing for well (9th row, 1th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="56005.004" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.527" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56005.004" y="35835" z="17901.84">
+            <f t="EW BB" o="30.949" v="1.812" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="1" n="I2" vl="0" cvl="0"
+        status="Data missing for well (9th row, 2th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="60486.897" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.533" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60486.897" y="35835" z="17901.84">
+            <f t="EW BB" o="30.943" v="1.734" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="2" n="I3" vl="0" cvl="0"
+        status="Data missing for well (9th row, 3th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="64968.791" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64968.791" y="35835" z="17901.84">
+            <f t="EW BB" o="30.929" v="1.734" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="3" n="I4" vl="0" cvl="0"
+        status="Data missing for well (9th row, 4th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="69450.684" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.539" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69450.684" y="35835" z="17901.84">
+            <f t="EW BB" o="30.927" v="1.718" />
+            <f t="EW TB" o="31.467" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="4" n="I5" vl="0" cvl="0"
+        status="Data missing for well (9th row, 5th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="73932.578" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.539" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="73932.578" y="35835" z="17901.84">
+            <f t="EW BB" o="30.929" v="1.734" />
+            <f t="EW TB" o="31.469" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="5" n="I6" vl="0" cvl="0"
+        status="Data missing for well (9th row, 6th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="78414.471" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78414.471" y="35835" z="17901.84">
+            <f t="EW BB" o="30.929" v="1.75" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="6" n="I7" vl="0" cvl="0"
+        status="Data missing for well (9th row, 7th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="82896.365" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82896.365" y="35835" z="17901.84">
+            <f t="EW BB" o="30.935" v="1.75" />
+            <f t="EW TB" o="31.479" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="7" n="I8" vl="0" cvl="0"
+        status="Data missing for well (9th row, 8th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="87378.258" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87378.258" y="35835" z="17901.84">
+            <f t="EW BB" o="30.943" v="1.75" />
+            <f t="EW TB" o="31.489" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="8" n="I9" vl="0" cvl="0"
+        status="Data missing for well (9th row, 9th column), defaulting to 0.0 value of AQ" fld="AQ"
+        fldu="" x="91860.152" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91860.152" y="35835" z="17901.84">
+            <f t="EW BB" o="30.953" v="1.734" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="9" n="I10" vl="0" cvl="0"
+        status="Data missing for well (9th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96342.045" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96342.045" y="35835" z="17901.84">
+            <f t="EW BB" o="30.963" v="1.687" />
+            <f t="EW TB" o="31.507" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="10" n="I11" vl="0" cvl="0"
+        status="Data missing for well (9th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100823.939" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100823.939" y="35835" z="17901.84">
+            <f t="EW BB" o="30.969" v="1.718" />
+            <f t="EW TB" o="31.513" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="11" n="I12" vl="0" cvl="0"
+        status="Data missing for well (9th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105305.832" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105305.832" y="35835" z="17901.84">
+            <f t="EW BB" o="30.979" v="1.781" />
+            <f t="EW TB" o="31.521" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="12" n="I13" vl="0" cvl="0"
+        status="Data missing for well (9th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109787.726" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109787.726" y="35835" z="17901.84">
+            <f t="EW BB" o="30.971" v="1.828" />
+            <f t="EW TB" o="31.517" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="13" n="I14" vl="0" cvl="0"
+        status="Data missing for well (9th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114269.619" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114269.619" y="35835" z="17901.84">
+            <f t="EW BB" o="30.963" v="1.734" />
+            <f t="EW TB" o="31.511" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="14" n="I15" vl="0" cvl="0"
+        status="Data missing for well (9th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118751.513" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118751.513" y="35835" z="17901.84">
+            <f t="EW BB" o="30.959" v="1.734" />
+            <f t="EW TB" o="31.507" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="15" n="I16" vl="0" cvl="0"
+        status="Data missing for well (9th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123233.406" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123233.406" y="35835" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.734" />
+            <f t="EW TB" o="31.493" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="16" n="I17" vl="0" cvl="0"
+        status="Data missing for well (9th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127715.3" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127715.3" y="35835" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.703" />
+            <f t="EW TB" o="31.475" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="17" n="I18" vl="0" cvl="0"
+        status="Data missing for well (9th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132197.193" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132197.193" y="35835" z="17901.84">
+            <f t="EW BB" o="30.915" v="1.718" />
+            <f t="EW TB" o="31.459" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="18" n="I19" vl="0" cvl="0"
+        status="Data missing for well (9th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136679.087" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136679.087" y="35835" z="17901.84">
+            <f t="EW BB" o="30.901" v="1.703" />
+            <f t="EW TB" o="31.449" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="19" n="I20" vl="0" cvl="0"
+        status="Data missing for well (9th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141160.98" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141160.98" y="35835" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.718" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="20" n="I21" vl="0" cvl="0"
+        status="Data missing for well (9th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145642.874" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145642.874" y="35835" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.703" />
+            <f t="EW TB" o="31.431" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="21" n="I22" vl="0" cvl="0"
+        status="Data missing for well (9th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150124.767" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150124.767" y="35835" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.703" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="22" n="I23" vl="0" cvl="0"
+        status="Data missing for well (9th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154606.661" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154606.661" y="35835" z="17901.84">
+            <f t="EW BB" o="30.889" v="1.75" />
+            <f t="EW TB" o="31.433" v="3.984" />
+        </e>
+    </w>
+    <w r="8" c="23" n="I24" vl="0" cvl="0"
+        status="Data missing for well (9th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159088.554" y="35835" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.538"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159088.554" y="35835" z="17901.84">
+            <f t="EW BB" o="30.895" v="1.781" />
+            <f t="EW TB" o="31.433" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="0" n="J1" vl="0" cvl="0"
+        status="Data missing for well (10th row, 1th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="56011.195" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.538"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56011.195" y="31353" z="17901.84">
+            <f t="EW BB" o="30.949" v="1.765" />
+            <f t="EW TB" o="31.487" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="1" n="J2" vl="0" cvl="0"
+        status="Data missing for well (10th row, 2th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="60493.089" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60493.089" y="31353" z="17901.84">
+            <f t="EW BB" o="30.943" v="1.718" />
+            <f t="EW TB" o="31.485" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="2" n="J3" vl="0" cvl="0"
+        status="Data missing for well (10th row, 3th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="64974.982" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64974.982" y="31353" z="17901.84">
+            <f t="EW BB" o="30.933" v="1.703" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="3" n="J4" vl="0" cvl="0"
+        status="Data missing for well (10th row, 4th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="69456.876" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69456.876" y="31353" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.734" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="4" n="J5" vl="0" cvl="0"
+        status="Data missing for well (10th row, 5th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="73938.769" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="73938.769" y="31353" z="17901.84">
+            <f t="EW BB" o="30.933" v="1.734" />
+            <f t="EW TB" o="31.477" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="5" n="J6" vl="0" cvl="0"
+        status="Data missing for well (10th row, 6th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="78420.663" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78420.663" y="31353" z="17901.84">
+            <f t="EW BB" o="30.939" v="1.718" />
+            <f t="EW TB" o="31.483" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="6" n="J7" vl="0" cvl="0"
+        status="Data missing for well (10th row, 7th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="82902.556" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82902.556" y="31353" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.734" />
+            <f t="EW TB" o="31.491" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="7" n="J8" vl="0" cvl="0"
+        status="Data missing for well (10th row, 8th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="87384.45" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87384.45" y="31353" z="17901.84">
+            <f t="EW BB" o="30.951" v="1.734" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="8" n="J9" vl="0" cvl="0"
+        status="Data missing for well (10th row, 9th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="91866.343" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91866.343" y="31353" z="17901.84">
+            <f t="EW BB" o="30.959" v="1.734" />
+            <f t="EW TB" o="31.505" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="9" n="J10" vl="0" cvl="0"
+        status="Data missing for well (10th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96348.237" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96348.237" y="31353" z="17901.84">
+            <f t="EW BB" o="30.973" v="1.734" />
+            <f t="EW TB" o="31.519" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="10" n="J11" vl="0" cvl="0"
+        status="Data missing for well (10th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100830.13" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100830.13" y="31353" z="17901.84">
+            <f t="EW BB" o="30.973" v="1.734" />
+            <f t="EW TB" o="31.521" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="11" n="J12" vl="0" cvl="0"
+        status="Data missing for well (10th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105312.024" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105312.024" y="31353" z="17901.84">
+            <f t="EW BB" o="30.977" v="1.734" />
+            <f t="EW TB" o="31.523" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="12" n="J13" vl="0" cvl="0"
+        status="Data missing for well (10th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109793.917" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109793.917" y="31353" z="17901.84">
+            <f t="EW BB" o="30.979" v="1.75" />
+            <f t="EW TB" o="31.529" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="13" n="J14" vl="0" cvl="0"
+        status="Data missing for well (10th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114275.811" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114275.811" y="31353" z="17901.84">
+            <f t="EW BB" o="30.963" v="1.734" />
+            <f t="EW TB" o="31.511" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="14" n="J15" vl="0" cvl="0"
+        status="Data missing for well (10th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118757.704" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118757.704" y="31353" z="17901.84">
+            <f t="EW BB" o="30.959" v="1.718" />
+            <f t="EW TB" o="31.509" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="15" n="J16" vl="0" cvl="0"
+        status="Data missing for well (10th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123239.598" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123239.598" y="31353" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.718" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="16" n="J17" vl="0" cvl="0"
+        status="Data missing for well (10th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127721.491" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127721.491" y="31353" z="17901.84">
+            <f t="EW BB" o="30.929" v="1.718" />
+            <f t="EW TB" o="31.479" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="17" n="J18" vl="0" cvl="0"
+        status="Data missing for well (10th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132203.385" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132203.385" y="31353" z="17901.84">
+            <f t="EW BB" o="30.913" v="1.718" />
+            <f t="EW TB" o="31.463" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="18" n="J19" vl="0" cvl="0"
+        status="Data missing for well (10th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136685.278" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136685.278" y="31353" z="17901.84">
+            <f t="EW BB" o="30.901" v="1.718" />
+            <f t="EW TB" o="31.449" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="19" n="J20" vl="0" cvl="0"
+        status="Data missing for well (10th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141167.172" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.552"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141167.172" y="31353" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.703" />
+            <f t="EW TB" o="31.443" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="20" n="J21" vl="0" cvl="0"
+        status="Data missing for well (10th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145649.065" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145649.065" y="31353" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.671" />
+            <f t="EW TB" o="31.431" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="21" n="J22" vl="0" cvl="0"
+        status="Data missing for well (10th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150130.959" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.554"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150130.959" y="31353" z="17901.84">
+            <f t="EW BB" o="30.875" v="1.687" />
+            <f t="EW TB" o="31.429" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="22" n="J23" vl="0" cvl="0"
+        status="Data missing for well (10th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154612.852" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154612.852" y="31353" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.718" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="9" c="23" n="J24" vl="0" cvl="0"
+        status="Data missing for well (10th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159094.746" y="31353" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159094.746" y="31353" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.734" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="0" n="K1" vl="0" cvl="0"
+        status="Data missing for well (11th row, 1th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="56005.004" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.539"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56005.004" y="26871" z="17901.84">
+            <f t="EW BB" o="30.957" v="1.718" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="1" n="K2" vl="0" cvl="0"
+        status="Data missing for well (11th row, 2th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="60486.897" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60486.897" y="26871" z="17901.84">
+            <f t="EW BB" o="30.951" v="1.703" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="2" n="K3" vl="0" cvl="0"
+        status="Data missing for well (11th row, 3th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="64968.791" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64968.791" y="26871" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.718" />
+            <f t="EW TB" o="31.493" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="3" n="K4" vl="0" cvl="0"
+        status="Data missing for well (11th row, 4th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="69450.684" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69450.684" y="26871" z="17901.84">
+            <f t="EW BB" o="30.945" v="1.734" />
+            <f t="EW TB" o="31.491" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="4" n="K5" vl="0" cvl="0"
+        status="Data missing for well (11th row, 5th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="73932.578" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="73932.578" y="26871" z="17901.84">
+            <f t="EW BB" o="30.949" v="1.734" />
+            <f t="EW TB" o="31.495" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="5" n="K6" vl="0" cvl="0"
+        status="Data missing for well (11th row, 6th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="78414.471" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78414.471" y="26871" z="17901.84">
+            <f t="EW BB" o="30.953" v="1.718" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="6" n="K7" vl="0" cvl="0"
+        status="Data missing for well (11th row, 7th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="82896.365" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82896.365" y="26871" z="17901.84">
+            <f t="EW BB" o="30.955" v="1.765" />
+            <f t="EW TB" o="31.499" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="7" n="K8" vl="0" cvl="0"
+        status="Data missing for well (11th row, 8th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="87378.258" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87378.258" y="26871" z="17901.84">
+            <f t="EW BB" o="30.963" v="1.718" />
+            <f t="EW TB" o="31.509" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="8" n="K9" vl="0" cvl="0"
+        status="Data missing for well (11th row, 9th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="91860.152" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91860.152" y="26871" z="17901.84">
+            <f t="EW BB" o="30.969" v="1.718" />
+            <f t="EW TB" o="31.517" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="9" n="K10" vl="0" cvl="0"
+        status="Data missing for well (11th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96342.045" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96342.045" y="26871" z="17901.84">
+            <f t="EW BB" o="30.977" v="1.75" />
+            <f t="EW TB" o="31.525" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="10" n="K11" vl="0" cvl="0"
+        status="Data missing for well (11th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100823.939" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100823.939" y="26871" z="17901.84">
+            <f t="EW BB" o="30.977" v="1.765" />
+            <f t="EW TB" o="31.525" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="11" n="K12" vl="0" cvl="0"
+        status="Data missing for well (11th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105305.832" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105305.832" y="26871" z="17901.84">
+            <f t="EW BB" o="30.981" v="1.765" />
+            <f t="EW TB" o="31.531" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="12" n="K13" vl="0" cvl="0"
+        status="Data missing for well (11th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109787.726" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109787.726" y="26871" z="17901.84">
+            <f t="EW BB" o="30.985" v="1.765" />
+            <f t="EW TB" o="31.537" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="13" n="K14" vl="0" cvl="0"
+        status="Data missing for well (11th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114269.619" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114269.619" y="26871" z="17901.84">
+            <f t="EW BB" o="30.967" v="1.734" />
+            <f t="EW TB" o="31.517" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="14" n="K15" vl="0" cvl="0"
+        status="Data missing for well (11th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118751.513" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118751.513" y="26871" z="17901.84">
+            <f t="EW BB" o="30.961" v="1.718" />
+            <f t="EW TB" o="31.511" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="15" n="K16" vl="0" cvl="0"
+        status="Data missing for well (11th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123233.406" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123233.406" y="26871" z="17901.84">
+            <f t="EW BB" o="30.951" v="1.718" />
+            <f t="EW TB" o="31.499" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="16" n="K17" vl="0" cvl="0"
+        status="Data missing for well (11th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127715.3" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127715.3" y="26871" z="17901.84">
+            <f t="EW BB" o="30.937" v="1.734" />
+            <f t="EW TB" o="31.485" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="17" n="K18" vl="0" cvl="0"
+        status="Data missing for well (11th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132197.193" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132197.193" y="26871" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.703" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="18" n="K19" vl="0" cvl="0"
+        status="Data missing for well (11th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136679.087" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136679.087" y="26871" z="17901.84">
+            <f t="EW BB" o="30.909" v="1.703" />
+            <f t="EW TB" o="31.459" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="19" n="K20" vl="0" cvl="0"
+        status="Data missing for well (11th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141160.98" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141160.98" y="26871" z="17901.84">
+            <f t="EW BB" o="30.899" v="1.718" />
+            <f t="EW TB" o="31.449" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="20" n="K21" vl="0" cvl="0"
+        status="Data missing for well (11th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145642.874" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.553"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145642.874" y="26871" z="17901.84">
+            <f t="EW BB" o="30.885" v="1.687" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="21" n="K22" vl="0" cvl="0"
+        status="Data missing for well (11th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150124.767" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.553"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150124.767" y="26871" z="17901.84">
+            <f t="EW BB" o="30.881" v="1.703" />
+            <f t="EW TB" o="31.435" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="22" n="K23" vl="0" cvl="0"
+        status="Data missing for well (11th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154606.661" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154606.661" y="26871" z="17901.84">
+            <f t="EW BB" o="30.887" v="1.703" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="10" c="23" n="K24" vl="0" cvl="0"
+        status="Data missing for well (11th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159088.554" y="26871" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159088.554" y="26871" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.703" />
+            <f t="EW TB" o="31.439" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="0" n="L1" vl="0" cvl="0"
+        status="Data missing for well (12th row, 1th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="56011.195" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56011.195" y="22389" z="17901.84">
+            <f t="EW BB" o="30.969" v="1.703" />
+            <f t="EW TB" o="31.511" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="1" n="L2" vl="0" cvl="0"
+        status="Data missing for well (12th row, 2th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="60493.089" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60493.089" y="22389" z="17901.84">
+            <f t="EW BB" o="30.965" v="1.718" />
+            <f t="EW TB" o="31.511" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="2" n="L3" vl="0" cvl="0"
+        status="Data missing for well (12th row, 3th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="64974.982" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64974.982" y="22389" z="17901.84">
+            <f t="EW BB" o="30.959" v="1.734" />
+            <f t="EW TB" o="31.505" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="3" n="L4" vl="0" cvl="0"
+        status="Data missing for well (12th row, 4th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="69456.876" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69456.876" y="22389" z="17901.84">
+            <f t="EW BB" o="30.963" v="1.718" />
+            <f t="EW TB" o="31.511" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="4" n="L5" vl="0" cvl="0"
+        status="Data missing for well (12th row, 5th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="73938.769" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="73938.769" y="22389" z="17901.84">
+            <f t="EW BB" o="30.967" v="1.718" />
+            <f t="EW TB" o="31.511" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="5" n="L6" vl="0" cvl="0"
+        status="Data missing for well (12th row, 6th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="78420.663" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78420.663" y="22389" z="17901.84">
+            <f t="EW BB" o="30.967" v="1.75" />
+            <f t="EW TB" o="31.511" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="6" n="L7" vl="0" cvl="0"
+        status="Data missing for well (12th row, 7th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="82902.556" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82902.556" y="22389" z="17901.84">
+            <f t="EW BB" o="30.971" v="1.781" />
+            <f t="EW TB" o="31.515" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="7" n="L8" vl="0" cvl="0"
+        status="Data missing for well (12th row, 8th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="87384.45" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87384.45" y="22389" z="17901.84">
+            <f t="EW BB" o="30.973" v="1.765" />
+            <f t="EW TB" o="31.521" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="8" n="L9" vl="0" cvl="0"
+        status="Data missing for well (12th row, 9th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="91866.343" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91866.343" y="22389" z="17901.84">
+            <f t="EW BB" o="30.977" v="1.812" />
+            <f t="EW TB" o="31.525" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="9" n="L10" vl="0" cvl="0"
+        status="Data missing for well (12th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96348.237" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96348.237" y="22389" z="17901.84">
+            <f t="EW BB" o="30.983" v="1.781" />
+            <f t="EW TB" o="31.531" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="10" n="L11" vl="0" cvl="0"
+        status="Data missing for well (12th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100830.13" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100830.13" y="22389" z="17901.84">
+            <f t="EW BB" o="30.983" v="1.796" />
+            <f t="EW TB" o="31.531" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="11" n="L12" vl="0" cvl="0"
+        status="Data missing for well (12th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105312.024" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105312.024" y="22389" z="17901.84">
+            <f t="EW BB" o="30.987" v="1.75" />
+            <f t="EW TB" o="31.535" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="12" n="L13" vl="0" cvl="0"
+        status="Data missing for well (12th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109793.917" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109793.917" y="22389" z="17901.84">
+            <f t="EW BB" o="30.987" v="1.765" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="13" n="L14" vl="0" cvl="0"
+        status="Data missing for well (12th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114275.811" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114275.811" y="22389" z="17901.84">
+            <f t="EW BB" o="30.971" v="1.796" />
+            <f t="EW TB" o="31.519" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="14" n="L15" vl="0" cvl="0"
+        status="Data missing for well (12th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118757.704" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118757.704" y="22389" z="17901.84">
+            <f t="EW BB" o="30.963" v="1.734" />
+            <f t="EW TB" o="31.513" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="15" n="L16" vl="0" cvl="0"
+        status="Data missing for well (12th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123239.598" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123239.598" y="22389" z="17901.84">
+            <f t="EW BB" o="30.951" v="1.734" />
+            <f t="EW TB" o="31.501" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="16" n="L17" vl="0" cvl="0"
+        status="Data missing for well (12th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127721.491" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127721.491" y="22389" z="17901.84">
+            <f t="EW BB" o="30.939" v="1.734" />
+            <f t="EW TB" o="31.489" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="17" n="L18" vl="0" cvl="0"
+        status="Data missing for well (12th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132203.385" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132203.385" y="22389" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.734" />
+            <f t="EW TB" o="31.479" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="18" n="L19" vl="0" cvl="0"
+        status="Data missing for well (12th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136685.278" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136685.278" y="22389" z="17901.84">
+            <f t="EW BB" o="30.915" v="1.734" />
+            <f t="EW TB" o="31.465" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="19" n="L20" vl="0" cvl="0"
+        status="Data missing for well (12th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141167.172" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141167.172" y="22389" z="17901.84">
+            <f t="EW BB" o="30.905" v="1.734" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="20" n="L21" vl="0" cvl="0"
+        status="Data missing for well (12th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145649.065" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.554"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145649.065" y="22389" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.703" />
+            <f t="EW TB" o="31.445" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="21" n="L22" vl="0" cvl="0"
+        status="Data missing for well (12th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150130.959" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150130.959" y="22389" z="17901.84">
+            <f t="EW BB" o="30.889" v="1.671" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="22" n="L23" vl="0" cvl="0"
+        status="Data missing for well (12th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154612.852" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154612.852" y="22389" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.718" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="11" c="23" n="L24" vl="0" cvl="0"
+        status="Data missing for well (12th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159094.746" y="22389" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159094.746" y="22389" z="17901.84">
+            <f t="EW BB" o="30.891" v="1.718" />
+            <f t="EW TB" o="31.437" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="0" n="M1" vl="0" cvl="0"
+        status="Data missing for well (13th row, 1th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="56005.004" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.539"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56005.004" y="17907" z="17901.84">
+            <f t="EW BB" o="30.983" v="1.75" />
+            <f t="EW TB" o="31.523" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="1" n="M2" vl="0" cvl="0"
+        status="Data missing for well (13th row, 2th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="60486.897" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60486.897" y="17907" z="17901.84">
+            <f t="EW BB" o="30.983" v="1.718" />
+            <f t="EW TB" o="31.527" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="2" n="M3" vl="0" cvl="0"
+        status="Data missing for well (13th row, 3th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="64968.791" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64968.791" y="17907" z="17901.84">
+            <f t="EW BB" o="30.975" v="1.734" />
+            <f t="EW TB" o="31.523" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="3" n="M4" vl="0" cvl="0"
+        status="Data missing for well (13th row, 4th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="69450.684" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69450.684" y="17907" z="17901.84">
+            <f t="EW BB" o="30.973" v="1.734" />
+            <f t="EW TB" o="31.519" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="4" n="M5" vl="0" cvl="0"
+        status="Data missing for well (13th row, 5th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="73932.578" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="73932.578" y="17907" z="17901.84">
+            <f t="EW BB" o="30.977" v="1.765" />
+            <f t="EW TB" o="31.523" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="5" n="M6" vl="0" cvl="0"
+        status="Data missing for well (13th row, 6th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="78414.471" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78414.471" y="17907" z="17901.84">
+            <f t="EW BB" o="30.979" v="1.765" />
+            <f t="EW TB" o="31.525" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="6" n="M7" vl="0" cvl="0"
+        status="Data missing for well (13th row, 7th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="82896.365" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.543"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82896.365" y="17907" z="17901.84">
+            <f t="EW BB" o="30.981" v="1.781" />
+            <f t="EW TB" o="31.525" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="7" n="M8" vl="0" cvl="0"
+        status="Data missing for well (13th row, 8th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="87378.258" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87378.258" y="17907" z="17901.84">
+            <f t="EW BB" o="30.981" v="1.796" />
+            <f t="EW TB" o="31.527" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="8" n="M9" vl="0" cvl="0"
+        status="Data missing for well (13th row, 9th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="91860.152" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91860.152" y="17907" z="17901.84">
+            <f t="EW BB" o="30.983" v="1.781" />
+            <f t="EW TB" o="31.531" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="9" n="M10" vl="0" cvl="0"
+        status="Data missing for well (13th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96342.045" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96342.045" y="17907" z="17901.84">
+            <f t="EW BB" o="30.985" v="1.812" />
+            <f t="EW TB" o="31.533" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="10" n="M11" vl="0" cvl="0"
+        status="Data missing for well (13th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100823.939" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100823.939" y="17907" z="17901.84">
+            <f t="EW BB" o="30.989" v="1.812" />
+            <f t="EW TB" o="31.537" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="11" n="M12" vl="0" cvl="0"
+        status="Data missing for well (13th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105305.832" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105305.832" y="17907" z="17901.84">
+            <f t="EW BB" o="30.987" v="1.796" />
+            <f t="EW TB" o="31.537" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="12" n="M13" vl="0" cvl="0"
+        status="Data missing for well (13th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109787.726" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109787.726" y="17907" z="17901.84">
+            <f t="EW BB" o="30.987" v="1.796" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="13" n="M14" vl="0" cvl="0"
+        status="Data missing for well (13th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114269.619" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114269.619" y="17907" z="17901.84">
+            <f t="EW BB" o="30.981" v="1.796" />
+            <f t="EW TB" o="31.529" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="14" n="M15" vl="0" cvl="0"
+        status="Data missing for well (13th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118751.513" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118751.513" y="17907" z="17901.84">
+            <f t="EW BB" o="30.963" v="1.843" />
+            <f t="EW TB" o="31.513" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="15" n="M16" vl="0" cvl="0"
+        status="Data missing for well (13th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123233.406" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123233.406" y="17907" z="17901.84">
+            <f t="EW BB" o="30.953" v="1.828" />
+            <f t="EW TB" o="31.503" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="16" n="M17" vl="0" cvl="0"
+        status="Data missing for well (13th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127715.3" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127715.3" y="17907" z="17901.84">
+            <f t="EW BB" o="30.945" v="1.781" />
+            <f t="EW TB" o="31.493" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="17" n="M18" vl="0" cvl="0"
+        status="Data missing for well (13th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132197.193" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132197.193" y="17907" z="17901.84">
+            <f t="EW BB" o="30.933" v="1.734" />
+            <f t="EW TB" o="31.483" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="18" n="M19" vl="0" cvl="0"
+        status="Data missing for well (13th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136679.087" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136679.087" y="17907" z="17901.84">
+            <f t="EW BB" o="30.925" v="1.734" />
+            <f t="EW TB" o="31.475" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="19" n="M20" vl="0" cvl="0"
+        status="Data missing for well (13th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141160.98" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141160.98" y="17907" z="17901.84">
+            <f t="EW BB" o="30.911" v="1.718" />
+            <f t="EW TB" o="31.463" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="20" n="M21" vl="0" cvl="0"
+        status="Data missing for well (13th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145642.874" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145642.874" y="17907" z="17901.84">
+            <f t="EW BB" o="30.901" v="1.718" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="21" n="M22" vl="0" cvl="0"
+        status="Data missing for well (13th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150124.767" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150124.767" y="17907" z="17901.84">
+            <f t="EW BB" o="30.895" v="1.718" />
+            <f t="EW TB" o="31.447" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="22" n="M23" vl="0" cvl="0"
+        status="Data missing for well (13th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154606.661" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154606.661" y="17907" z="17901.84">
+            <f t="EW BB" o="30.897" v="1.765" />
+            <f t="EW TB" o="31.447" v="3.984" />
+        </e>
+    </w>
+    <w r="12" c="23" n="M24" vl="0" cvl="0"
+        status="Data missing for well (13th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159088.554" y="17907" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159088.554" y="17907" z="17901.84">
+            <f t="EW BB" o="30.895" v="1.718" />
+            <f t="EW TB" o="31.443" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="0" n="N1" vl="0" cvl="0"
+        status="Data missing for well (14th row, 1th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="56011.195" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56011.195" y="13425" z="17901.84">
+            <f t="EW BB" o="30.989" v="1.765" />
+            <f t="EW TB" o="31.533" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="1" n="N2" vl="0" cvl="0"
+        status="Data missing for well (14th row, 2th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="60493.089" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60493.089" y="13425" z="17901.84">
+            <f t="EW BB" o="30.995" v="1.765" />
+            <f t="EW TB" o="31.541" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="2" n="N3" vl="0" cvl="0"
+        status="Data missing for well (14th row, 3th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="64974.982" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64974.982" y="13425" z="17901.84">
+            <f t="EW BB" o="30.995" v="1.718" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="3" n="N4" vl="0" cvl="0"
+        status="Data missing for well (14th row, 4th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="69456.876" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69456.876" y="13425" z="17901.84">
+            <f t="EW BB" o="30.993" v="1.734" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="4" n="N5" vl="0" cvl="0"
+        status="Data missing for well (14th row, 5th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="73938.769" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="73938.769" y="13425" z="17901.84">
+            <f t="EW BB" o="30.995" v="1.765" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="5" n="N6" vl="0" cvl="0"
+        status="Data missing for well (14th row, 6th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="78420.663" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78420.663" y="13425" z="17901.84">
+            <f t="EW BB" o="30.997" v="1.781" />
+            <f t="EW TB" o="31.541" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="6" n="N7" vl="0" cvl="0"
+        status="Data missing for well (14th row, 7th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="82902.556" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82902.556" y="13425" z="17901.84">
+            <f t="EW BB" o="30.995" v="1.796" />
+            <f t="EW TB" o="31.541" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="7" n="N8" vl="0" cvl="0"
+        status="Data missing for well (14th row, 8th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="87384.45" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87384.45" y="13425" z="17901.84">
+            <f t="EW BB" o="30.993" v="1.812" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="8" n="N9" vl="0" cvl="0"
+        status="Data missing for well (14th row, 9th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="91866.343" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91866.343" y="13425" z="17901.84">
+            <f t="EW BB" o="30.993" v="1.812" />
+            <f t="EW TB" o="31.541" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="9" n="N10" vl="0" cvl="0"
+        status="Data missing for well (14th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96348.237" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96348.237" y="13425" z="17901.84">
+            <f t="EW BB" o="30.993" v="1.828" />
+            <f t="EW TB" o="31.541" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="10" n="N11" vl="0" cvl="0"
+        status="Data missing for well (14th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100830.13" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100830.13" y="13425" z="17901.84">
+            <f t="EW BB" o="30.999" v="1.828" />
+            <f t="EW TB" o="31.547" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="11" n="N12" vl="0" cvl="0"
+        status="Data missing for well (14th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105312.024" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105312.024" y="13425" z="17901.84">
+            <f t="EW BB" o="30.985" v="1.781" />
+            <f t="EW TB" o="31.535" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="12" n="N13" vl="0" cvl="0"
+        status="Data missing for well (14th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109793.917" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109793.917" y="13425" z="17901.84">
+            <f t="EW BB" o="30.987" v="1.812" />
+            <f t="EW TB" o="31.535" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="13" n="N14" vl="0" cvl="0"
+        status="Data missing for well (14th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114275.811" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114275.811" y="13425" z="17901.84">
+            <f t="EW BB" o="30.993" v="1.796" />
+            <f t="EW TB" o="31.541" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="14" n="N15" vl="0" cvl="0"
+        status="Data missing for well (14th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118757.704" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118757.704" y="13425" z="17901.84">
+            <f t="EW BB" o="30.965" v="1.781" />
+            <f t="EW TB" o="31.515" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="15" n="N16" vl="0" cvl="0"
+        status="Data missing for well (14th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123239.598" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123239.598" y="13425" z="17901.84">
+            <f t="EW BB" o="30.953" v="1.828" />
+            <f t="EW TB" o="31.503" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="16" n="N17" vl="0" cvl="0"
+        status="Data missing for well (14th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127721.491" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127721.491" y="13425" z="17901.84">
+            <f t="EW BB" o="30.949" v="1.781" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="17" n="N18" vl="0" cvl="0"
+        status="Data missing for well (14th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132203.385" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132203.385" y="13425" z="17901.84">
+            <f t="EW BB" o="30.941" v="1.781" />
+            <f t="EW TB" o="31.489" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="18" n="N19" vl="0" cvl="0"
+        status="Data missing for well (14th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136685.278" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136685.278" y="13425" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.765" />
+            <f t="EW TB" o="31.481" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="19" n="N20" vl="0" cvl="0"
+        status="Data missing for well (14th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141167.172" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141167.172" y="13425" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.703" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="20" n="N21" vl="0" cvl="0"
+        status="Data missing for well (14th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145649.065" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.551"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145649.065" y="13425" z="17901.84">
+            <f t="EW BB" o="30.913" v="1.734" />
+            <f t="EW TB" o="31.465" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="21" n="N22" vl="0" cvl="0"
+        status="Data missing for well (14th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150130.959" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150130.959" y="13425" z="17901.84">
+            <f t="EW BB" o="30.907" v="1.734" />
+            <f t="EW TB" o="31.457" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="22" n="N23" vl="0" cvl="0"
+        status="Data missing for well (14th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154612.852" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154612.852" y="13425" z="17901.84">
+            <f t="EW BB" o="30.903" v="1.781" />
+            <f t="EW TB" o="31.453" v="3.984" />
+        </e>
+    </w>
+    <w r="13" c="23" n="N24" vl="0" cvl="0"
+        status="Data missing for well (14th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159094.746" y="13425" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159094.746" y="13425" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.75" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="0" n="O1" vl="0" cvl="0"
+        status="Data missing for well (15th row, 1th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="56005.004" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56005.004" y="8943" z="17901.84">
+            <f t="EW BB" o="30.995" v="1.781" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="1" n="O2" vl="0" cvl="0"
+        status="Data missing for well (15th row, 2th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="60486.897" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.539"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60486.897" y="8943" z="17901.84">
+            <f t="EW BB" o="31.007" v="1.765" />
+            <f t="EW TB" o="31.547" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="2" n="O3" vl="0" cvl="0"
+        status="Data missing for well (15th row, 3th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="64968.791" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64968.791" y="8943" z="17901.84">
+            <f t="EW BB" o="31.005" v="1.765" />
+            <f t="EW TB" o="31.549" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="3" n="O4" vl="0" cvl="0"
+        status="Data missing for well (15th row, 4th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="69450.684" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69450.684" y="8943" z="17901.84">
+            <f t="EW BB" o="31.003" v="1.765" />
+            <f t="EW TB" o="31.549" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="4" n="O5" vl="0" cvl="0"
+        status="Data missing for well (15th row, 5th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="73932.578" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="73932.578" y="8943" z="17901.84">
+            <f t="EW BB" o="31.005" v="1.734" />
+            <f t="EW TB" o="31.549" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="5" n="O6" vl="0" cvl="0"
+        status="Data missing for well (15th row, 6th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="78414.471" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78414.471" y="8943" z="17901.84">
+            <f t="EW BB" o="31.003" v="1.781" />
+            <f t="EW TB" o="31.547" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="6" n="O7" vl="0" cvl="0"
+        status="Data missing for well (15th row, 7th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="82896.365" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82896.365" y="8943" z="17901.84">
+            <f t="EW BB" o="30.999" v="1.812" />
+            <f t="EW TB" o="31.543" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="7" n="O8" vl="0" cvl="0"
+        status="Data missing for well (15th row, 8th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="87378.258" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87378.258" y="8943" z="17901.84">
+            <f t="EW BB" o="30.995" v="1.843" />
+            <f t="EW TB" o="31.541" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="8" n="O9" vl="0" cvl="0"
+        status="Data missing for well (15th row, 9th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="91860.152" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91860.152" y="8943" z="17901.84">
+            <f t="EW BB" o="30.997" v="1.781" />
+            <f t="EW TB" o="31.543" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="9" n="O10" vl="0" cvl="0"
+        status="Data missing for well (15th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96342.045" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96342.045" y="8943" z="17901.84">
+            <f t="EW BB" o="31.001" v="1.796" />
+            <f t="EW TB" o="31.547" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="10" n="O11" vl="0" cvl="0"
+        status="Data missing for well (15th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100823.939" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100823.939" y="8943" z="17901.84">
+            <f t="EW BB" o="31.021" v="1.781" />
+            <f t="EW TB" o="31.567" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="11" n="O12" vl="0" cvl="0"
+        status="Data missing for well (15th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105305.832" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105305.832" y="8943" z="17901.84">
+            <f t="EW BB" o="30.985" v="1.75" />
+            <f t="EW TB" o="31.531" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="12" n="O13" vl="0" cvl="0"
+        status="Data missing for well (15th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109787.726" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109787.726" y="8943" z="17901.84">
+            <f t="EW BB" o="30.985" v="1.812" />
+            <f t="EW TB" o="31.533" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="13" n="O14" vl="0" cvl="0"
+        status="Data missing for well (15th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114269.619" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114269.619" y="8943" z="17901.84">
+            <f t="EW BB" o="31.007" v="1.75" />
+            <f t="EW TB" o="31.551" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="14" n="O15" vl="0" cvl="0"
+        status="Data missing for well (15th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118751.513" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118751.513" y="8943" z="17901.84">
+            <f t="EW BB" o="30.979" v="1.703" />
+            <f t="EW TB" o="31.525" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="15" n="O16" vl="0" cvl="0"
+        status="Data missing for well (15th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123233.406" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123233.406" y="8943" z="17901.84">
+            <f t="EW BB" o="30.957" v="1.812" />
+            <f t="EW TB" o="31.507" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="16" n="O17" vl="0" cvl="0"
+        status="Data missing for well (15th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127715.3" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55" fth="0"
+        ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127715.3" y="8943" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.812" />
+            <f t="EW TB" o="31.497" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="17" n="O18" vl="0" cvl="0"
+        status="Data missing for well (15th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132197.193" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132197.193" y="8943" z="17901.84">
+            <f t="EW BB" o="30.941" v="1.781" />
+            <f t="EW TB" o="31.491" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="18" n="O19" vl="0" cvl="0"
+        status="Data missing for well (15th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136679.087" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136679.087" y="8943" z="17901.84">
+            <f t="EW BB" o="30.937" v="1.781" />
+            <f t="EW TB" o="31.487" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="19" n="O20" vl="0" cvl="0"
+        status="Data missing for well (15th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141160.98" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141160.98" y="8943" z="17901.84">
+            <f t="EW BB" o="30.931" v="1.781" />
+            <f t="EW TB" o="31.481" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="20" n="O21" vl="0" cvl="0"
+        status="Data missing for well (15th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145642.874" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.55"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145642.874" y="8943" z="17901.84">
+            <f t="EW BB" o="30.921" v="1.734" />
+            <f t="EW TB" o="31.471" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="21" n="O22" vl="0" cvl="0"
+        status="Data missing for well (15th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150124.767" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150124.767" y="8943" z="17901.84">
+            <f t="EW BB" o="30.915" v="1.781" />
+            <f t="EW TB" o="31.461" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="22" n="O23" vl="0" cvl="0"
+        status="Data missing for well (15th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154606.661" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.549"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154606.661" y="8943" z="17901.84">
+            <f t="EW BB" o="30.905" v="1.734" />
+            <f t="EW TB" o="31.455" v="3.984" />
+        </e>
+    </w>
+    <w r="14" c="23" n="O24" vl="0" cvl="0"
+        status="Data missing for well (15th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159088.554" y="8943" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.547"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159088.554" y="8943" z="17901.84">
+            <f t="EW BB" o="30.893" v="1.687" />
+            <f t="EW TB" o="31.441" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="0" n="P1" vl="0" cvl="0"
+        status="Data missing for well (16th row, 1th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="56011.195" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="56011.195" y="4461" z="17901.84">
+            <f t="EW BB" o="30.995" v="1.765" />
+            <f t="EW TB" o="31.537" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="1" n="P2" vl="0" cvl="0"
+        status="Data missing for well (16th row, 2th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="60493.089" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="60493.089" y="4461" z="17901.84">
+            <f t="EW BB" o="31.007" v="1.734" />
+            <f t="EW TB" o="31.551" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="2" n="P3" vl="0" cvl="0"
+        status="Data missing for well (16th row, 3th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="64974.982" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="64974.982" y="4461" z="17901.84">
+            <f t="EW BB" o="31.009" v="1.765" />
+            <f t="EW TB" o="31.551" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="3" n="P4" vl="0" cvl="0"
+        status="Data missing for well (16th row, 4th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="69456.876" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="69456.876" y="4461" z="17901.84">
+            <f t="EW BB" o="31.011" v="1.781" />
+            <f t="EW TB" o="31.553" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="4" n="P5" vl="0" cvl="0"
+        status="Data missing for well (16th row, 5th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="73938.769" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="73938.769" y="4461" z="17901.84">
+            <f t="EW BB" o="31.005" v="1.734" />
+            <f t="EW TB" o="31.551" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="5" n="P6" vl="0" cvl="0"
+        status="Data missing for well (16th row, 6th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="78420.663" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="78420.663" y="4461" z="17901.84">
+            <f t="EW BB" o="31.003" v="1.781" />
+            <f t="EW TB" o="31.549" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="6" n="P7" vl="0" cvl="0"
+        status="Data missing for well (16th row, 7th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="82902.556" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="82902.556" y="4461" z="17901.84">
+            <f t="EW BB" o="30.995" v="1.687" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="7" n="P8" vl="0" cvl="0"
+        status="Data missing for well (16th row, 8th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="87384.45" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="87384.45" y="4461" z="17901.84">
+            <f t="EW BB" o="30.989" v="1.75" />
+            <f t="EW TB" o="31.535" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="8" n="P9" vl="0" cvl="0"
+        status="Data missing for well (16th row, 9th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="91866.343" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.544"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="91866.343" y="4461" z="17901.84">
+            <f t="EW BB" o="30.985" v="1.765" />
+            <f t="EW TB" o="31.529" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="9" n="P10" vl="0" cvl="0"
+        status="Data missing for well (16th row, 10th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="96348.237" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="96348.237" y="4461" z="17901.84">
+            <f t="EW BB" o="30.987" v="1.812" />
+            <f t="EW TB" o="31.529" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="10" n="P11" vl="0" cvl="0"
+        status="Data missing for well (16th row, 11th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="100830.13" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.54"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="100830.13" y="4461" z="17901.84">
+            <f t="EW BB" o="30.999" v="1.796" />
+            <f t="EW TB" o="31.539" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="11" n="P12" vl="0" cvl="0"
+        status="Data missing for well (16th row, 12th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="105312.024" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.542"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="105312.024" y="4461" z="17901.84">
+            <f t="EW BB" o="30.973" v="1.75" />
+            <f t="EW TB" o="31.515" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="12" n="P13" vl="0" cvl="0"
+        status="Data missing for well (16th row, 13th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="109793.917" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.54"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="109793.917" y="4461" z="17901.84">
+            <f t="EW BB" o="30.973" v="1.781" />
+            <f t="EW TB" o="31.513" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="13" n="P14" vl="0" cvl="0"
+        status="Data missing for well (16th row, 14th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="114275.811" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.541"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="114275.811" y="4461" z="17901.84">
+            <f t="EW BB" o="30.987" v="1.75" />
+            <f t="EW TB" o="31.529" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="14" n="P15" vl="0" cvl="0"
+        status="Data missing for well (16th row, 15th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="118757.704" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="118757.704" y="4461" z="17901.84">
+            <f t="EW BB" o="30.959" v="1.781" />
+            <f t="EW TB" o="31.505" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="15" n="P16" vl="0" cvl="0"
+        status="Data missing for well (16th row, 16th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="123239.598" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.546"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="123239.598" y="4461" z="17901.84">
+            <f t="EW BB" o="30.947" v="1.765" />
+            <f t="EW TB" o="31.493" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="16" n="P17" vl="0" cvl="0"
+        status="Data missing for well (16th row, 17th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="127721.491" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="127721.491" y="4461" z="17901.84">
+            <f t="EW BB" o="30.939" v="1.75" />
+            <f t="EW TB" o="31.485" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="17" n="P18" vl="0" cvl="0"
+        status="Data missing for well (16th row, 18th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="132203.385" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="132203.385" y="4461" z="17901.84">
+            <f t="EW BB" o="30.935" v="1.718" />
+            <f t="EW TB" o="31.483" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="18" n="P19" vl="0" cvl="0"
+        status="Data missing for well (16th row, 19th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="136685.278" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="136685.278" y="4461" z="17901.84">
+            <f t="EW BB" o="30.933" v="1.718" />
+            <f t="EW TB" o="31.481" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="19" n="P20" vl="0" cvl="0"
+        status="Data missing for well (16th row, 20th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="141167.172" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="141167.172" y="4461" z="17901.84">
+            <f t="EW BB" o="30.927" v="1.765" />
+            <f t="EW TB" o="31.475" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="20" n="P21" vl="0" cvl="0"
+        status="Data missing for well (16th row, 21th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="145649.065" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="145649.065" y="4461" z="17901.84">
+            <f t="EW BB" o="30.923" v="1.781" />
+            <f t="EW TB" o="31.469" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="21" n="P22" vl="0" cvl="0"
+        status="Data missing for well (16th row, 22th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="150130.959" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="150130.959" y="4461" z="17901.84">
+            <f t="EW BB" o="30.909" v="1.671" />
+            <f t="EW TB" o="31.457" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="22" n="P23" vl="0" cvl="0"
+        status="Data missing for well (16th row, 23th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="154612.852" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.545"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="154612.852" y="4461" z="17901.84">
+            <f t="EW BB" o="30.901" v="1.75" />
+            <f t="EW TB" o="31.447" v="3.984" />
+        </e>
+    </w>
+    <w r="15" c="23" n="P24" vl="0" cvl="0"
+        status="Data missing for well (16th row, 24th column), defaulting to 0.0 value of AQ"
+        fld="AQ" fldu="" x="159094.746" y="4461" s="0" fsh="0" fsinh="0" t="0" ct="0" b="0.548"
+        fth="0" ftinh="0" o="0" a="NONE">
+        <e t="AVG" x="159094.746" y="4461" z="17901.84">
+            <f t="EW BB" o="30.883" v="1.75" />
+            <f t="EW TB" o="31.431" v="3.984" />
+        </e>
+    </w>
+</platesurvey>

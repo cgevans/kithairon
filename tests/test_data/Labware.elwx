@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<EchoLabware>
+     <sourceplates>
+          <plateinfo platetype="384LDV_Plus_AQ_GP" plateformat="384LDV" usage="SRC" fluid="Glycerol"
+               manufacturer="Labcyte" lotnumber="1" partnumber="001-13070" rows="16" cols="24"
+               location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4506" plateheight="10400" skirtheight="2410" wellwidth="1540"
+               welllength="1540" wellcapacity="20" bottominset="4.5" centerwellposx="105598"
+               centerwellposy="40273.5" minwellvol="3.75" maxwellvol="15" maxvoltotal="5000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="384PP_AQ_BP" plateformat="384PP" usage="SRC" fluid="AQ"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14555" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="50" bottominset="2.1" centerwellposx="105223"
+               centerwellposy="40703.5" minwellvol="20" maxwellvol="65" maxvoltotal="10000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="384PP_AQ_SP" plateformat="384PP" usage="SRC" fluid="AQ"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14555" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="50" bottominset="2.1" centerwellposx="105223"
+               centerwellposy="40703.5" minwellvol="20" maxwellvol="65" maxvoltotal="10000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="384PP_AQ_SP_High" plateformat="384PP" usage="SRC" fluid="AQ"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14555" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="50" bottominset="2.1" centerwellposx="105223"
+               centerwellposy="40703.5" minwellvol="20" maxwellvol="65" maxvoltotal="10000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="384PP_Plus_AQ_BP" plateformat="384PP" usage="SRC" fluid="AQ"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14622" rows="16"
+               cols="24" location="Left" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="50" bottominset="2.1" centerwellposx="105223"
+               centerwellposy="40703.5" minwellvol="20" maxwellvol="65" maxvoltotal="10000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="384PP_Plus_AQ_GP" plateformat="384PP" usage="SRC" fluid="Glycerol"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14622" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="70" bottominset="2.1" centerwellposx="105223"
+               centerwellposy="40703.5" minwellvol="17" maxwellvol="65" maxvoltotal="10000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="384PP_Plus_AQ_GPSA" plateformat="384PP" usage="SRC" fluid="Glycerol"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14622" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="70" bottominset="2.1" centerwellposx="105223"
+               centerwellposy="40703.5" minwellvol="17" maxwellvol="65" maxvoltotal="10000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="384PP_Plus_AQ_GPSB" plateformat="384PP" usage="SRC" fluid="Glycerol"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14622" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="70" bottominset="2.1" centerwellposx="105223"
+               centerwellposy="40703.5" minwellvol="17" maxwellvol="65" maxvoltotal="10000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="384PP_Plus_AQ_SP" plateformat="384PP" usage="SRC" fluid="AQ"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14622" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="50" bottominset="2.1" centerwellposx="105223"
+               centerwellposy="40703.5" minwellvol="20" maxwellvol="65" maxvoltotal="10000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="6RES_AQ_BP2" plateformat="6RES" usage="SRC" fluid="CP-Buffer"
+               manufacturer="Labcyte" lotnumber="1" partnumber="001-11101" rows="2" cols="3"
+               location="None" a1offsetx="33780" a1offsety="15790" centerspacingx="40580"
+               centerspacingy="36000" plateheight="14600" skirtheight="2410" wellwidth="5000"
+               welllength="5000" wellcapacity="10000" bottominset="2.1" centerwellposx="107656"
+               centerwellposy="55944.9" minwellvol="100" maxwellvol="5978" maxvoltotal="3000000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="6RES_AQ_GPSA2" plateformat="6RES" usage="SRC" fluid="CP-Buffer"
+               manufacturer="Labcyte" lotnumber="1" partnumber="001-11101" rows="2" cols="3"
+               location="None" a1offsetx="33780" a1offsety="15790" centerspacingx="40580"
+               centerspacingy="36000" plateheight="14600" skirtheight="2410" wellwidth="5000"
+               welllength="5000" wellcapacity="10000" bottominset="2.1" centerwellposx="102743"
+               centerwellposy="56353.5" minwellvol="100" maxwellvol="5978" maxvoltotal="3000000"
+               minvolume="25" dropvolume="25" />
+          <plateinfo platetype="6RES_AQ_GPSB2" plateformat="6RES" usage="SRC" fluid="CP-Buffer"
+               manufacturer="Labcyte" lotnumber="1" partnumber="001-11101" rows="2" cols="3"
+               location="None" a1offsetx="33780" a1offsety="15790" centerspacingx="40580"
+               centerspacingy="36000" plateheight="14600" skirtheight="2410" wellwidth="5000"
+               welllength="5000" wellcapacity="10000" bottominset="2.1" centerwellposx="102743"
+               centerwellposy="56353.5" minwellvol="100" maxwellvol="5978" maxvoltotal="3000000"
+               minvolume="25" dropvolume="25" />
+     </sourceplates>
+     <destinationplates>
+          <plateinfo platetype="1536LDV_Dest" plateformat="1536LDV_Dest" usage="DEST"
+               manufacturer="Labcyte" lotnumber="None" partnumber="001-6969" rows="32" cols="48"
+               location="None" a1offsetx="11005" a1offsety="7865" centerspacingx="2247"
+               centerspacingy="2247" plateheight="10400" skirtheight="2410" wellwidth="1530"
+               welllength="1530" wellcapacity="6" bottominset="0" centerwellposx="106322"
+               centerwellposy="39271.9" dropvolume="2.5" />
+          <plateinfo platetype="384_IVT_Dest" plateformat="384_IVT_Dest" usage="DEST"
+               manufacturer="Roche" lotnumber="" partnumber="0472974900" rows="16" cols="24"
+               location="Left" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="10400" skirtheight="2410" wellwidth="2800"
+               welllength="2800" wellcapacity="20" bottominset="4.5" centerwellposx="105266"
+               centerwellposy="40351.9" dropvolume="2.5" />
+          <plateinfo platetype="384LDV_Dest" plateformat="384LDV_Dest" usage="DEST"
+               manufacturer="Labcyte" lotnumber="1" partnumber="001-13070" rows="16" cols="24"
+               location="None" a1offsetx="12200" a1offsety="9200" centerspacingx="4500"
+               centerspacingy="4506" plateheight="10400" skirtheight="2410" wellwidth="1540"
+               welllength="1540" wellcapacity="20" bottominset="4.5" centerwellposx="105336"
+               centerwellposy="40099.9" dropvolume="2.5" />
+          <plateinfo platetype="384PP_Dest" plateformat="384PP_Dest" usage="DEST"
+               manufacturer="Labcyte" lotnumber="04090130" partnumber="001-14555" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="50" bottominset="2.1" centerwellposx="105275"
+               centerwellposy="39735" dropvolume="2.5" />
+          <plateinfo platetype="Greiner_384PS_781096" plateformat="Greiner_384PS_781096"
+               usage="DEST" manufacturer="Greiner" lotnumber="1" partnumber="781096" rows="16"
+               cols="24" location="None" a1offsetx="12130" a1offsety="8990" centerspacingx="4500"
+               centerspacingy="4500" plateheight="14400" skirtheight="2410" wellwidth="3300"
+               welllength="3300" wellcapacity="50" bottominset="5" centerwellposx="105266"
+               centerwellposy="40351.9" dropvolume="2.5" />
+     </destinationplates>
+</EchoLabware>

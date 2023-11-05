@@ -24,24 +24,35 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
+dependencies = [
+    "polars > 0.19",
+    "numpy >= 1",
+    "pydantic-xml == 2",
+    "loguru >= 0.7"
+]
+
 [tools.setuptools_scm]
 
 [project.urls]
 Homepage = "https://github.com/cgevans/kithairon"
 Documentation = "https://kithairon.readthedocs.io/en/latest/"
 
-dependencies = [
-    "polars > 0.19",
-    "numpy >= 1",
-    "pydantic-xml == 2",
-]
 
 [project.optional-dependencies]
 graphics = [
     "seaborn >= 0.13",
 ]
+graphs = [
+    "networkx >= 3.2",
+]
 all = [
-    "kithairon[graphics]",
+    "kithairon[graphics,graphs]",
+    "lxml >= 4.9"
+]
+testing = [
+    "kithairon[all]",
+    "pytest ~= 7.4",
+    "pytest-cov ~= 4.1",
 ]
 docs = [
     "kithairon[all]",
@@ -57,3 +68,9 @@ version_scheme = "no-guess-dev"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+
+[tool.pytest.ini_options]
+addopts = "--cov kithairon --cov-report term-missing --verbose"
+norecursedirs = ["dist", "build", ".tox"]
+testpaths = ["tests"]
