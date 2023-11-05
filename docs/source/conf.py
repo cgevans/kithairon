@@ -33,13 +33,19 @@ extensions = [
     "sphinx_favicon",
 ]
 
+from pkg_resources import get_distribution
+
+__version__ = get_distribution("kithairon").version
+...  # I use __version__ to define Sphinx variables
+
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "kithairon"
 copyright = "2023, Constantine Evans"
 author = "Constantine Evans"
-release = "v0.1.0"
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
