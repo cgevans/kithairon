@@ -118,7 +118,7 @@ class Labware:
 
     @classmethod
     def from_file(cls, path: str | os.PathLike[str]) -> "Labware":
-        xmlstr = open(path).read()
+        xmlstr = open(path, "rb").read()
         try:
             return cls.from_raw(EchoLabwareELWX.from_xml(xmlstr))
         except Exception:
