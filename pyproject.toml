@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools", "wheel", "setuptools_scm[toml]"]
+requires = ["setuptools>=60", "wheel", "setuptools_scm[toml]>=8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "kithairon"
 readme = "README.md"
-version = "0.1.0"
+dynamic = ["version"]
 description = "A library for the Echo liquid handler."
 authors = [{ name = "Constantine Evans", email = "const@costi.net" }]
 license = { file = "LICENCE.txt" }
@@ -23,6 +23,8 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
+
+[tools.setuptools_scm]
 
 [project.urls]
 Homepage = "https://github.com/cgevans/kithairon"
