@@ -24,6 +24,10 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
+[project.urls]
+Homepage = "https://github.com/cgevans/kithairon"
+Documentation = "https://kithairon.readthedocs.io/en/latest/"
+
 dependencies = [
     "polars > 0.19",
     "numpy >= 1",
