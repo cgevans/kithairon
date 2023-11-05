@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<report>
+     <reportheader>
+          <RunID name="Run ID">3511096968</RunID>
+          <RunDateTime name="Run Date/Time">2023-10-30 19:11:50</RunDateTime>
+          <AppName name="Application Name">Echo Cherry Pick</AppName>
+          <AppVersion name="Application Version">1.8.2</AppVersion>
+          <ProtocolName name="Protocol Name">Protocol 2.ecp</ProtocolName>
+          <OrderID name="Order ID">
+          </OrderID>
+          <ReferenceID name="Reference ID">
+          </ReferenceID>
+          <UserName name="User Name">Beckman Coulter</UserName>
+     </reportheader>
+     <reportbody>
+          <record>
+               <SrcPlateName name="Source Plate Name">GD_fls</SrcPlateName>
+               <SrcPlateBarcode name="Source Plate Barcode">GD_fls</SrcPlateBarcode>
+               <SrcPlateType name="Source Plate Type">384PP_AQ_BP</SrcPlateType>
+               <SrcWell name="Source Well">C8</SrcWell>
+               <SurveyFluidHeight name="Survey Fluid Height">3.941</SurveyFluidHeight>
+               <SurveyFluidVolume name="Survey Fluid Volume">51.841</SurveyFluidVolume>
+               <FluidComposition name="Fluid Composition">100</FluidComposition>
+               <FluidUnits name="Fluid Units">
+               </FluidUnits>
+               <FluidType name="Fluid Type">AQ</FluidType>
+               <SurveyStatus name="Survey Status">
+               </SurveyStatus>
+          </record>
+          <record>
+               <SrcPlateName name="Source Plate Name">GD_fls</SrcPlateName>
+               <SrcPlateBarcode name="Source Plate Barcode">GD_fls</SrcPlateBarcode>
+               <SrcPlateType name="Source Plate Type">384PP_AQ_BP</SrcPlateType>
+               <SrcWell name="Source Well">C7</SrcWell>
+               <SurveyFluidHeight name="Survey Fluid Height">3.806</SurveyFluidHeight>
+               <SurveyFluidVolume name="Survey Fluid Volume">49.963</SurveyFluidVolume>
+               <FluidComposition name="Fluid Composition">100</FluidComposition>
+               <FluidUnits name="Fluid Units">
+               </FluidUnits>
+               <FluidType name="Fluid Type">AQ</FluidType>
+               <SurveyStatus name="Survey Status">
+               </SurveyStatus>
+          </record>
+          <record>
+               <SrcPlateName name="Source Plate Name">GD_fls</SrcPlateName>
+               <SrcPlateBarcode name="Source Plate Barcode">GD_fls</SrcPlateBarcode>
+               <SrcPlateType name="Source Plate Type">384PP_AQ_BP</SrcPlateType>
+               <SrcWell name="Source Well">C6</SrcWell>
+               <SurveyFluidHeight name="Survey Fluid Height">3.807</SurveyFluidHeight>
+               <SurveyFluidVolume name="Survey Fluid Volume">49.983</SurveyFluidVolume>
+               <FluidComposition name="Fluid Composition">100</FluidComposition>
+               <FluidUnits name="Fluid Units">
+               </FluidUnits>
+               <FluidType name="Fluid Type">AQ</FluidType>
+               <SurveyStatus name="Survey Status">
+               </SurveyStatus>
+          </record>
+          <record>
+               <SrcPlateName name="Source Plate Name">GD_fls</SrcPlateName>
+               <SrcPlateBarcode name="Source Plate Barcode">GD_fls</SrcPlateBarcode>
+               <SrcPlateType name="Source Plate Type">384PP_AQ_BP</SrcPlateType>
+               <SrcWell name="Source Well">C5</SrcWell>
+               <SurveyFluidHeight name="Survey Fluid Height">3.739</SurveyFluidHeight>
+               <SurveyFluidVolume name="Survey Fluid Volume">49.034</SurveyFluidVolume>
+               <FluidComposition name="Fluid Composition">100</FluidComposition>
+               <FluidUnits name="Fluid Units">
+               </FluidUnits>
+               <FluidType name="Fluid Type">AQ</FluidType>
+               <SurveyStatus name="Survey Status">
+               </SurveyStatus>
+          </record>
+     </reportbody>
+     <reportfooter>
+          <InstrName name="Instrument Name">E5XX-12345</InstrName>
+          <InstrModel name="Instrument Model">Echo 525</InstrModel>
+          <InstrSN name="Instrument Serial Number">E5XX-12345</InstrSN>
+          <InstrSWVersion name="Instrument Software Version">2.7.3</InstrSWVersion>
+     </reportfooter>
+</report>
