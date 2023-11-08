@@ -1,4 +1,5 @@
 [![Documentation Status](https://readthedocs.org/projects/kithairon/badge/?version=latest)](https://kithairon.readthedocs.io/en/latest/?badge=latest)
+[![Coverage Status](https://coveralls.io/repos/github/cgevans/kithairon/badge.svg?branch=main)](https://coveralls.io/github/cgevans/kithairon?branch=main)
 
 # kithairon: a package Python package for the Echo Liquid Handler
 
