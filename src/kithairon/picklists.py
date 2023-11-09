@@ -4,36 +4,37 @@ import polars as pl
 from loguru import logger
 
 from kithairon.labware import Labware
-from kithairon.surveys import Survey
+
+# from kithairon.surveys import SurveyData
 
 if TYPE_CHECKING:  # pragma: no cover
     from networkx import DiGraph, MultiDiGraph
 
 
 class PickList:
-    df: pl.DataFrame
+    data: pl.DataFrame
 
     def __init__(self, df: pl.DataFrame):
-        self.df = df
+        self.data = df
 
     def __repr__(self):
-        return repr(self.df)
+        return repr(self.data)
 
     def __str__(self):
-        return str(self.df)
+        return str(self.data)
 
     def _repr_html_(self):
-        return self.df._repr_html_()
+        return self.data._repr_html_()
 
     @classmethod
     def from_csv(cls, path: str):
         return cls(pl.read_csv(path))
 
     def to_csv(self, path: str):
-        self.df.write_csv(path)
+        self.data.write_csv(path)
 
     def _totvols(self):
-        return self.df.group_by(["Destination Plate Name", "Destination Well"]).agg(
+        return self.data.group_by(["Destination Plate Name", "Destination Well"]).agg(
             pl.col("Transfer Volume").sum().alias("total_volume")
         )
 
@@ -42,7 +43,7 @@ class PickList:
         from networkx import DiGraph, is_directed_acyclic_graph
 
         plate_txs = (
-            self.df.lazy()
+            self.data.lazy()
             .group_by(
                 "Source Plate Name", "Destination Plate Name", maintain_order=True
             )
@@ -67,7 +68,7 @@ class PickList:
         from networkx import MultiDiGraph, is_directed_acyclic_graph
 
         well_txs = (
-            self.df.lazy().select(
+            self.data.lazy().select(
                 "Source Plate Name",
                 "Source Well",
                 "Destination Plate Name",
@@ -88,14 +89,14 @@ class PickList:
     def validate(
         self,
         labware: Labware | None = None,
-        surveys: Sequence[Survey] | None = None,
+        # surveys: Sequence['Survey'] | None = None,
         raise_on_error: bool = True,
     ) -> Sequence[str]:
         errors = []
 
         # Check that every appearance of a Plate Name has the same Plate Type
         dest_plate_types_per_name = (
-            self.df.lazy()
+            self.data.lazy()
             .group_by("Destination Plate Name")
             .agg(pl.col("Destination Plate Type").unique().alias("plate_types"))
             .with_columns(pl.col("plate_types").list.lengths().alias("n_plate_types"))
@@ -109,7 +110,7 @@ class PickList:
             print(dest_plate_types_per_name)
 
         src_plate_types_per_name = (
-            self.df.lazy()
+            self.data.lazy()
             .group_by("Source Plate Name")
             .agg(pl.col("Source Plate Type").unique().alias("plate_types"))
             .with_columns(pl.col("plate_types").list.lengths().alias("n_plate_types"))
@@ -126,7 +127,7 @@ class PickList:
             labware_df = labware.to_polars()
 
             p_with_lb = (
-                self.df.lazy()
+                self.data.lazy()
                 .join(
                     labware_df.lazy(),
                     left_on="Source Plate Name",
@@ -170,12 +171,12 @@ class PickList:
                 name = plate
                 plate = None
         if (plate is not None) and (well is not None):
-            transfers_to = self.df.filter(
+            transfers_to = self.data.filter(
                 (pl.col("Destination Plate Name") == plate)
                 & (pl.col("Destination Well") == well)
             )
         elif (plate is None) and (well is None) and (name is not None):
-            transfers_to = self.df.filter(pl.col("Destination Sample Name") == name)
+            transfers_to = self.data.filter(pl.col("Destination Sample Name") == name)
         else:
             raise ValueError("Invalid combination of arguments")
 
@@ -188,12 +189,12 @@ class PickList:
             )
 
         # Lazily add a Source Concentration column to self.df if there isn't one
-        if "Source Concentration" not in self.df.columns:
-            selfdf = self.df.with_columns(
+        if "Source Concentration" not in self.data.columns:
+            selfdf = self.data.with_columns(
                 pl.lit(None).cast(pl.Float32).alias("Source Concentration")
             ).lazy()
         else:
-            selfdf = self.df.lazy()
+            selfdf = self.data.lazy()
 
         transfers_to = (
             transfers_to.lazy()
