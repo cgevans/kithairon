@@ -228,14 +228,14 @@ class SurveyData:
     def read_xml(cls, path: str | os.PathLike) -> Self:
         try:
             return cls(EchoPlateSurveyXML.read_xml(path).to_polars())
-        except ValidationError as e:
+        except ValidationError:
             return EchoSurveyReport.read_xml(path).to_surveydata()
 
     @classmethod
     def from_xml(cls, xml_str: str | bytes) -> Self:
         try:
             return cls(EchoPlateSurveyXML.from_xml(xml_str).to_polars())
-        except ValidationError as e:
+        except ValidationError:
             return EchoSurveyReport.from_xml(xml_str).to_surveydata()
 
     @classmethod
