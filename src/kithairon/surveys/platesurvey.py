@@ -13,14 +13,17 @@ if TYPE_CHECKING:
 
 Barcode = Annotated[
     Optional[str],
-    PlainSerializer(lambda val: val if val is not None else "UnknownBarCode"),
+    PlainSerializer(
+        lambda val: val if val is not None else "UnknownBarCode",
+        when_used="unless-none",
+    ),
     BeforeValidator(lambda val: val if val != "UnknownBarCode" else None),
 ]
 
 FloatNullZero = Annotated[
     Optional[float],
     BeforeValidator(lambda val: val if val != 0 else None),
-    PlainSerializer(lambda val: val if val is not None else 0),
+    PlainSerializer(lambda val: val if val is not None else 0, when_used="unless-none"),
 ]
 
 

@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, Self, cast
 import numpy as np
 import polars as pl
 from loguru import logger
-from pydantic import ValidationError
+from pydantic_xml import ParsingError
 
 from kithairon.surveys.surveyreport import EchoSurveyReport
 
@@ -95,6 +95,16 @@ class SurveyData:
         return self.survey_rows, self.survey_columns
 
     @cached_property
+    def survey_offset(self) -> tuple[int, int]:
+        vals = self.data.select(
+            pl.col("row").over("timestamp").min(),
+            pl.col("column").over("timestamp").min(),
+        )
+        if len(vals) != 1:
+            raise ValueError(f"Expected exactly one offset, got {len(vals)}: {vals}")
+        return (vals["row"][0], vals["column"][0])
+
+    @cached_property
     def plate_shape(self) -> tuple[int, int]:
         size = self.plate_size
         return PLATE_SHAPE_FROM_SIZE[size[0, 0]]
@@ -117,21 +127,37 @@ class SurveyData:
             *PER_SURVEY_COLUMNS
         )
 
-    def _full_value_array_of_survey(
+    def volumes_array(
+        self,
+        *,
+        full_plate: bool = False,
+        fill_value: Any = np.nan,
+    ):
+        return self._value_array_of_survey(
+            "volume", full_plate=full_plate, fill_value=fill_value
+        )
+
+    def _value_array_of_survey(
         self,
         value_selector: str | pl.Expr = "volume",
         timestamp: datetime | None = None,
         *,
+        full_plate: bool = True,
         fill_value: Any = np.nan,
     ) -> np.ndarray:
         if timestamp is None:
             timestamp = self.timestamp
         survey = self._get_single_survey(timestamp)
-        array = np.full(self.plate_shape, fill_value)
+        if full_plate:
+            array = np.full(survey.plate_shape, fill_value)
+            ro, co = 0, 0
+        else:
+            array = np.full(survey.survey_shape, fill_value)
+            ro, co = survey.survey_offset
         if isinstance(value_selector, str):
             value_selector = pl.col(value_selector)
-        v = survey.select(value_selector.alias("value"), "row", "column").to_dict()
-        array[v["row"], v["column"]] = v["value"].to_numpy()
+        v = survey.data.select(value_selector.alias("value"), "row", "column").to_dict()
+        array[v["row"] - ro, v["column"] - co] = v["value"].to_numpy()
         return array
 
     def _plot_single_survey(
@@ -142,7 +168,7 @@ class SurveyData:
         fill_value: Any = np.nan,
         **kwargs,
     ) -> None:
-        array = self._full_value_array_of_survey(
+        array = self._value_array_of_survey(
             value_selector, timestamp, fill_value=fill_value
         )
         plot_plate_array(array, **kwargs)
@@ -156,7 +182,7 @@ class SurveyData:
         *,
         fill_value: Any = np.nan,
         **kwargs,
-    ) -> "Axes | list[Axes]":
+    ) -> "list[Axes]":
         surveys = self.surveys
         if sel is not None:
             surveys = surveys.filter(sel)
@@ -176,7 +202,7 @@ class SurveyData:
                 raise ValueError(f"Ran out of axes at plot {i}, for survey {timestamp}")
             if isinstance(timestamp, int):
                 break
-            array = self._full_value_array_of_survey(
+            array = self._value_array_of_survey(
                 value_selector, timestamp, fill_value=fill_value
             )
             ax = plot_plate_array(array, ax=ax, **kwargs)
@@ -196,10 +222,7 @@ class SurveyData:
 
             ax.set_title(title)
 
-        if len(used_axes) == 1:
-            return used_axes[0]
-        else:
-            return used_axes
+        return used_axes
 
     @classmethod
     def read_parquet(cls, path: "str | Path | BinaryIO | BytesIO | bytes") -> Self:
@@ -228,14 +251,14 @@ class SurveyData:
     def read_xml(cls, path: str | os.PathLike) -> Self:
         try:
             return cls(EchoPlateSurveyXML.read_xml(path).to_polars())
-        except ValidationError:
+        except ParsingError:
             return EchoSurveyReport.read_xml(path).to_surveydata()
 
     @classmethod
     def from_xml(cls, xml_str: str | bytes) -> Self:
         try:
             return cls(EchoPlateSurveyXML.from_xml(xml_str).to_polars())
-        except ValidationError:
+        except ParsingError:
             return EchoSurveyReport.from_xml(xml_str).to_surveydata()
 
     @classmethod
@@ -341,6 +364,6 @@ class SurveyData:
         ts = self.find_survey_timestamp(**kwargs)
         return self.__class__(self.data.filter(pl.col("timestamp") == ts))
 
-    def _get_single_survey(self, timestamp: datetime) -> pl.DataFrame:
-        return self.data.filter(pl.col("timestamp") == timestamp)
+    def _get_single_survey(self, timestamp: datetime) -> Self:
+        return self.__class__(self.data.filter(pl.col("timestamp") == timestamp))
         # fixme: check uniqueness?

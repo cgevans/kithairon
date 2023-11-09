@@ -185,7 +185,7 @@ class EchoSurveyReport(BaseXmlModel, tag="report"):
             ]
         ).with_columns(
             pl.col("well").str.slice(0, 1).map_dict(ROW_NUMBER_DICT).alias("row"),
-            pl.col("well").str.slice(1).cast(pl.Int32).alias("column"),
+            (pl.col("well").str.slice(1).cast(pl.Int32) - 1).alias("column"),
             **const_columns,
         )
 
