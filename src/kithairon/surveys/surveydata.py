@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, Self, cast
 import numpy as np
 import polars as pl
 from loguru import logger
+from pydantic import ValidationError
 
 from kithairon.surveys.surveyreport import EchoSurveyReport
 
@@ -227,9 +228,15 @@ class SurveyData:
     def read_xml(cls, path: str | os.PathLike) -> Self:
         try:
             return cls(EchoPlateSurveyXML.read_xml(path).to_polars())
-        except Exception as e:
-            logger.debug(f"Failed to read {path} as EchoPlateSurveyXML: {e}")
+        except ValidationError as e:
             return EchoSurveyReport.read_xml(path).to_surveydata()
+
+    @classmethod
+    def from_xml(cls, xml_str: str | bytes) -> Self:
+        try:
+            return cls(EchoPlateSurveyXML.from_xml(xml_str).to_polars())
+        except ValidationError as e:
+            return EchoSurveyReport.from_xml(xml_str).to_surveydata()
 
     @classmethod
     def from_platesurvey(cls, ps: EchoPlateSurveyXML) -> Self:
