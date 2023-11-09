@@ -3,18 +3,30 @@ import os
 from dataclasses import dataclass
 from datetime import datetime
 from functools import cached_property
-from typing import TYPE_CHECKING, Any, BinaryIO, Iterable, Self
+from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, Self, cast
 
 import numpy as np
 import polars as pl
 from loguru import logger
 
+from kithairon.surveys.surveyreport import EchoSurveyReport
+
 from .._util import plot_plate_array
-from .platesurveyxml import PlateSurveyXML
+from .platesurvey import EchoPlateSurveyXML
 
 if TYPE_CHECKING:
     from io import BytesIO
     from pathlib import Path
+
+    from matplotlib.axes import Axes
+
+PLATE_SHAPE_FROM_SIZE = {
+    384: (16, 24),
+    1536: (32, 48),
+    6: (2, 3),
+    96: (8, 12),
+}
+
 
 PER_SURVEY_COLUMNS = [
     "timestamp",
@@ -24,16 +36,36 @@ PER_SURVEY_COLUMNS = [
     "survey_rows",
     "survey_columns",
     "survey_total_wells",
-    "note",
-    "machine_serial_number",
-    "vtl",
-    "original",
+    "comment",
+    "instrument_serial_number",
+    # "vtl",
+    # "original",
     "data_format_version",
 ]
 
 
 @dataclass(frozen=True)
 class SurveyData:
+    """A container for Echo survey data, potentially from many plates.
+
+    `SurveyData` holds Echo survey data, potentially from many individual surveys and sources,
+    in a Polars :ref:`DataFrame <polars:polars.DataFrame>`.  It is intended to allow for easy
+    access and use of individual surveys, while allowing for extensive analysis when required.
+    It is primarily intended to ingest PlateSurvey XML files from `Echo Liquid Handler`_ software
+    (accessible directly via :ref:`EchoPlateSurveyXML`).  The format is Kithairon-specific, but
+    can export back to EchoPlateSurveyXML format.  It can be easily and compactly written to
+    and read from Parquet files, with compression making them smaller than the originals despite
+    increased verbosity.
+
+    All data is held in a single DataFrame, :ref:`SurveyData.data`, and every row is self-contained,
+    with all survey metadata duplicated for each well, and all well, signal, and feature data included.
+    This allows for easy multi-survey analyses and selections of data.  Like a DataFramee, SurveyData
+    is immutable: manipulation and selection operations efficiently return new SurveyData objects,
+    only copying data when required.
+
+    .. _Echo Liquid Handler: echo/echo-liquid-handler
+    """
+
     data: pl.DataFrame
 
     @cached_property
@@ -44,22 +76,38 @@ class SurveyData:
         return v[0]
 
     @cached_property
-    def rows(self) -> int:
-        v = self.data.get_column("rows").unique()
+    def survey_rows(self) -> int:
+        v = self.data.get_column("survey_rows").unique()
         if len(v) != 1:
             raise ValueError(f"Expected exactly one rows, got {len(v)}: {v}")
         return v[0]
 
     @cached_property
-    def columns(self) -> int:
-        v = self.data.get_column("columns").unique()
+    def survey_columns(self) -> int:
+        v = self.data.get_column("survey_columns").unique()
         if len(v) != 1:
             raise ValueError(f"Expected exactly one columns, got {len(v)}: {v}")
         return v[0]
 
-    @property
-    def shape(self) -> tuple[int, int]:
-        return self.rows, self.columns
+    @cached_property
+    def survey_shape(self) -> tuple[int, int]:
+        return self.survey_rows, self.survey_columns
+
+    @cached_property
+    def plate_shape(self) -> tuple[int, int]:
+        size = self.plate_size
+        return PLATE_SHAPE_FROM_SIZE[size[0, 0]]
+
+    @cached_property
+    def plate_size(self):
+        size = self.data.select(
+            pl.col("plate_type").str.extract(r"(\d+)").unique().cast(int)
+        )
+        if len(size) != 1:
+            raise ValueError(
+                f"Expected exactly one plate type, got {len(size)}: {size}"
+            )
+        return size
 
     @cached_property
     def surveys(self) -> pl.DataFrame:
@@ -78,8 +126,11 @@ class SurveyData:
         if timestamp is None:
             timestamp = self.timestamp
         survey = self._get_single_survey(timestamp)
-        array = np.full(self.shape, fill_value)
-        array[survey["row"], survey["column"]] = survey[value_selector].to_numpy()
+        array = np.full(self.plate_shape, fill_value)
+        if isinstance(value_selector, str):
+            value_selector = pl.col(value_selector)
+        v = survey.select(value_selector.alias("value"), "row", "column").to_dict()
+        array[v["row"], v["column"]] = v["value"].to_numpy()
         return array
 
     def _plot_single_survey(
@@ -99,30 +150,137 @@ class SurveyData:
         self,
         value_selector: str | pl.Expr = "volume",
         sel: pl.Expr | None = None,
+        axs: "Axes | Iterable[Axes | None] | None" = None,
+        title: str | Callable | None = None,
         *,
         fill_value: Any = np.nan,
         **kwargs,
-    ) -> None:
+    ) -> "Axes | list[Axes]":
         surveys = self.surveys
         if sel is not None:
             surveys = surveys.filter(sel)
         timestamps = surveys.get_column("timestamp")
-        for timestamp in timestamps:
+
+        used_axes: "list[Axes]" = []
+        if axs is None:
+            axs = [None] * len(timestamps)
+        elif not isinstance(axs, Iterable):
+            assert len(timestamps) == 1  # FIXME: explain and raise
+            axs = [axs]
+
+        for i, (ax, timestamp) in enumerate(
+            itertools.zip_longest(axs, timestamps, fillvalue=-1)
+        ):
+            if isinstance(ax, int):
+                raise ValueError(f"Ran out of axes at plot {i}, for survey {timestamp}")
+            if isinstance(timestamp, int):
+                break
             array = self._full_value_array_of_survey(
                 value_selector, timestamp, fill_value=fill_value
             )
-            plot_plate_array(array, **kwargs)
+            ax = plot_plate_array(array, ax=ax, **kwargs)
+            used_axes.append(ax)
+            if title is None:
+                te = [str(value_selector)]
+                # if self.plate_barcode:
+                # te.append(f"of {self.plate_barcode}")
+                te.append(f"on {timestamp}")
+                title = " ".join(te)
+            elif isinstance(title, str):
+                title = title.format(self)
+            else:
+                title = title(self)
+
+            assert isinstance(title, str)
+
+            ax.set_title(title)
+
+        if len(used_axes) == 1:
+            return used_axes[0]
+        else:
+            return used_axes
 
     @classmethod
     def read_parquet(cls, path: "str | Path | BinaryIO | BytesIO | bytes") -> Self:
-        return cls(pl.read_parquet(path))
+        dat = pl.read_parquet(path)
+        return cls(
+            dat.rename(
+                {
+                    k: v
+                    for k, v in {
+                        "rows": "survey_rows",
+                        "columns": "survey_columns",
+                        "total_wells": "survey_total_wells",
+                        "machine_serial_number": "instrument_serial_number",
+                        "note": "comment",
+                        "s_value_fixme": "fluid_composition",
+                    }.items()
+                    if k in dat.columns
+                }
+            )
+        )
 
     def write_parquet(self, path: "str | Path | BytesIO", **kwargs) -> None:
         self.data.write_parquet(path, **kwargs)
 
     @classmethod
     def read_xml(cls, path: str | os.PathLike) -> Self:
-        return cls(PlateSurveyXML.read_xml(path).to_polars())
+        try:
+            return cls(EchoPlateSurveyXML.read_xml(path).to_polars())
+        except Exception as e:
+            logger.debug(f"Failed to read {path} as EchoPlateSurveyXML: {e}")
+            return EchoSurveyReport.read_xml(path).to_surveydata()
+
+    @classmethod
+    def from_platesurvey(cls, ps: EchoPlateSurveyXML) -> Self:
+        return cls(ps.to_polars())
+
+    def to_platesurveys(self) -> list[EchoPlateSurveyXML]:
+        eps = []
+
+        per_well_columns = [k for k in self.data.columns if k not in PER_SURVEY_COLUMNS]
+
+        for _, survey in self.data.group_by("timestamp"):
+            survey_dict = survey.select(
+                *[pl.col(k).first() for k in PER_SURVEY_COLUMNS]
+            ).to_dicts()[0]
+            survey_dict["wells"] = survey.select(*per_well_columns).to_dicts()
+            eps.append(EchoPlateSurveyXML(**survey_dict))
+
+        return eps
+
+    def write_platesurveys(
+        self,
+        paths: str
+        | os.PathLike[str]
+        | Iterable[str | os.PathLike[str]]
+        | Callable[[EchoPlateSurveyXML], str],
+        path_str_format=True,
+    ) -> None:
+        # We need to check the names here, not in EchoPlateSurveyXML.write_xml, because
+        # we need to avoid duplicates.
+
+        usedpaths = []
+
+        if isinstance(paths, Iterable) and not isinstance(paths, str):
+            pathiter = iter(paths)
+        else:
+            pathiter = None
+
+        for ps in self.to_platesurveys():
+            if pathiter:
+                path = next(pathiter)
+            elif isinstance(paths, Callable):
+                path = paths(ps)
+            elif path_str_format and hasattr(paths, "format"):
+                path = paths.format(ps.model_dump(exclude=["wells"]))  # type: ignore
+            else:
+                path = cast(str, paths)
+
+            if path in usedpaths:
+                raise ValueError(f"Duplicate path {path}")
+            ps.write_xml(path, path_str_format=False)
+            usedpaths = []
 
     def extend_read_xml(self, path: str | os.PathLike) -> Self:
         # todo: check duplicates

@@ -1,5 +1,11 @@
 from .labware import Labware
 from .picklists import PickList
-from .surveys import Survey
+from .surveys import EchoPlateSurveyXML, EchoSurveyReport, SurveyData
 
-__all__ = ["Survey", "PickList", "Labware"]
+__all__ = [
+    "SurveyData",
+    "EchoPlateSurveyXML",
+    "EchoSurveyReport",
+    "PickList",
+    "Labware",
+]
