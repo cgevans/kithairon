@@ -1,8 +1,8 @@
 ======================================================
-Echo PlateSurvey (Medman/"Echo Liquid Handler") Format
+Echo PlateSurvey (Medman/"Echo Liquid Handler") format
 ======================================================
 
-.. currentmodule:: kithairon.surveys
+.. currentmodule:: kithairon.surveys.platesurvey
 
 .. contents:: :local:
 
@@ -10,7 +10,7 @@ Echo PlateSurvey (Medman/"Echo Liquid Handler") Format
 PlateSurveyXML: base file
 --------------------------
 
-.. autopydantic_model:: PlateSurveyXML
+.. autopydantic_model:: EchoPlateSurveyXML
 
 --------------------------------
 WellSurvey: individual well data

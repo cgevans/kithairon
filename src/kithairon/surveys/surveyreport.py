@@ -1,3 +1,5 @@
+"""Echo survey report format."""
+
 import os
 from collections.abc import Callable
 from datetime import datetime

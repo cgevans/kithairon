@@ -1,3 +1,5 @@
+"""Labware definition file support."""
+
 import os
 import typing
 from pathlib import Path
@@ -8,6 +10,8 @@ from pydantic_xml import BaseXmlModel, attr
 
 
 class PlateInfo(BaseXmlModel, tag="plateinfo"):
+    """Plate type information for a single plate."""
+
     platetype: str = attr()
     plateformat: str = attr()
     usage: str = attr()
@@ -39,7 +43,7 @@ class PlateInfo(BaseXmlModel, tag="plateinfo"):
         return (self.rows, self.cols)
 
 
-PLATE_INFO_SCHEMA = {
+_PLATE_INFO_SCHEMA = {
     k: cast(
         type,
         v.annotation
@@ -50,7 +54,7 @@ PLATE_INFO_SCHEMA = {
 }
 
 
-class PlateInfoELWDest(PlateInfo):
+class _PlateInfoELWDest(PlateInfo):
     @property
     def usage(self) -> str:
         return "DEST"
@@ -64,7 +68,7 @@ class PlateInfoELWDest(PlateInfo):
         return "UNKNOWN"
 
 
-class PlateInfoELWSrc(PlateInfo):
+class _PlateInfoELWSrc(PlateInfo):
     @property
     def usage(self) -> str:
         return "SRC"
@@ -78,30 +82,30 @@ class PlateInfoELWSrc(PlateInfo):
         return "UNKNOWN"
 
 
-class SourcePlateListELWX(BaseXmlModel, tag="sourceplates"):
+class _SourcePlateListELWX(BaseXmlModel, tag="sourceplates"):
     plates: list[PlateInfo]
 
 
-class DestinationPlateListELWX(BaseXmlModel, tag="destinationplates"):
+class _DestinationPlateListELWX(BaseXmlModel, tag="destinationplates"):
     plates: list[PlateInfo]
 
 
-class SourcePlateListELW(BaseXmlModel, tag="sourceplates"):
-    plates: list[PlateInfoELWSrc]
+class _SourcePlateListELW(BaseXmlModel, tag="sourceplates"):
+    plates: list[_PlateInfoELWSrc]
 
 
-class DestinationPlateListELW(BaseXmlModel, tag="destinationplates"):
-    plates: list[PlateInfoELWDest]
+class _DestinationPlateListELW(BaseXmlModel, tag="destinationplates"):
+    plates: list[_PlateInfoELWDest]
 
 
 class EchoLabwareELWX(BaseXmlModel, tag="EchoLabware"):
-    sourceplates: SourcePlateListELWX
-    destinationplates: DestinationPlateListELWX
+    sourceplates: _SourcePlateListELWX
+    destinationplates: _DestinationPlateListELWX
 
 
 class EchoLabwareELW(BaseXmlModel, tag="EchoLabware"):
-    sourceplates: SourcePlateListELW
-    destinationplates: DestinationPlateListELW
+    sourceplates: _SourcePlateListELW
+    destinationplates: _DestinationPlateListELW
 
 
 class Labware:
@@ -160,14 +164,14 @@ class Labware:
         return self.to_elwx().to_xml(**kwargs)
 
     def to_polars(self) -> pl.DataFrame:
-        return pl.from_records(self._plates, schema=PLATE_INFO_SCHEMA)
+        return pl.from_records(self._plates, schema=_PLATE_INFO_SCHEMA)
 
     def to_elwx(self) -> EchoLabwareELWX:
         return EchoLabwareELWX(
-            sourceplates=SourcePlateListELWX(
+            sourceplates=_SourcePlateListELWX(
                 plates=[plate for plate in self._plates if plate.usage == "SRC"]
             ),
-            destinationplates=DestinationPlateListELWX(
+            destinationplates=_DestinationPlateListELWX(
                 plates=[plate for plate in self._plates if plate.usage == "DEST"]
             ),
         )

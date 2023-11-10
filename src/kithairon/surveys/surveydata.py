@@ -1,10 +1,12 @@
+"""A container for Echo survey data, potentially from many plates."""
+
 import itertools
 import os
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from datetime import datetime
 from functools import cached_property
-from typing import TYPE_CHECKING, Any, BinaryIO, cast
+from typing import TYPE_CHECKING, Any, BinaryIO, TypedDict, cast
 
 try:
     from typing import Self
@@ -26,6 +28,14 @@ if TYPE_CHECKING:
     from pathlib import Path
 
     from matplotlib.axes import Axes
+
+
+class _SurveySelectorArgs(TypedDict, total=False):
+    plate_name: str
+    plate_type: str
+    plate_barcode: str
+    expr: pl.Expr
+
 
 PLATE_SHAPE_FROM_SIZE = {
     384: (16, 24),
@@ -56,15 +66,15 @@ class SurveyData:
     """A container for Echo survey data, potentially from many plates.
 
     `SurveyData` holds Echo survey data, potentially from many individual surveys and sources,
-    in a Polars :ref:`DataFrame <polars:polars.DataFrame>`.  It is intended to allow for easy
+    in a Polars :py:class:`DataFrame <polars:polars.DataFrame>`.  It is intended to allow for easy
     access and use of individual surveys, while allowing for extensive analysis when required.
     It is primarily intended to ingest PlateSurvey XML files from `Echo Liquid Handler`_ software
-    (accessible directly via :ref:`EchoPlateSurveyXML`).  The format is Kithairon-specific, but
+    (accessible directly via :py:class:`platesurvey.EchoPlateSurveyXML`).  The format is Kithairon-specific, but
     can export back to EchoPlateSurveyXML format.  It can be easily and compactly written to
     and read from Parquet files, with compression making them smaller than the originals despite
     increased verbosity.
 
-    All data is held in a single DataFrame, :ref:`SurveyData.data`, and every row is self-contained,
+    All data is held in a single DataFrame, :py:attr:`data`, and every row is self-contained,
     with all survey metadata duplicated for each well, and all well, signal, and feature data included.
     This allows for easy multi-survey analyses and selections of data.  Like a DataFramee, SurveyData
     is immutable: manipulation and selection operations efficiently return new SurveyData objects,
@@ -77,6 +87,7 @@ class SurveyData:
 
     @cached_property
     def timestamp(self) -> datetime:
+        """Timestamp of the survey.  Single survey only."""
         v = self.data.get_column("timestamp").unique()
         if len(v) != 1:
             raise ValueError(f"Expected exactly one timestamp, got {len(v)}: {v}")
@@ -84,6 +95,7 @@ class SurveyData:
 
     @cached_property
     def survey_rows(self) -> int:
+        """Number of rows in the survey.  Single survey only."""
         v = self.data.get_column("survey_rows").unique()
         if len(v) != 1:
             raise ValueError(f"Expected exactly one rows, got {len(v)}: {v}")
@@ -91,6 +103,7 @@ class SurveyData:
 
     @cached_property
     def survey_columns(self) -> int:
+        """Number of columns in the survey.  Single survey only."""
         v = self.data.get_column("survey_columns").unique()
         if len(v) != 1:
             raise ValueError(f"Expected exactly one columns, got {len(v)}: {v}")
@@ -98,10 +111,27 @@ class SurveyData:
 
     @cached_property
     def survey_shape(self) -> tuple[int, int]:
+        """Shape of the *survey*, which may not be the full plate, in (rows, columns).  Single survey only.
+
+        Returns
+        -------
+        tuple[int, int]
+        """
         return self.survey_rows, self.survey_columns
 
     @cached_property
     def survey_offset(self) -> tuple[int, int]:
+        """Top left (row, column) offset from (0, 0) ("A1") of the survey data.  Single survey only.
+
+        Returns
+        -------
+        tuple[int, int]
+
+        Raises
+        ------
+        ValueError
+            Multiple offsets were returned.
+        """
         vals = self.data.select(
             pl.col("row").over("timestamp").min(),
             pl.col("column").over("timestamp").min(),
@@ -112,11 +142,26 @@ class SurveyData:
 
     @cached_property
     def plate_shape(self) -> tuple[int, int]:
-        size = self.plate_size
+        """Shape of the full plate, in (rows, columns).
+
+        Calculated based on the standard Echo source
+        plate name format, which includes the number of wells at the beginning.  May fail for unusual
+        plates. Single survey only.
+
+        Returns
+        -------
+        tuple[int, int]
+
+        See Also
+        --------
+        :any:`plate_size`
+        """
+        size = self.plate_total_wells
         return PLATE_SHAPE_FROM_SIZE[size[0, 0]]
 
     @cached_property
-    def plate_size(self):
+    def plate_total_wells(self):
+        """Total number of wells in the plate (not survey). Single survey only."""
         size = self.data.select(
             pl.col("plate_type").str.extract(r"(\d+)").unique().cast(int)
         )
@@ -128,6 +173,12 @@ class SurveyData:
 
     @cached_property
     def surveys(self) -> pl.DataFrame:
+        """A DataFrame listing the surveys in the SurveyData.
+
+        Returns
+        -------
+        pl.DataFrame
+        """
         # fixme: checks
         return self.data.unique("timestamp", maintain_order=True).select(
             *PER_SURVEY_COLUMNS
@@ -138,7 +189,20 @@ class SurveyData:
         *,
         full_plate: bool = False,
         fill_value: Any = np.nan,
-    ):
+    ) -> np.ndarray:
+        """Generate a 2D array of the volumes in each well.  Single survey only.
+
+        Parameters
+        ----------
+        full_plate : bool, optional
+            Return the full plate if true (filling un-surveyed wells with `fill_value`), by default False
+        fill_value : Any, optional
+            Value tu fill unsurveyed wells and wells with no value in the survey, by default np.nan
+
+        Returns
+        -------
+        np.ndarray
+        """
         return self._value_array_of_survey(
             "volume", full_plate=full_plate, fill_value=fill_value
         )
@@ -181,7 +245,7 @@ class SurveyData:
 
     def heatmap(  # noqa: PLR0913
         self,
-        value_selector: str | pl.Expr = "volume",
+        value: str | pl.Expr = "volume",
         sel: pl.Expr | None = None,
         axs: "Axes | Iterable[Axes | None] | None" = None,
         title: str | Callable | None = None,
@@ -189,6 +253,32 @@ class SurveyData:
         fill_value: Any = np.nan,
         **kwargs,
     ) -> "list[Axes]":
+        """Generate a heatmap for each survey in the SurveyData.
+
+        Parameters
+        ----------
+        value : str | pl.Expr, optional
+            Value to use.  May be a string (for a column), or a polars expression.  By default "volume"
+        sel : pl.Expr | None, optional
+            Selector for surveys, by default None (use all surveys)
+        axs : Axes | Iterable[Axes | None] | None, optional
+            Axes to use, by default None (generate new axes)
+        title : str | Callable | None, optional
+            Title for the heatmap.  If a callable, called with the survey-specific SurveyData
+            for each survey heatmap.  By default None (generate a default)
+        fill_value : Any, optional
+            Fill value for missing values, by default np.nan
+
+        Returns
+        -------
+        list[Axes]
+            Each Axes used: one per survey.
+
+        Raises
+        ------
+        ValueError
+            Ran out of provided axes to use.
+        """
         surveys = self.surveys
         if sel is not None:
             surveys = surveys.filter(sel)
@@ -208,19 +298,17 @@ class SurveyData:
                 raise ValueError(f"Ran out of axes at plot {i}, for survey {timestamp}")  # noqa: TRY004
             if isinstance(timestamp, int):
                 break
-            array = self._value_array_of_survey(
-                value_selector, timestamp, fill_value=fill_value
-            )
+            array = self._value_array_of_survey(value, timestamp, fill_value=fill_value)
             ax = plot_plate_array(array, ax=ax, **kwargs)  # noqa: PLW2901
             used_axes.append(ax)
             if title is None:
-                te = [str(value_selector)]
+                te = [str(value)]
                 # if self.plate_barcode:
                 # te.append(f"of {self.plate_barcode}")
                 te.append(f"on {timestamp}")
                 title = " ".join(te)
             elif isinstance(title, str):
-                title = title.format(self)
+                pass  # title = title.format(self) # FIXME
             else:
                 title = title(self)
 
@@ -231,8 +319,25 @@ class SurveyData:
         return used_axes
 
     @classmethod
-    def read_parquet(cls, path: "str | Path | BinaryIO | BytesIO | bytes") -> Self:
-        dat = pl.read_parquet(path)
+    def read_parquet(
+        cls,
+        path: "str | Path | BinaryIO | BytesIO | bytes",
+        polars_options: dict[str, Any] | None = None,
+    ) -> Self:
+        """Read SurveyData from a Parquet file.
+
+        Parameters
+        ----------
+        path : str | Path | BinaryIO | BytesIO | bytes
+            Path to read from, or file-like object.
+        polars_kw : dict[str, Any] | None, optional
+            Options to pass to :ref:`polars:polars.read_parquet`, by default None
+
+        Returns
+        -------
+        SurveyData
+        """
+        dat = pl.read_parquet(path, **(polars_options or {}))
         return cls(
             dat.rename(
                 {
@@ -250,28 +355,103 @@ class SurveyData:
             )
         )
 
-    def write_parquet(self, path: "str | Path | BytesIO", **kwargs) -> None:
-        self.data.write_parquet(path, **kwargs)
+    def write_parquet(
+        self, path: "str | Path | BytesIO", polars_options: dict[str, Any] | None = None
+    ) -> None:
+        """
+        Write the survey data to a Parquet file.
+
+        Parameters
+        ----------
+        path : str or Path or BytesIO
+            The path to write the Parquet file to, or a BytesIO object to write to.
+        polars_options : dict[str, Any] or None, optional
+            Options to pass to the Polars DataFrame.write_parquet method.
+
+        Examples
+        --------
+        >>> survey_data = SurveyData(...)
+        >>> survey_data.write_parquet("survey_data.parquet")
+        """
+        self.data.write_parquet(path, **(polars_options or {}))
 
     @classmethod
     def read_xml(cls, path: str | os.PathLike) -> Self:
+        """
+        Read survey data from an Echo-produced XML file.
+
+        Parameters
+        ----------
+        path : str or os.PathLike
+            The path to the XML file.
+
+        Returns
+        -------
+        SurveyData
+            The survey data read from the XML file.
+
+        Raises
+        ------
+        ParsingError
+            If the XML file cannot be parsed.
+        """
         try:
-            return cls(EchoPlateSurveyXML.read_xml(path).to_polars())
+            return cls(EchoPlateSurveyXML.read_xml(path)._to_polars())
         except ParsingError:
             return EchoSurveyReport.read_xml(path).to_surveydata()
 
     @classmethod
     def from_xml(cls, xml_str: str | bytes) -> Self:
+        """
+        Create a new instance of `SurveyData` from an XML string.
+
+        Parameters
+        ----------
+        xml_str : str or bytes
+            The XML string to parse.
+
+        Returns
+        -------
+        SurveyData
+            A new instance of `SurveyData` created from the parsed XML.
+
+        Raises
+        ------
+        ParsingError
+            If the XML string cannot be parsed.
+
+        """
         try:
-            return cls(EchoPlateSurveyXML.from_xml(xml_str).to_polars())
+            return cls(EchoPlateSurveyXML.from_xml(xml_str)._to_polars())
         except ParsingError:
             return EchoSurveyReport.from_xml(xml_str).to_surveydata()
 
     @classmethod
     def from_platesurvey(cls, ps: EchoPlateSurveyXML) -> Self:
-        return cls(ps.to_polars())
+        """
+        Create a new instance of `SurveyData` from an `EchoPlateSurveyXML` object.
+
+        Parameters
+        ----------
+        ps : EchoPlateSurveyXML
+            The `EchoPlateSurveyXML` object to create the new instance from.
+
+        Returns
+        -------
+        SurveyData
+            A new instance of `SurveyData` created from the `EchoPlateSurveyXML` object.
+        """
+        return cls(ps._to_polars())
 
     def to_platesurveys(self) -> list[EchoPlateSurveyXML]:
+        """
+        Convert survey data to a list of EchoPlateSurveyXML objects.
+
+        Returns
+        -------
+        list[EchoPlateSurveyXML]
+            A list of EchoPlateSurveyXML objects representing the survey data.
+        """
         eps = []
 
         per_well_columns = [k for k in self.data.columns if k not in PER_SURVEY_COLUMNS]
@@ -293,6 +473,27 @@ class SurveyData:
         | Callable[[EchoPlateSurveyXML], str],
         path_str_format=True,
     ) -> None:
+        """
+        Write plate surveys to disk as Echo PlateSurvey format.
+
+        Parameters
+        ----------
+        paths : str or os.PathLike or iterable of str or os.PathLike or callable
+            The path(s) to write the plate surveys to. If a callable is provided, it should
+            take an `EchoPlateSurveyXML` object as input and return a string path.
+        path_str_format : bool, optional
+            Whether to format the path(s) using the `format` method of the `paths` argument,
+            by default True.
+
+        Raises
+        ------
+        ValueError
+            If a duplicate path is encountered.
+
+        Returns
+        -------
+        None
+        """
         # We need to check the names here, not in EchoPlateSurveyXML.write_xml, because
         # we need to avoid duplicates.
 
@@ -319,15 +520,60 @@ class SurveyData:
             usedpaths = []
 
     def extend_read_xml(self, path: str | os.PathLike) -> Self:
+        """
+        Extend the current SurveyData object with the data from an XML file located at the given path.
+
+        Parameters
+        ----------
+        path : str or os.PathLike
+            The path to the XML file to read.
+
+        Returns
+        -------
+        SurveyData
+            A new SurveyData object that contains the data from the current object as well as the data from the XML file.
+        """
         # todo: check duplicates
         return self.extend(self.__class__.read_xml(path))
 
     def extend_read_parquet(
         self, path: "str | Path | BinaryIO | BytesIO | bytes"
     ) -> Self:
+        """
+        Extend the current SurveyData object with data from a Parquet file.
+
+        Parameters
+        ----------
+        path : str or Path or BinaryIO or BytesIO or bytes
+            The path to the Parquet file or a file-like object containing the data.
+
+        Returns
+        -------
+        SurveyData
+            A new SurveyData object that includes the data from the Parquet file.
+        """
         return self.extend(self.__class__.read_parquet(path))
 
     def extend(self, other: Self | Iterable[Self]) -> Self:
+        """
+        Extend this survey data with another survey data object or an iterable of survey data objects.
+
+        Parameters
+        ----------
+        other : Self | Iterable[Self]
+            The survey data object or iterable of survey data objects to extend with.
+
+        Returns
+        -------
+        Self
+            The extended survey data object.
+
+        Raises
+        ------
+        TypeError
+            If `other` is not an instance of `Self` or an iterable of `Self`.
+
+        """
         match other:
             case self.__class__():
                 datas = [self.data, other.data]
@@ -345,28 +591,94 @@ class SurveyData:
 
     def find_survey_timestamps(
         self,
-        *,
-        plate_name: str | None = None,
-        plate_type: str | None = None,
-        plate_barcode: str | None = None,
+        **kwargs: _SurveySelectorArgs,
     ) -> pl.Series:
-        expr = True
-        if plate_name is not None:
-            expr &= pl.col("plate_name") == plate_name
-        if plate_type is not None:
-            expr &= pl.col("plate_type") == plate_type
-        if plate_barcode is not None:
-            expr &= pl.col("plate_barcode") == plate_barcode
+        """
+        Find survey timestamps based on the given criteria.
 
-        return self.surveys.filter(expr).get_column("timestamp")
+        Parameters
+        ----------
+        plate_name : str or None, optional
+            Name of the plate.
+        plate_type : str or None, optional
+            Type of the plate.
+        plate_barcode : str or None, optional
+            Barcode of the plate.
+        expr : pl.Expr or None, optional
+            Additional expression to filter the surveys.
 
-    def find_survey_timestamp(self, **kwargs) -> datetime:
+        Returns
+        -------
+        pl.Series
+            A series of timestamps that match the given criteria.
+        """
+        combined_expr = pl.Expr()
+        if (x := kwargs.get("plate_name", None)) is not None:
+            combined_expr &= pl.col("plate_name") == x
+        if (x := kwargs.get("plate_type", None)) is not None:
+            combined_expr &= pl.col("plate_type") == x
+        if (x := kwargs.get("plate_barcode", None)) is not None:
+            combined_expr &= pl.col("plate_barcode") == x
+        if (x := kwargs.get("expr", None)) is not None:
+            combined_expr &= x  # type: ignore
+
+        return self.surveys.filter(combined_expr).get_column("timestamp")
+
+    def find_survey_timestamp(self, **kwargs: _SurveySelectorArgs) -> datetime:
+        """
+        Find a single survey timestamp based on the given criteria.
+
+        Parameters
+        ----------
+        plate_name : str or None, optional
+            Name of the plate.
+        plate_type : str or None, optional
+            Type of the plate.
+        plate_barcode : str or None, optional
+            Barcode of the plate.
+        expr : pl.Expr or None, optional
+            Additional expression to filter the surveys.
+
+        Raises
+        ------
+        ValueError
+            If no or multiple timestamps are found.
+
+        Returns
+        -------
+        datetime
+            The timestamps that matches the given criteria.
+        """
         v = self.find_survey_timestamps(**kwargs)
         if len(v) != 1:
             raise ValueError(f"Expected exactly one timestamp, got {len(v)}: {v}")
         return v[0]
 
-    def find_survey(self, **kwargs) -> Self:
+    def find_survey(self, **kwargs: _SurveySelectorArgs) -> Self:
+        """
+        Find a single survey timestamp based on the given criteria, returning a SurveyData.
+
+        Parameters
+        ----------
+        plate_name : str or None, optional
+            Name of the plate.
+        plate_type : str or None, optional
+            Type of the plate.
+        plate_barcode : str or None, optional
+            Barcode of the plate.
+        expr : pl.Expr or None, optional
+            Additional expression to filter the surveys.
+
+        Raises
+        ------
+        ValueError
+            If no or multiple timestamps are found.
+
+        Returns
+        -------
+        SurveyData
+            The data for survey that matches the given criteria.
+        """
         ts = self.find_survey_timestamp(**kwargs)
         return self.__class__(self.data.filter(pl.col("timestamp") == ts))
 

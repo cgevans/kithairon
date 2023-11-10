@@ -2,7 +2,7 @@
 Echo SurveyReport (Cherry Pick and Plate Reformat, possibly others) format
 ==========================================================================
 
-.. currentmodule:: kithairon.surveys
+.. currentmodule:: kithairon.surveys.surveyreport
 
 .. contents:: :local:
 

@@ -1,3 +1,5 @@
+"""A library for working with the Echo liquid handler."""
+
 import loguru
 
 from .labware import Labware
