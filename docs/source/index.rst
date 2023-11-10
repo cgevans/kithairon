@@ -7,6 +7,8 @@ Kithairon and processed classes
 .. autosummary::
    :toctree: api/
    :nosignatures:
+   :recursive:
+   :template: custom-class-template.rst
 
    surveys.SurveyData
    picklists.PickList
