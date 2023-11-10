@@ -1,3 +1,5 @@
+"""Model for platesurvey XML file format."""
+
 import os
 from collections.abc import Callable
 from datetime import datetime
@@ -13,6 +15,8 @@ import polars as pl
 from loguru import logger as log
 from pydantic import BeforeValidator, NonNegativeInt, PlainSerializer, model_validator
 from pydantic_xml import BaseXmlModel, attr
+
+_PARSER = ET.XMLParser(resolve_entities=False)
 
 if TYPE_CHECKING:
     from .surveydata import SurveyData
@@ -34,12 +38,16 @@ FloatNullZero = Annotated[
 
 
 class SignalFeature(BaseXmlModel, tag="f"):
+    """Single feature of an echo signal.  `f` element."""
+
     feature_type: str = attr(name="t")
     tof: float = attr(name="o")
     vpp: float = attr(name="v")
 
 
 class EchoSignal(BaseXmlModel, tag="e"):
+    """Echo signal information for a well.  `e` element."""
+
     signal_type: str = attr(name="t")
     transducer_x: float = attr(name="x")
     transducer_y: float = attr(name="y")
@@ -48,12 +56,19 @@ class EchoSignal(BaseXmlModel, tag="e"):
 
 
 class WellSurvey(BaseXmlModel, tag="w"):
+    """Survey information for a single well. `w` element."""
+
     row: NonNegativeInt = attr(name="r")
+    """Row number. 0-indexed to top-left well *of plate*, not of survey.  `r` attribute."""
     column: NonNegativeInt = attr(name="c")
+    """Column number. 0-indexed to top-left well *of plate*, not of survey.  `c` attribute."""
     well: str = attr(name="n")
+    """Well position name, in standard unpadded format (eg, "A1" and "D12").  `n` attribute."""
     volume: FloatNullZero = attr(name="vl")
+    """Calculated well volume, in µL.  `None` if the volume could not be calculated (0 in XML).  `vl` attribute."""
     current_volume: FloatNullZero = attr(name="cvl")
     status: str = attr()
+    """Status message.  Blank if well survey was successful (FIXME: in every case we have seen).  Error description if unsuccessful."""
     fluid: str = attr(name="fld")
     fluid_units: str = attr(name="fldu")
     meniscus_x: float = attr(name="x")
@@ -64,6 +79,7 @@ class WellSurvey(BaseXmlModel, tag="w"):
     fluid_thickness: float = attr(name="t")
     current_fluid_thickness: float = attr(name="ct")
     bottom_thickness: float = attr(name="b")
+    """Thickness measurement of plate bottom, in µs (FIXME). `b` attribute."""
     fluid_thickness_homogeneous: float = attr(name="fth")
     fluid_thickness_imhomogeneous: float = attr(name="ftinh")
     outlier: float = attr(name="o")
@@ -77,13 +93,16 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
     plate_type: str = attr(name="name")
     """The `name` attribute.  Practically appears to always be the plate type."""
     plate_barcode: Barcode = attr(name="barcode")
-    """Plate barcode, if present, or `"UnknownBarCode"`. `barcode` attribute."""
+    """Plate barcode, if present, or `None`, represented in XML as `"UnknownBarCode"`. `barcode` attribute."""
     timestamp: datetime = attr(name="date")
     """Timestamp of the survey.  `date` attribute."""
     instrument_serial_number: str = attr(name="serial_number")
+    """Instrument serial number.  `serial_number` attribute."""
     vtl: int = attr(name="vtl")  # fixme
+    """Currently unknown attribute (FIXME)."""
     original: int = attr(name="original")  # fixme
     data_format_version: int = attr(name="frmt")  # fixme
+    """Version of data format.  Only `1` is known to be used."""
     survey_rows: int = attr(name="rows", description="Number of rows in the survey")
     """Number of rows in the survey.  `rows` attribute."""
     survey_columns: int = attr(
@@ -91,7 +110,9 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
     )
     """Number of columns in the survey.  `cols` attribute."""
     survey_total_wells: int = attr(name="totalWells")
+    """Total number of wells in the survey.  `totalWells` attribute."""
     wells: list[WellSurvey]
+    """List of wells.  `w` elements."""
     plate_name: str | None = attr(name="plate_name", default=None)
     """Plate name.  Additional attribute, added by kithairon."""
     comment: str | None = attr(name="note", default=None)
@@ -108,6 +129,7 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
 
     @model_validator(mode="after")
     def check_data_format_version(self) -> Self:
+        """Ensure that the data format version is 1."""
         if self.data_format_version != 1:
             log.warning(
                 "Unexpected data format version {self.data_format_version}."
@@ -117,8 +139,13 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
 
     @classmethod
     def read_xml(cls, path: os.PathLike | str) -> Self:
-        """Read a platesurvey XML file."""
-        return cls.from_xml_tree(ET.parse(path, parser=ET.XMLParser()).getroot())
+        """Read a platesurvey XML file.
+
+        Returns
+        -------
+        EchoPlateSurveyXML
+        """
+        return cls.from_xml_tree(ET.parse(path, parser=_PARSER).getroot())
 
     def write_xml(
         self,
@@ -126,7 +153,22 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
         path_str_format: bool = True,
         **kwargs,
     ) -> str | os.PathLike[str]:
-        """Write a platesurvey XML file."""
+        """Write a platesurvey XML file.
+
+        Parameters
+        ----------
+        path : os.PathLike[str] | str | Callable[[Self], str]
+            The path to write to.  If a callable is provided, it will be called with the model as the argument.
+
+        path_str_format : bool
+            Whether to format the path string with the model dump (a nested dict of the plate survey's contents, excluding
+            the 'wells' key).  Only used if `path` is a string.  Default True.
+
+        Returns
+        -------
+        str | os.PathLike[str]
+            The (formatted) path to the file.
+        """
         if hasattr(path, "format") and path_str_format:
             path = cast(str, path).format(self.model_dump(exclude=["wells"]))  # type: ignore
         elif isinstance(path, Callable):
@@ -134,7 +176,7 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
         ET.ElementTree(self.to_xml_tree()).write(path, **kwargs)
         return path
 
-    def to_polars(self) -> pl.DataFrame:
+    def _to_polars(self) -> pl.DataFrame:
         md = self.model_dump()
         wells = md.pop("wells")
         return pl.from_records(wells).with_columns(
@@ -142,6 +184,12 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
         )
 
     def to_surveydata(self) -> "SurveyData":
+        """Convert the EchoPlateSurveyXML to a SurveyData containing a single survey.
+
+        Returns
+        -------
+        SurveyData
+        """
         from .surveydata import SurveyData
 
-        return SurveyData(self.to_polars())
+        return SurveyData(self._to_polars())

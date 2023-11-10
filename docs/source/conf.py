@@ -72,6 +72,7 @@ intersphinx_mapping = {
     "pandas": ("https://pandas.pydata.org/docs/", None),
     "pyarrow": ("https://arrow.apache.org/docs/", None),
     "python": ("https://docs.python.org/3", None),
+    "polars": ("https://pola-rs.github.io/polars/py-polars/html", None),
 }
 
 # numpydoc - parse numpy docstrings

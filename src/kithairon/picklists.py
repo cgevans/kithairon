@@ -1,3 +1,5 @@
+"""Echo PickList support (Kithairon-extended)."""
+
 from collections.abc import Sequence
 from typing import TYPE_CHECKING
 
@@ -13,6 +15,8 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 class PickList:
+    """A PickList in Echo-software-compatible format."""
+
     data: pl.DataFrame
 
     def __init__(self, df: pl.DataFrame):

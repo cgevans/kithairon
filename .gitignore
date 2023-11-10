@@ -43,7 +43,7 @@ coverage.xml
 build/*
 dist/*
 sdist/*
-docs/source/reference/api/*
+docs/source/api/*
 docs/build/*
 cover/*
 MANIFEST
