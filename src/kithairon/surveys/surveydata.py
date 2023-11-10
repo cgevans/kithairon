@@ -1,9 +1,10 @@
 import itertools
 import os
+from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from datetime import datetime
 from functools import cached_property
-from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, Self, cast
+from typing import TYPE_CHECKING, Any, BinaryIO, Self, cast
 
 import numpy as np
 import polars as pl

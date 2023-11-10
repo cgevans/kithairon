@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING, Sequence
+from collections.abc import Sequence
+from typing import TYPE_CHECKING
 
 import polars as pl
 from loguru import logger
@@ -39,7 +40,7 @@ class PickList:
         )
 
     def plate_transfer_graph(self) -> "DiGraph":
-        """A graph of plate usage (source plate -> destination plate)"""
+        """Generate graph of plate usage (source plate -> destination plate)."""
         from networkx import DiGraph, is_directed_acyclic_graph
 
         plate_txs = (
@@ -64,7 +65,7 @@ class PickList:
         return G
 
     def well_transfer_multigraph(self) -> "MultiDiGraph":
-        """A multigraph of each transfer."""
+        """Generate a multigraph of each transfer."""
         from networkx import MultiDiGraph, is_directed_acyclic_graph
 
         well_txs = (
@@ -245,11 +246,9 @@ class PickList:
                 .with_columns(
                     pl.when(pl.col("Source Well_int").is_not_null())
                     .then(
-                        (
-                            pl.col("transfer_ratio")
-                            * pl.col("Transfer Volume_int")
-                            / pl.col("total_volume_right")
-                        )
+                        pl.col("transfer_ratio")
+                        * pl.col("Transfer Volume_int")
+                        / pl.col("total_volume_right")
                     )
                     .otherwise(pl.col("transfer_ratio"))
                     .alias("transfer_ratio"),

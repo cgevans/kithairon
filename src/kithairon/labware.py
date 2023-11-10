@@ -1,6 +1,7 @@
 import os
 import typing
-from typing import Optional, cast
+from pathlib import Path
+from typing import cast
 
 import polars as pl
 from pydantic_xml import BaseXmlModel, attr
@@ -10,7 +11,7 @@ class PlateInfo(BaseXmlModel, tag="plateinfo"):
     platetype: str = attr()
     plateformat: str = attr()
     usage: str = attr()
-    fluid: Optional[str] = attr(default=None)
+    fluid: str | None = attr(default=None)
     manufacturer: str = attr()
     lotnumber: str = attr()
     partnumber: str = attr()
@@ -27,11 +28,11 @@ class PlateInfo(BaseXmlModel, tag="plateinfo"):
     bottominset: float = attr()
     centerwellposx: float = attr()
     centerwellposy: float = attr()
-    minwellvol: Optional[float] = attr(default=None)
-    maxwellvol: Optional[float] = attr(default=None)
-    maxvoltotal: Optional[float] = attr(default=None)
-    minvolume: Optional[float] = attr(default=None)
-    dropvolume: Optional[float] = attr(default=None)
+    minwellvol: float | None = attr(default=None)
+    maxwellvol: float | None = attr(default=None)
+    maxvoltotal: float | None = attr(default=None)
+    minvolume: float | None = attr(default=None)
+    dropvolume: float | None = attr(default=None)
 
     @property
     def shape(self) -> tuple[int, int]:
@@ -118,11 +119,12 @@ class Labware:
 
     @classmethod
     def from_file(cls, path: str | os.PathLike[str]) -> "Labware":
-        xmlstr = open(path, "rb").read()
+        with Path(path).open("rb") as p:
+            xml_string = p.read()
         try:
-            return cls.from_raw(EchoLabwareELWX.from_xml(xmlstr))
+            return cls.from_raw(EchoLabwareELWX.from_xml(xml_string))
         except Exception:
-            return cls.from_raw(EchoLabwareELW.from_xml(xmlstr))
+            return cls.from_raw(EchoLabwareELW.from_xml(xml_string))
 
     def to_file(self, path: str | os.PathLike[str], **kwargs):
         """Write an ELWX labware file.
@@ -132,12 +134,15 @@ class Labware:
         path : str | os.PathLike[str]
             path to write to
         """
-        xmlstr = self.to_xml(**kwargs)
-        match xmlstr:
+        xml_string = self.to_xml(**kwargs)
+        path = Path(path)
+        match xml_string:
             case str():
-                open(path, "w").write(xmlstr)
+                with path.open("w") as f:
+                    f.write(xml_string)
             case bytes():
-                open(path, "wb").write(xmlstr)
+                with path.open("wb") as f:
+                    f.write(xml_string)
 
     def to_xml(self, **kwargs) -> str | bytes:
         """Generate an ELWX XML string.

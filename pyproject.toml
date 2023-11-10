@@ -28,10 +28,48 @@ dependencies = [
     "polars > 0.19",
     "numpy >= 1",
     "pydantic-xml == 2",
-    "loguru >= 0.7"
+    "loguru >= 0.7",
+    "typing_extensions ~= 4.4",
 ]
 
 [tools.setuptools_scm]
+
+[tool.ruff]
+target-version = "py312"
+
+# Same as Black.
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+
+fixable = ["ALL"]
+select = ["E4", "E7", "E9", "F", "B", "A001", "A002", "C4", "ICN", "PIE", "PYI", "RSE",
+    "RET501", "SIM", "TID", "TCH", "INT", "PTH", "PD", "PLR", "PLW", "TRY",
+    "NPY", "PERF", "FURB", "RUF", "UP", "D"]
+
+# 2. Avoid enforcing line-length violations (`E501`)
+ignore = ["E501", "TRY003", "D1"]
+
+# 3. Avoid trying to fix flake8-bugbear (`B`) violations.
+unfixable = ["B"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
 
 [project.urls]
 Homepage = "https://github.com/cgevans/kithairon"

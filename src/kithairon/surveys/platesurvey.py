@@ -1,6 +1,7 @@
 import os
+from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, Annotated, Callable, Optional, Self, cast
+from typing import TYPE_CHECKING, Annotated, Optional, Self, cast
 
 import lxml.etree as ET
 import polars as pl
