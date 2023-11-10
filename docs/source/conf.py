@@ -12,12 +12,44 @@ from pkg_resources import get_distribution
 
 sys.path.insert(0, str(Path("../..").resolve()))
 
+
+# autoapi_dirs = ['../../src']
+
+# __location__ = os.path.join(
+#     os.getcwd(), os.path.dirname(inspect.getfile(inspect.currentframe()))
+# ) # type: ignore
+
+
+# output_dir = os.path.join(__location__, "api")
+# module_dir = os.path.join(__location__, "../../src/kithairon")
+# with suppress(FileNotFoundError):
+#     shutil.rmtree(output_dir)
+
+# try:
+#     import sphinx
+
+#     cmd_line_template = (
+#         "sphinx-apidoc --implicit-namespaces -f -o {outputdir} {moduledir}"
+#     )
+#     cmd_line = cmd_line_template.format(outputdir=output_dir, moduledir=module_dir)
+
+#     args = cmd_line.split(" ")
+#     if tuple(sphinx.__version__.split(".")) >= ("1", "7"):
+#         # This is a rudimentary parse_version to avoid external dependencies
+#         args = args[1:]
+
+#     apidoc.main(args)
+# except Exception as e:
+#     print(f"Running `sphinx-apidoc` failed!\n{e}")
+
+
 extensions = [
     # Sphinx extensions
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.githubpages",
     "sphinx.ext.intersphinx",
+    # 'autoapi.extension',
     # "sphinx.ext.linkcode",
     "sphinx.ext.mathjax",
     # Third-party extensions
