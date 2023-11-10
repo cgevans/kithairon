@@ -1,7 +1,12 @@
 import os
 from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, Self, cast
+from typing import TYPE_CHECKING, cast
+
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self  # noqa: UP035
 
 from loguru import logger
 from lxml import etree as ET

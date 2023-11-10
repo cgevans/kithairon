@@ -1,7 +1,12 @@
 import os
 from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, Annotated, Self, cast
+from typing import TYPE_CHECKING, Annotated, cast
+
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self  # noqa: UP035
 
 import lxml.etree as ET
 import polars as pl

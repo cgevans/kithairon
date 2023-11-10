@@ -4,7 +4,12 @@ from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from datetime import datetime
 from functools import cached_property
-from typing import TYPE_CHECKING, Any, BinaryIO, Self, cast
+from typing import TYPE_CHECKING, Any, BinaryIO, cast
+
+try:
+    from typing import Self
+except ImportError:
+    from typing_extensions import Self  # noqa: UP035
 
 import numpy as np
 import polars as pl
