@@ -28,7 +28,7 @@ class EchoReportHeader(BaseXmlModel, tag="reportheader"):
     def warn_on_untested_versions(self) -> "EchoReportHeader":
         version = self.AppVersion
         version_triple = version.split(".")
-        if len(version_triple) != 3:
+        if len(version_triple) != 3:  # noqa: PLR2004
             logger.warning(
                 f"Unexpected version format {self.AppVersion} for {self.AppName}.  There may be errors in parsing."
             )
@@ -104,7 +104,7 @@ class EchoReportBody(BaseXmlModel, tag="reportbody"):
 
     @model_validator(mode="after")
     def check_equal_plate_names(self) -> "EchoReportBody":
-        if len(names := set([r.SrcPlateName for r in self.records])) != 1:
+        if len(names := {r.SrcPlateName for r in self.records}) != 1:
             raise ValueError(
                 f"All records must have the same SrcPlateName, but the names {names} were found. "
                 "This is unexpected but supported by the format, please file an issue."
@@ -113,7 +113,7 @@ class EchoReportBody(BaseXmlModel, tag="reportbody"):
 
     @model_validator(mode="after")
     def check_equal_plate_barcodes(self) -> "EchoReportBody":
-        if len(barcodes := set([r.SrcPlateBarcode for r in self.records])) != 1:
+        if len(barcodes := {r.SrcPlateBarcode for r in self.records}) != 1:
             raise ValueError(
                 f"All records must have the same SrcPlateBarcode, but the barcodes {barcodes} were found. "
                 "This is unexpected but supported by the format, please file an issue."
@@ -122,7 +122,7 @@ class EchoReportBody(BaseXmlModel, tag="reportbody"):
 
     @model_validator(mode="after")
     def check_equal_plate_types(self) -> "EchoReportBody":
-        if len(types := set([r.SrcPlateType for r in self.records])) != 1:
+        if len(types := {r.SrcPlateType for r in self.records}) != 1:
             raise ValueError(
                 f"All records must have the same SrcPlateType, but the types {types} were found. "
                 "This is unexpected but supported by the format, please file an issue."
