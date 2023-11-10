@@ -1,6 +1,7 @@
 import os
+from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, Callable, Self, cast
+from typing import TYPE_CHECKING, Self, cast
 
 from loguru import logger
 from lxml import etree as ET

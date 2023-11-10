@@ -3,15 +3,12 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import inspect
-import os
 import re
 import sys
-import warnings
 from pathlib import Path
-from typing import Any
 
 import sphinx_autosummary_accessors
+from pkg_resources import get_distribution
 
 sys.path.insert(0, str(Path("../..").resolve()))
 
@@ -33,8 +30,6 @@ extensions = [
     "sphinx_favicon",
 ]
 
-from pkg_resources import get_distribution
-
 __version__ = get_distribution("kithairon").version
 ...  # I use __version__ to define Sphinx variables
 
@@ -43,7 +38,7 @@ __version__ = get_distribution("kithairon").version
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "kithairon"
-copyright = "2023, Constantine Evans"
+project_copyright = "2023, Constantine Evans"
 author = "Constantine Evans"
 release = __version__
 
@@ -177,14 +172,14 @@ def _minify_classpaths(s: str) -> str:
 #     return f"{github_root}/blob/{git_ref}/py-polars/polars/{fn}{linespec}"
 
 
-def process_signature(app, what, name, obj, opts, sig, ret):  # noqa: D103
+def process_signature(app, what, name, obj, opts, sig, ret):  # noqa: PLR0913
     return (
         _minify_classpaths(sig) if sig else sig,
         _minify_classpaths(ret) if ret else ret,
     )
 
 
-def setup(app):  # noqa: D103
+def setup(app):
     # TODO: a handful of methods do not seem to trigger the event for
     #  some reason (possibly @overloads?) - investigate further...
     app.connect("autodoc-process-signature", process_signature)

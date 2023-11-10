@@ -6,7 +6,6 @@ import pytest
 from numpy.testing import assert_almost_equal, assert_array_almost_equal
 
 from kithairon import Labware, SurveyData
-from kithairon.surveys import EchoPlateSurveyXML
 
 
 @pytest.fixture(scope="module")
