@@ -1,7 +1,7 @@
 import os
 from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, Annotated, Optional, Self, cast
+from typing import TYPE_CHECKING, Annotated, Self, cast
 
 import lxml.etree as ET
 import polars as pl
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from .surveydata import SurveyData
 
 Barcode = Annotated[
-    Optional[str],
+    str | None,
     PlainSerializer(
         lambda val: val if val is not None else "UnknownBarCode",
         when_used="unless-none",
@@ -22,7 +22,7 @@ Barcode = Annotated[
 ]
 
 FloatNullZero = Annotated[
-    Optional[float],
+    float | None,
     BeforeValidator(lambda val: val if val != 0 else None),
     PlainSerializer(lambda val: val if val is not None else 0, when_used="unless-none"),
 ]

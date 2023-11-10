@@ -11,10 +11,10 @@ import polars as pl
 from loguru import logger
 from pydantic_xml import ParsingError
 
-from kithairon.surveys.surveyreport import EchoSurveyReport
+from kithairon._util import plot_plate_array
 
-from .._util import plot_plate_array
 from .platesurvey import EchoPlateSurveyXML
+from .surveyreport import EchoSurveyReport
 
 if TYPE_CHECKING:
     from io import BytesIO
@@ -174,7 +174,7 @@ class SurveyData:
         )
         plot_plate_array(array, **kwargs)
 
-    def heatmap(
+    def heatmap(  # noqa: PLR0913
         self,
         value_selector: str | pl.Expr = "volume",
         sel: pl.Expr | None = None,
@@ -200,13 +200,13 @@ class SurveyData:
             itertools.zip_longest(axs, timestamps, fillvalue=-1)
         ):
             if isinstance(ax, int):
-                raise ValueError(f"Ran out of axes at plot {i}, for survey {timestamp}")
+                raise ValueError(f"Ran out of axes at plot {i}, for survey {timestamp}")  # noqa: TRY004
             if isinstance(timestamp, int):
                 break
             array = self._value_array_of_survey(
                 value_selector, timestamp, fill_value=fill_value
             )
-            ax = plot_plate_array(array, ax=ax, **kwargs)
+            ax = plot_plate_array(array, ax=ax, **kwargs)  # noqa: PLW2901
             used_axes.append(ax)
             if title is None:
                 te = [str(value_selector)]

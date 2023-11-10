@@ -36,7 +36,7 @@ _WELL_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 #     return v
 
 
-def plot_plate_array(
+def plot_plate_array(  # noqa: PLR0913
     array: np.ndarray,
     *,
     annot: bool = True,
