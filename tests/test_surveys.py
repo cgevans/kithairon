@@ -64,3 +64,13 @@ def test_plot_plate(platesurvey: SurveyData, labware_elwx: Labware):
     plot_data = cast(np.ndarray, qm.get_array()).data
 
     assert_array_almost_equal(plot_data, platesurvey._value_array_of_survey())
+
+
+def test_extensions(platesurvey: SurveyData):
+    empty = SurveyData()
+    print(empty)
+
+    print(platesurvey)
+    dat = empty.extend(platesurvey.with_plate_name("A"))
+
+    dat = dat.extend(platesurvey.with_plate_name("B"))
