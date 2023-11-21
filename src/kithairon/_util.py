@@ -1,3 +1,4 @@
+import re
 from typing import TYPE_CHECKING
 
 import numpy as np
@@ -83,3 +84,44 @@ def plot_plate_array(  # noqa: PLR0913
     )
 
     return ax
+
+
+def well_to_tuple(well: str) -> tuple[int, int]:
+    """Convert a well name (e.g. "A1") to a tuple (row, column)."""
+    return ord(well[0]) - 65, int(well[1:]) - 1
+
+
+def tuple_to_well(row: int, col: int) -> str:
+    """Convert a tuple (row, column) to a well name (e.g. "A1")."""
+    return chr(row + 65) + str(col + 1)
+
+
+def wells_to_start_and_shape(
+    wells: list[str]
+) -> tuple[tuple[int, int], tuple[int, int]]:
+    """Given a list of well names, return the start and shape of the plate."""
+    row_start = ord(wells[0][0]) - 65
+    col_start = int(wells[0][1:]) - 1
+    row_end = ord(wells[-1][0]) - 65
+    col_end = int(wells[-1][1:]) - 1
+
+    if (row_start > row_end) or (col_start > col_end):
+        raise ValueError("Wells must be in order from top left to bottom right.")
+
+    return (row_start, col_start), (row_end - row_start + 1, col_end - col_start + 1)
+
+
+PLATE_SHAPE_FROM_SIZE: dict[int, tuple[int, int]] = {
+    384: (16, 24),
+    1536: (32, 48),
+    6: (2, 3),
+    96: (8, 12),
+}
+
+
+def plate_shape_from_name(plate_type: str) -> tuple[int, int]:
+    """Return the shape of a plate given its name."""
+    total_wells_match = re.match(r"^(\d+)", plate_type)
+    if total_wells_match is None:
+        raise ValueError(f"Could not parse plate type {plate_type}")
+    return PLATE_SHAPE_FROM_SIZE[int(total_wells_match.group(1))]
