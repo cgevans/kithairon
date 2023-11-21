@@ -3,7 +3,7 @@
 import itertools
 import os
 from collections.abc import Callable, Iterable
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from functools import cached_property
 from typing import TYPE_CHECKING, Any, BinaryIO, TypedDict, cast
@@ -18,7 +18,7 @@ import polars as pl
 from loguru import logger
 from pydantic_xml import ParsingError
 
-from kithairon._util import plot_plate_array
+from kithairon._util import PLATE_SHAPE_FROM_SIZE, plot_plate_array
 
 from .platesurvey import EchoPlateSurveyXML
 from .surveyreport import EchoSurveyReport
@@ -37,14 +37,6 @@ class _SurveySelectorArgs(TypedDict, total=False):
     expr: pl.Expr
 
 
-PLATE_SHAPE_FROM_SIZE = {
-    384: (16, 24),
-    1536: (32, 48),
-    6: (2, 3),
-    96: (8, 12),
-}
-
-
 PER_SURVEY_COLUMNS = [
     "timestamp",
     "plate_name",
@@ -59,6 +51,23 @@ PER_SURVEY_COLUMNS = [
     # "original",
     "data_format_version",
 ]
+
+SURVEY_SCHEMA = {
+    "timestamp": pl.Datetime,
+    "plate_name": str,
+    "plate_type": str,
+    "plate_barcode": str,
+    "survey_rows": int,
+    "survey_columns": int,
+    "survey_total_wells": int,
+    "instrument_serial_number": str,
+    "data_format_version": int,
+    "volume": float,
+}
+
+
+def _empty_df() -> pl.DataFrame:
+    return pl.DataFrame(schema=SURVEY_SCHEMA)
 
 
 @dataclass(frozen=True)
@@ -83,7 +92,7 @@ class SurveyData:
     .. _Echo Liquid Handler: echo/echo-liquid-handler
     """
 
-    data: pl.DataFrame
+    data: pl.DataFrame = field(default_factory=_empty_df)
 
     @cached_property
     def timestamp(self) -> datetime:
@@ -184,6 +193,11 @@ class SurveyData:
             *PER_SURVEY_COLUMNS
         )
 
+    @cached_property
+    def is_single_survey(self) -> bool:
+        """True if the SurveyData contains a single survey, False otherwise."""
+        return len(self.surveys) == 1
+
     def volumes_array(
         self,
         *,
@@ -197,7 +211,7 @@ class SurveyData:
         full_plate : bool, optional
             Return the full plate if true (filling un-surveyed wells with `fill_value`), by default False
         fill_value : Any, optional
-            Value tu fill unsurveyed wells and wells with no value in the survey, by default np.nan
+            Value to fill unsurveyed wells and wells with no value in the survey, by default np.nan
 
         Returns
         -------
@@ -396,7 +410,9 @@ class SurveyData:
             If the XML file cannot be parsed.
         """
         try:
-            return cls(EchoPlateSurveyXML.read_xml(path)._to_polars())
+            d = EchoPlateSurveyXML.read_xml(path)._to_polars()
+            d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
+            return cls(d)
         except ParsingError:
             return EchoSurveyReport.read_xml(path).to_surveydata()
 
@@ -422,7 +438,9 @@ class SurveyData:
 
         """
         try:
-            return cls(EchoPlateSurveyXML.from_xml(xml_str)._to_polars())
+            d = EchoPlateSurveyXML.from_xml(xml_str)._to_polars()
+            d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
+            return cls()
         except ParsingError:
             return EchoSurveyReport.from_xml(xml_str).to_surveydata()
 
@@ -685,3 +703,16 @@ class SurveyData:
     def _get_single_survey(self, timestamp: datetime) -> Self:
         return self.__class__(self.data.filter(pl.col("timestamp") == timestamp))
         # fixme: check uniqueness?
+
+    def with_plate_name(self, name: str, overwrite: bool = True) -> Self:
+        if not overwrite:
+            raise NotImplementedError
+        return self.with_columns(plate_name=pl.lit(name))
+
+    def with_comment(self, comment: str, overwrite: bool = True) -> Self:
+        if not overwrite:
+            raise NotImplementedError
+        return self.with_columns(comment=pl.lit(comment))
+
+    def with_columns(self, *args: Any, **kwargs: Any) -> Self:
+        return self.__class__(self.data.with_columns(*args, **kwargs))
