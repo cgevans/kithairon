@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 import polars as pl
 from loguru import logger
 
-from kithairon.labware import Labware
+from .labware import Labware, _CONSISTENT_COLS
 
 # from kithairon.surveys import SurveyData
 
@@ -91,6 +91,38 @@ class PickList:
 
         return G
 
+    def _dest_plate_type_per_name(self) -> pl.DataFrame:
+        # FIXME: havinge multiple consistent plate types is not an error
+        df = (self.data.lazy()
+            .group_by("Destination Plate Name")
+            .agg(pl.col("Destination Plate Type").unique().alias("plate_types"))
+            .with_columns(pl.col("plate_types").list.lengths().alias("n_plate_types"))
+            .select("Destination Plate Name", "plate_types", "n_plate_types")
+            .collect()
+        )
+
+        n = df.filter(pl.col("n_plate_types") > 1)
+        if len(n) > 0:
+            logger.error("Plate Name appears with multiple Plate Types: {}", n)
+            raise ValueError("Plate Name appears with multiple Plate Types")   
+        return df.select(plate_name=pl.col("Destination Plate Name"), plate_type=pl.col("plate_types").list.first())
+
+    def _src_plate_type_per_name(self) -> pl.DataFrame:
+        # FIXME: having multiple consistent plate types is not an error
+        df = (self.data.lazy()
+            .group_by("Source Plate Name")
+            .agg(pl.col("Source Plate Type").unique().alias("plate_types"))
+            .with_columns(pl.col("plate_types").list.lengths().alias("n_plate_types"))
+            .select("Source Plate Name", "plate_types", "n_plate_types")
+            .collect()
+        )
+
+        n = df.filter(pl.col("n_plate_types") > 1)
+        if len(n) > 0:
+            logger.error("Plate Name appears with multiple Plate Types: {}", n)
+            raise ValueError("Plate Name appears with multiple Plate Types")   
+        return df.select(plate_name=pl.col("Source Plate Name"), plate_type=pl.col("plate_types").list.first())
+
     def validate(
         self,
         labware: Labware | None = None,
@@ -100,36 +132,44 @@ class PickList:
         errors = []
 
         # Check that every appearance of a Plate Name has the same Plate Type
-        dest_plate_types_per_name = (
-            self.data.lazy()
-            .group_by("Destination Plate Name")
-            .agg(pl.col("Destination Plate Type").unique().alias("plate_types"))
-            .with_columns(pl.col("plate_types").list.lengths().alias("n_plate_types"))
-            .filter(pl.col("n_plate_types") > 1)
-            .select("Source Plate Name", "plate_types")
-            .collect()
-        )
-
-        if len(dest_plate_types_per_name) > 0:
-            logger.error("Plate Name appears with multiple Plate Types: {}")
-            print(dest_plate_types_per_name)
-
-        src_plate_types_per_name = (
-            self.data.lazy()
-            .group_by("Source Plate Name")
-            .agg(pl.col("Source Plate Type").unique().alias("plate_types"))
-            .with_columns(pl.col("plate_types").list.lengths().alias("n_plate_types"))
-            .filter(pl.col("n_plate_types") > 1)
-            .select("Source Plate Name", "plate_types")
-            .collect()
-        )
-
-        if len(src_plate_types_per_name) > 0:
-            print("Plate Name appears with multiple Plate Types:")
-            print(src_plate_types_per_name)
+        dest_plate_types = self._dest_plate_type_per_name()
+        src_plate_types = self._src_plate_type_per_name()
 
         if labware is not None:
             labware_df = labware.to_polars()
+
+            dest_plate_info = dest_plate_types.join(
+                labware_df,
+                on="plate_type",
+                how="left",
+            )
+            if len(x := dest_plate_info.filter(pl.col("plate_type").is_null())) > 0:
+                logger.error("Plate Type not found in labware definition: {}", x)
+                raise ValueError("Plate Type not found in labware definition")
+            
+            if len(x := dest_plate_info.filter(pl.col("usage") != "DEST")) > 0:
+                logger.error("Plate Type is not a DEST plate: {}", x)
+                raise ValueError("Plate Type is not a DEST plate")
+            
+            src_plate_info = src_plate_types.join(
+                labware_df,
+                on="plate_type",
+                how="left",
+            )
+            if len(x := src_plate_info.filter(pl.col("plate_type").is_null())) > 0:
+                logger.error("Plate Type not found in labware definition: {}", x)
+                raise ValueError("Plate Type not found in labware definition")
+            
+            if len(x := src_plate_info.filter(pl.col("usage") != "SRC")) > 0:
+                logger.error("Plate Type is not a SRC plate: {}", x)
+                raise ValueError("Plate Type is not a SRC plate")
+            
+            # TODO: add check that plates used for both source and dest have consistent
+            # plate types.
+            all_plate_info = dest_plate_info.vstack(src_plate_info)
+            nu = all_plate_info.group_by("plate_name").agg(
+                [pl.col(x).n_unique() for x in _CONSISTENT_COLS]
+            )
 
             p_with_lb = (
                 self.data.lazy()

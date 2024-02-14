@@ -8,35 +8,56 @@ from typing import cast
 import polars as pl
 from pydantic_xml import BaseXmlModel, attr
 
+_CONSISTENT_COLS = [
+    "plate_format",
+    "rows",
+    "cols",
+    "a1_offset_y",
+    "center_spacing_x",
+    "center_spacing_y",
+    "plate_height",
+    "skirt_height",
+    "well_width",
+    "well_length",
+    "well_capacity",
+    "bottom_inset",
+    "center_well_pos_x",
+    "center_well_pos_y",
+    "min_well_vol",
+    "max_well_vol",
+    "max_vol_total",
+    "min_volume",
+    "drop_volume",
+]
 
 class PlateInfo(BaseXmlModel, tag="plateinfo"):
     """Plate type information for a single plate."""
 
-    platetype: str = attr()
-    plateformat: str = attr()
-    usage: str = attr()
-    fluid: str | None = attr(default=None)
-    manufacturer: str = attr()
-    lotnumber: str = attr()
-    partnumber: str = attr()
-    rows: int = attr()
+    plate_type: str = attr(name="platetype", )
+    plate_format: str = attr(name="plateformat", )
+    usage: str = attr(name="usage", )
+    fluid: str | None = attr(name="fluid", default=None)
+    manufacturer: str = attr(name="manufacturer", )
+    lot_number: str = attr(name="lotnumber", )
+    part_number: str = attr(name="partnumber", )
+    rows: int = attr(name="rows", )
     cols: int = attr(name="cols")  # FIXME
-    a1offsety: int = attr()
-    centerspacingx: int = attr()
-    centerspacingy: int = attr()
-    plateheight: int = attr()
-    skirtheight: int = attr()
-    wellwidth: int = attr()
-    welllength: int = attr()
-    wellcapacity: int = attr()
-    bottominset: float = attr()
-    centerwellposx: float = attr()
-    centerwellposy: float = attr()
-    minwellvol: float | None = attr(default=None)
-    maxwellvol: float | None = attr(default=None)
-    maxvoltotal: float | None = attr(default=None)
-    minvolume: float | None = attr(default=None)
-    dropvolume: float | None = attr(default=None)
+    a1_offset_y: int = attr(name="a1offsety", )
+    center_spacing_x: int = attr(name="centerspacingx", )
+    center_spacing_y: int = attr(name="centerspacingy", )
+    plate_height: int = attr(name="plateheight", )
+    skirt_height: int = attr(name="skirtheight", )
+    well_width: int = attr(name="wellwidth", )
+    well_length: int = attr(name="welllength", )
+    well_capacity: int = attr(name="wellcapacity", )
+    bottom_inset: float = attr(name="bottominset", )
+    center_well_pos_x: float = attr(name="centerwellposx", )
+    center_well_pos_y: float = attr(name="centerwellposy", )
+    min_well_vol: float | None = attr(name="minwellvol", default=None)
+    max_well_vol: float | None = attr(name="maxwellvol", default=None)
+    max_vol_total: float | None = attr(name="maxvoltotal", default=None)
+    min_volume: float | None = attr(name="minvolume", default=None)
+    drop_volume: float | None = attr(name="dropvolume", default=None)
 
     @property
     def shape(self) -> tuple[int, int]:
@@ -60,11 +81,11 @@ class _PlateInfoELWDest(PlateInfo):
         return "DEST"
 
     @property
-    def welllength(self) -> int:
+    def well_length(self) -> int:
         return self.wellwidth
 
     @property
-    def plateformat(self) -> str:
+    def plate_format(self) -> str:
         return "UNKNOWN"
 
 
@@ -74,11 +95,11 @@ class _PlateInfoELWSrc(PlateInfo):
         return "SRC"
 
     @property
-    def welllength(self) -> int:
+    def well_length(self) -> int:
         return self.wellwidth
 
     @property
-    def plateformat(self) -> str:
+    def plate_format(self) -> str:
         return "UNKNOWN"
 
 
@@ -99,13 +120,13 @@ class _DestinationPlateListELW(BaseXmlModel, tag="destinationplates"):
 
 
 class EchoLabwareELWX(BaseXmlModel, tag="EchoLabware"):
-    sourceplates: _SourcePlateListELWX
-    destinationplates: _DestinationPlateListELWX
+    source_plates: _SourcePlateListELWX
+    destination_plates: _DestinationPlateListELWX
 
 
 class EchoLabwareELW(BaseXmlModel, tag="EchoLabware"):
-    sourceplates: _SourcePlateListELW
-    destinationplates: _DestinationPlateListELW
+    source_plates: _SourcePlateListELW
+    destination_plates: _DestinationPlateListELW
 
 
 class Labware:
@@ -117,8 +138,8 @@ class Labware:
     @classmethod
     def from_raw(cls, raw: EchoLabwareELWX | EchoLabwareELW):
         return cls(
-            cast(list[PlateInfo], raw.sourceplates.plates)
-            + cast(list[PlateInfo], raw.destinationplates.plates)
+            cast(list[PlateInfo], raw.source_plates.plates)
+            + cast(list[PlateInfo], raw.destination_plates.plates)
         )
 
     @classmethod
@@ -176,16 +197,16 @@ class Labware:
             ),
         )
 
-    def __getitem__(self, platetype: str):
+    def __getitem__(self, plate_type: str):
         for plate in self._plates:
-            if plate.platetype == platetype:
+            if plate.plate_type == plate_type:
                 return plate
-        raise KeyError(platetype)
+        raise KeyError(plate_type)
 
     def keys(self):
-        return [plate.platetype for plate in self._plates]
+        return [plate.plate_type for plate in self._plates]
 
     def add(self, plate: PlateInfo):
-        if plate.platetype in self.keys():
-            raise KeyError(f"Plate of type {plate.platetype} already exists.")
+        if plate.plate_type in self.keys():
+            raise KeyError(f"Plate of type {plate.plate_type} already exists.")
         self._plates.append(plate)
