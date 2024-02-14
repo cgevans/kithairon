@@ -33,10 +33,8 @@ dependencies = [
     "lxml >= 4.9"
 ]
 
-[tools.setuptools_scm]
-
 [tool.ruff]
-target-version = "py312"
+target-version = "py38"
 
 # Same as Black.
 line-length = 88
