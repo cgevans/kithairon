@@ -22,6 +22,10 @@ class PickList:
     def __init__(self, df: pl.DataFrame):
         self.data = df
 
+    @classmethod
+    def concat(cls, picklists: Sequence["PickList"]) -> "PickList":
+        return cls(pl.concat(p.data for p in picklists))
+
     def __repr__(self):
         return repr(self.data)
 
