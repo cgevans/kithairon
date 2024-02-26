@@ -27,7 +27,7 @@ classifiers = [
 dependencies = [
     "polars > 0.19",
     "numpy >= 1",
-    "pydantic-xml == 2",
+    "pydantic-xml ~= 2.9",
     "loguru >= 0.7",
     "typing_extensions ~= 4.4",
     "lxml >= 4.9"
