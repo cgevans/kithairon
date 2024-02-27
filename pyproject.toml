@@ -30,7 +30,8 @@ dependencies = [
     "pydantic-xml ~= 2.9",
     "loguru >= 0.7",
     "typing_extensions ~= 4.4",
-    "lxml >= 4.9"
+    "lxml >= 4.9",
+    "xdg_base_dirs"
 ]
 
 [tool.ruff]

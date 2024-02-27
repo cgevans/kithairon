@@ -7,6 +7,10 @@ from typing import cast
 
 import polars as pl
 from pydantic_xml import BaseXmlModel, attr
+import xdg_base_dirs
+from loguru import logger
+
+DEFAULT_LABWARE = None
 
 _CONSISTENT_COLS = [
     "plate_format",
@@ -182,17 +186,17 @@ class Labware:
         str | bytes
             XML string
         """
-        return self.to_elwx().to_xml(**kwargs)
+        return self.to_elwx().to_xml(**({'skip_empty': True} | kwargs))
 
     def to_polars(self) -> pl.DataFrame:
         return pl.from_records(self._plates, schema=_PLATE_INFO_SCHEMA)
 
     def to_elwx(self) -> EchoLabwareELWX:
         return EchoLabwareELWX(
-            sourceplates=_SourcePlateListELWX(
+            source_plates=_SourcePlateListELWX(
                 plates=[plate for plate in self._plates if plate.usage == "SRC"]
             ),
-            destinationplates=_DestinationPlateListELWX(
+            destination_plates=_DestinationPlateListELWX(
                 plates=[plate for plate in self._plates if plate.usage == "DEST"]
             ),
         )
@@ -210,3 +214,27 @@ class Labware:
         if plate.plate_type in self.keys():
             raise KeyError(f"Plate of type {plate.plate_type} already exists.")
         self._plates.append(plate)
+        
+
+    def make_default(self):
+        global DEFAULT_LABWARE
+        DEFAULT_LABWARE = self
+        p = _DEFAULT_LABWARE_PATH.parent
+        if not p.exists():
+            p.mkdir(parents=True)
+        x = self.to_xml()
+        with _DEFAULT_LABWARE_PATH.open("wb", ) as f:
+            f.write(x)
+
+_DEFAULT_LABWARE_PATH = xdg_base_dirs.xdg_data_home() / "kithairon" / "labware.elwx"
+
+if _DEFAULT_LABWARE_PATH.exists():
+    try:
+        DEFAULT_LABWARE = Labware.from_file(_DEFAULT_LABWARE_PATH)
+    except Exception as e:
+        logger.exception("Error loading default labware: {}", e)
+    
+def get_default_labware() -> Labware:
+    if DEFAULT_LABWARE is None:
+        raise ValueError("No default labware defined.")
+    return DEFAULT_LABWARE

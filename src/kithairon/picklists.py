@@ -1,12 +1,12 @@
 """Echo PickList support (Kithairon-extended)."""
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import polars as pl
 from loguru import logger
 
-from .labware import Labware, _CONSISTENT_COLS
+from .labware import Labware, _CONSISTENT_COLS, get_default_labware
 
 # from kithairon.surveys import SurveyData
 
@@ -129,7 +129,7 @@ class PickList:
 
     def validate(
         self,
-        labware: Labware | None = None,
+        labware: Labware | None | Literal[False] = None,
         # surveys: Sequence['Survey'] | None = None,
         raise_on_error: bool = True,
     ) -> Sequence[str]:
@@ -138,8 +138,15 @@ class PickList:
         # Check that every appearance of a Plate Name has the same Plate Type
         dest_plate_types = self._dest_plate_type_per_name()
         src_plate_types = self._src_plate_type_per_name()
+        
+        if labware is None:
+            try:
+                labware = get_default_labware()
+            except ValueError:
+                logger.warning("No default labware, not checking labware.")
+                labware = False
 
-        if labware is not None:
+        if labware is not False:
             labware_df = labware.to_polars()
 
             dest_plate_info = dest_plate_types.join(
@@ -180,13 +187,13 @@ class PickList:
                 .join(
                     labware_df.lazy(),
                     left_on="Source Plate Name",
-                    right_on="platetype",
+                    right_on="plate_type",
                     how="left",
                 )
                 .join(
                     labware_df.lazy(),
                     left_on="Destination Plate Name",
-                    right_on="platetype",
+                    right_on="plate_type",
                     how="left",
                     suffix="_dest",
                 )
@@ -194,7 +201,7 @@ class PickList:
 
             wrongvolume = (
                 p_with_lb.with_columns(
-                    tx_mod=(pl.col("Transfer Volume") % pl.col("dropvolume"))
+                    tx_mod=(pl.col("Transfer Volume") % pl.col("drop_volume"))
                 )
                 .filter(pl.col("tx_mod") != 0)
                 .collect()
