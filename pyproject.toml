@@ -28,10 +28,11 @@ dependencies = [
     "polars > 0.19",
     "numpy >= 1",
     "pydantic-xml ~= 2.9",
-    "loguru >= 0.7",
     "typing_extensions ~= 4.4",
     "lxml >= 4.9",
-    "xdg_base_dirs"
+    "rich >= 13",
+    "xdg_base_dirs",
+    "networkx >= 3.2",
 ]
 
 [tool.ruff]
@@ -80,11 +81,8 @@ Documentation = "https://kithairon.readthedocs.io/en/latest/"
 graphics = [
     "seaborn >= 0.13",
 ]
-graphs = [
-    "networkx >= 3.2",
-]
 all = [
-    "kithairon[graphics,graphs]",
+    "kithairon[graphics]",
 ]
 testing = [
     "kithairon[all]",
@@ -97,7 +95,9 @@ docs = [
     "numpydoc ~= 1.6",
     "pydata-sphinx-theme ~= 0.14",
     "autodocsumm ~= 0.2",
-    "autodoc_pydantic ~= 2.0"
+    "autodoc_pydantic ~= 2.0",
+    "sphinx-book-theme",
+    "sphinx-autoapi",
 ]
 
 [tool.setuptools_scm]

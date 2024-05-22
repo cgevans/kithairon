@@ -125,3 +125,20 @@ def plate_shape_from_name(plate_type: str) -> tuple[int, int]:
     if total_wells_match is None:
         raise ValueError(f"Could not parse plate type {plate_type}")
     return PLATE_SHAPE_FROM_SIZE[int(total_wells_match.group(1))]
+
+import io
+import json
+from typing import Any
+import polars as pl
+
+def _polars_df_to_json_dict(df: pl.DataFrame) -> dict[str, Any]:
+    buffer = io.StringIO()
+    df.write_json(buffer)
+    return json.loads(buffer.getvalue())
+
+
+def _polars_df_from_json_dict(d: dict[str, Any]) -> pl.DataFrame:
+    buffer = io.StringIO()
+    json.dump(d, buffer)
+    buffer.seek(0)
+    return pl.read_json(buffer)

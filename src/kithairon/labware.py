@@ -8,7 +8,8 @@ from typing import cast
 import polars as pl
 from pydantic_xml import BaseXmlModel, attr
 import xdg_base_dirs
-from loguru import logger
+import logging
+logger = logging.getLogger(__name__)
 
 DEFAULT_LABWARE = None
 
@@ -35,7 +36,7 @@ _CONSISTENT_COLS = [
 ]
 
 class PlateInfo(BaseXmlModel, tag="plateinfo"):
-    """Plate type information for a single plate."""
+    """Plate type information."""
 
     plate_type: str = attr(name="platetype", )
     plate_format: str = attr(name="plateformat", )
@@ -134,6 +135,8 @@ class EchoLabwareELW(BaseXmlModel, tag="EchoLabware"):
 
 
 class Labware:
+    """A collection of plate type information."""
+    
     _plates: list[PlateInfo]
 
     def __init__(self, plates: list[PlateInfo]):
@@ -232,7 +235,7 @@ if _DEFAULT_LABWARE_PATH.exists():
     try:
         DEFAULT_LABWARE = Labware.from_file(_DEFAULT_LABWARE_PATH)
     except Exception as e:
-        logger.exception("Error loading default labware: {}", e)
+        logger.exception("Error loading default labware")
     
 def get_default_labware() -> Labware:
     if DEFAULT_LABWARE is None:

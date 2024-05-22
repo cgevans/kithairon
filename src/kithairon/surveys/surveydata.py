@@ -13,22 +13,30 @@ try:
 except ImportError:
     from typing_extensions import Self  # noqa: UP035
 
-import numpy as np
-import polars as pl
-from loguru import logger
 from pydantic_xml import ParsingError
 
-from kithairon._util import PLATE_SHAPE_FROM_SIZE, plot_plate_array
+from kithairon._util import (
+    PLATE_SHAPE_FROM_SIZE,
+    plot_plate_array,
+    _polars_df_from_json_dict,
+    _polars_df_to_json_dict,
+)
 
 from .platesurvey import EchoPlateSurveyXML
 from .surveyreport import EchoSurveyReport
 
+import numpy as np
+import polars as pl
+import logging
+
+logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from io import BytesIO
     from pathlib import Path
 
     from matplotlib.axes import Axes
 
+    from lxml import etree
 
 class _SurveySelectorArgs(TypedDict, total=False):
     plate_name: str
@@ -63,6 +71,7 @@ SURVEY_SCHEMA = {
     "instrument_serial_number": str,
     "data_format_version": int,
     "volume": float,
+    "comment": str,
 }
 
 
@@ -93,6 +102,17 @@ class SurveyData:
     """
 
     data: pl.DataFrame = field(default_factory=_empty_df)
+
+    def to_json_dict(self) -> dict[str, Any]:
+        return _polars_df_to_json_dict(self.data)
+
+    @classmethod
+    def from_json_dict(cls, d: dict[str, Any]) -> Self:
+        return cls(_polars_df_from_json_dict(d))
+
+    @cached_property
+    def lazy_data(self) -> pl.LazyFrame:
+        return self.data.lazy()
 
     @cached_property
     def timestamp(self) -> datetime:
@@ -189,9 +209,9 @@ class SurveyData:
         pl.DataFrame
         """
         # fixme: checks
-        return self.data.unique("timestamp", maintain_order=True).select(
-            *PER_SURVEY_COLUMNS
-        )
+        return self.data.unique(
+            ["timestamp", "plate_name"], maintain_order=True
+        ).select(*PER_SURVEY_COLUMNS)
 
     @cached_property
     def is_single_survey(self) -> bool:
@@ -440,9 +460,40 @@ class SurveyData:
         try:
             d = EchoPlateSurveyXML.from_xml(xml_str)._to_polars()
             d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
-            return cls()
+            return cls(d)
         except ParsingError:
             return EchoSurveyReport.from_xml(xml_str).to_surveydata()
+
+
+    @classmethod
+    def from_xml_tree(cls, xml_tree: "etree._Element") -> Self:
+        """
+        Create a new instance of `SurveyData` from an XML string.
+
+        Parameters
+        ----------
+        xml_tree : lxml.etree._Element
+            The XML tree to parse.
+
+        Returns
+        -------
+        SurveyData
+            A new instance of `SurveyData` created from the parsed XML.
+
+        Raises
+        ------
+        ParsingError
+            If the XML tree cannot be parsed.
+
+        """
+        try:
+            d = EchoPlateSurveyXML.from_xml_tree(xml_tree)._to_polars()
+            d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
+            return cls(d)
+        except ParsingError:
+            return EchoSurveyReport.from_xml_tree(xml_tree).to_surveydata()
+
+        
 
     @classmethod
     def from_platesurvey(cls, ps: EchoPlateSurveyXML) -> Self:
@@ -604,11 +655,16 @@ class SurveyData:
         try:
             return self.__class__(pl.concat(datas))
         except pl.ShapeError as e:
-            logger.warning(f"Shape mismatch: {e}")
+            logger.warning("Shape mismatch: %s", e)
             return self.__class__(pl.concat(datas, how="diagonal"))
+
+    def __add__(self, other: Self | Iterable[Self]) -> Self:
+        # todo: check duplicates
+        return self.extend(other)
 
     def find_survey_timestamps(
         self,
+        *args,
         **kwargs: _SurveySelectorArgs,
     ) -> pl.Series:
         """
@@ -630,15 +686,11 @@ class SurveyData:
         pl.Series
             A series of timestamps that match the given criteria.
         """
-        combined_expr = pl.Expr()
-        if (x := kwargs.get("plate_name", None)) is not None:
-            combined_expr &= pl.col("plate_name") == x
-        if (x := kwargs.get("plate_type", None)) is not None:
-            combined_expr &= pl.col("plate_type") == x
-        if (x := kwargs.get("plate_barcode", None)) is not None:
-            combined_expr &= pl.col("plate_barcode") == x
-        if (x := kwargs.get("expr", None)) is not None:
-            combined_expr &= x  # type: ignore
+        combined_expr = True
+        for arg in args:
+            combined_expr &= arg
+        for k, v in kwargs.items():
+            combined_expr &= pl.col(k) == v
 
         return self.surveys.filter(combined_expr).get_column("timestamp")
 
@@ -700,6 +752,42 @@ class SurveyData:
         ts = self.find_survey_timestamp(**kwargs)
         return self.__class__(self.data.filter(pl.col("timestamp") == ts))
 
+    def find_latest_survey(self, *args, **kwargs: _SurveySelectorArgs) -> Self:
+        """
+        Find the latest survey based on the given criteria, returning a SurveyData.
+
+        Parameters
+        ----------
+        plate_name : str or None, optional
+            Name of the plate.
+        plate_type : str or None, optional
+            Type of the plate.
+        plate_barcode : str or None, optional
+            Barcode of the plate.
+        expr : pl.Expr or None, optional
+            Additional expression to filter the surveys.
+
+        Returns
+        -------
+        SurveyData
+            The data for the latest survey that matches the given criteria.
+        """      
+        # TODO: should use other methods
+        s = self.__class__(
+            self.lazy_data.filter(*args, **kwargs)
+            .filter(pl.col.timestamp == pl.col.timestamp.max())
+            .collect()
+        )
+        
+        if len(s) == 0:
+            raise KeyError("No survey found")
+        
+        if len(s.surveys) != 1:
+            raise ValueError(f"Expected exactly one survey, got {len(s.surveys)}")
+        
+        return s
+            
+
     def _get_single_survey(self, timestamp: datetime) -> Self:
         return self.__class__(self.data.filter(pl.col("timestamp") == timestamp))
         # fixme: check uniqueness?
@@ -716,3 +804,9 @@ class SurveyData:
 
     def with_columns(self, *args: Any, **kwargs: Any) -> Self:
         return self.__class__(self.data.with_columns(*args, **kwargs))
+
+    def _repr_html_(self):
+        return self.data._repr_html_()
+
+    def __len__(self):
+        return len(self.data)

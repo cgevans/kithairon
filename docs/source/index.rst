@@ -10,10 +10,12 @@ Kithairon and processed classes
    :recursive:
    :template: custom-class-template.rst
 
-   surveys.SurveyData
-   picklists.PickList
-   labware.Labware
-   labware.PlateInfo
+   EchoInstrument
+   SurveyData
+   PickList
+   TransferReport
+   Labware
+   PlateInfo
 
 -------
 Formats

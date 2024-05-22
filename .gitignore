@@ -54,3 +54,5 @@ MANIFEST
 .python-version
 
 scratch*
+
+.hypothesis/

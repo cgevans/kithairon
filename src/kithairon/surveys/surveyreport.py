@@ -10,7 +10,8 @@ try:
 except ImportError:
     from typing_extensions import Self  # noqa: UP035
 
-from loguru import logger
+import logging
+logger = logging.getLogger(__name__)
 from lxml import etree as ET
 from pydantic import model_validator
 from pydantic_xml import BaseXmlModel, element

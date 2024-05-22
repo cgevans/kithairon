@@ -1,17 +1,14 @@
 """A library for working with the Echo liquid handler."""
 
-import loguru
 
-from .labware import Labware
+from .labware import Labware, PlateInfo
 from .picklists import PickList
-from .surveys import EchoPlateSurveyXML, EchoSurveyReport, SurveyData
+from .surveys import SurveyData
 
-loguru.logger.disable("kithairon")
 
 __all__ = [
     "SurveyData",
-    "EchoPlateSurveyXML",
-    "EchoSurveyReport",
     "PickList",
     "Labware",
+    "PlateInfo"
 ]

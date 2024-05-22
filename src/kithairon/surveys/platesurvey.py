@@ -12,7 +12,8 @@ except ImportError:
 
 import lxml.etree as ET
 import polars as pl
-from loguru import logger as log
+import logging
+logger = logging.getLogger(__name__)
 from pydantic import BeforeValidator, NonNegativeInt, PlainSerializer, model_validator
 from pydantic_xml import BaseXmlModel, attr
 
@@ -131,9 +132,9 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
     def check_data_format_version(self) -> Self:
         """Ensure that the data format version is 1."""
         if self.data_format_version != 1:
-            log.warning(
-                "Unexpected data format version {self.data_format_version}."
-                " This library has been tested on version 1."
+            logger.warning(
+                "Unexpected data format version %s."
+                " This library has been tested on version 1.", self.data_format_version
             )
         return self
 
