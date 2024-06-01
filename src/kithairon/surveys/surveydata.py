@@ -131,6 +131,14 @@ class SurveyData:
         return v[0]
 
     @cached_property
+    def plate_name(self) -> int:
+        """Number of rows in the survey.  Single survey only."""
+        v = self.data.get_column("plate_name").unique()
+        if len(v) != 1:
+            raise ValueError(f"Expected exactly one plate name, got {len(v)}: {v}")
+        return v[0]
+
+    @cached_property
     def survey_columns(self) -> int:
         """Number of columns in the survey.  Single survey only."""
         v = self.data.get_column("survey_columns").unique()
@@ -337,8 +345,8 @@ class SurveyData:
             used_axes.append(ax)
             if title is None:
                 te = [str(value)]
-                # if self.plate_barcode:
-                # te.append(f"of {self.plate_barcode}")
+                if self.plate_name:
+                    te.append(f"of {self.plate_name}")
                 te.append(f"on {timestamp}")
                 title = " ".join(te)
             elif isinstance(title, str):
