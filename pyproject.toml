@@ -88,6 +88,7 @@ testing = [
     "kithairon[all]",
     "pytest ~= 7.4",
     "pytest-cov ~= 4.1",
+    "hypothesis ~= 6.0"
 ]
 docs = [
     "kithairon[all]",
