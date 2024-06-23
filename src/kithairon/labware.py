@@ -1,14 +1,15 @@
 """Labware definition file support."""
 
+import logging
 import os
 import typing
 from pathlib import Path
 from typing import cast
 
 import polars as pl
-from pydantic_xml import BaseXmlModel, attr
 import xdg_base_dirs
-import logging
+from pydantic_xml import BaseXmlModel, attr
+
 logger = logging.getLogger(__name__)
 
 DEFAULT_LABWARE = None
@@ -35,29 +36,66 @@ _CONSISTENT_COLS = [
     "drop_volume",
 ]
 
+
 class PlateInfo(BaseXmlModel, tag="plateinfo"):
     """Plate type information."""
 
-    plate_type: str = attr(name="platetype", )
-    plate_format: str = attr(name="plateformat", )
-    usage: str = attr(name="usage", )
+    plate_type: str = attr(
+        name="platetype",
+    )
+    plate_format: str = attr(
+        name="plateformat",
+    )
+    usage: str = attr(
+        name="usage",
+    )
     fluid: str | None = attr(name="fluid", default=None)
-    manufacturer: str = attr(name="manufacturer", )
-    lot_number: str = attr(name="lotnumber", )
-    part_number: str = attr(name="partnumber", )
-    rows: int = attr(name="rows", )
+    manufacturer: str = attr(
+        name="manufacturer",
+    )
+    lot_number: str = attr(
+        name="lotnumber",
+    )
+    part_number: str = attr(
+        name="partnumber",
+    )
+    rows: int = attr(
+        name="rows",
+    )
     cols: int = attr(name="cols")  # FIXME
-    a1_offset_y: int = attr(name="a1offsety", )
-    center_spacing_x: int = attr(name="centerspacingx", )
-    center_spacing_y: int = attr(name="centerspacingy", )
-    plate_height: int = attr(name="plateheight", )
-    skirt_height: int = attr(name="skirtheight", )
-    well_width: int = attr(name="wellwidth", )
-    well_length: int = attr(name="welllength", )
-    well_capacity: int = attr(name="wellcapacity", )
-    bottom_inset: float = attr(name="bottominset", )
-    center_well_pos_x: float = attr(name="centerwellposx", )
-    center_well_pos_y: float = attr(name="centerwellposy", )
+    a1_offset_y: int = attr(
+        name="a1offsety",
+    )
+    center_spacing_x: int = attr(
+        name="centerspacingx",
+    )
+    center_spacing_y: int = attr(
+        name="centerspacingy",
+    )
+    plate_height: int = attr(
+        name="plateheight",
+    )
+    skirt_height: int = attr(
+        name="skirtheight",
+    )
+    well_width: int = attr(
+        name="wellwidth",
+    )
+    well_length: int = attr(
+        name="welllength",
+    )
+    well_capacity: int = attr(
+        name="wellcapacity",
+    )
+    bottom_inset: float = attr(
+        name="bottominset",
+    )
+    center_well_pos_x: float = attr(
+        name="centerwellposx",
+    )
+    center_well_pos_y: float = attr(
+        name="centerwellposy",
+    )
     min_well_vol: float | None = attr(name="minwellvol", default=None)
     max_well_vol: float | None = attr(name="maxwellvol", default=None)
     max_vol_total: float | None = attr(name="maxvoltotal", default=None)
@@ -136,7 +174,7 @@ class EchoLabwareELW(BaseXmlModel, tag="EchoLabware"):
 
 class Labware:
     """A collection of plate type information."""
-    
+
     _plates: list[PlateInfo]
 
     def __init__(self, plates: list[PlateInfo]):
@@ -189,7 +227,7 @@ class Labware:
         str | bytes
             XML string
         """
-        return self.to_elwx().to_xml(**({'skip_empty': True} | kwargs))
+        return self.to_elwx().to_xml(**({"skip_empty": True} | kwargs))
 
     def to_polars(self) -> pl.DataFrame:
         return pl.from_records(self._plates, schema=_PLATE_INFO_SCHEMA)
@@ -217,26 +255,29 @@ class Labware:
         if plate.plate_type in self.keys():
             raise KeyError(f"Plate of type {plate.plate_type} already exists.")
         self._plates.append(plate)
-        
 
     def make_default(self):
-        global DEFAULT_LABWARE
+        global DEFAULT_LABWARE  # noqa
         DEFAULT_LABWARE = self
         p = _DEFAULT_LABWARE_PATH.parent
         if not p.exists():
             p.mkdir(parents=True)
         x = self.to_xml()
-        with _DEFAULT_LABWARE_PATH.open("wb", ) as f:
+        with _DEFAULT_LABWARE_PATH.open(
+            "wb",
+        ) as f:
             f.write(x)
+
 
 _DEFAULT_LABWARE_PATH = xdg_base_dirs.xdg_data_home() / "kithairon" / "labware.elwx"
 
 if _DEFAULT_LABWARE_PATH.exists():
     try:
         DEFAULT_LABWARE = Labware.from_file(_DEFAULT_LABWARE_PATH)
-    except Exception as e:
+    except Exception:
         logger.exception("Error loading default labware")
-    
+
+
 def get_default_labware() -> Labware:
     if DEFAULT_LABWARE is None:
         raise ValueError("No default labware defined.")

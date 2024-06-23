@@ -11,32 +11,32 @@ from typing import TYPE_CHECKING, Any, BinaryIO, TypedDict, cast
 try:
     from typing import Self
 except ImportError:
-    from typing_extensions import Self  # noqa: UP035
+    from typing_extensions import Self
 
+import logging
+
+import numpy as np
+import polars as pl
 from pydantic_xml import ParsingError
 
 from kithairon._util import (
     PLATE_SHAPE_FROM_SIZE,
-    plot_plate_array,
     _polars_df_from_json_dict,
     _polars_df_to_json_dict,
+    plot_plate_array,
 )
 
 from .platesurvey import EchoPlateSurveyXML
 from .surveyreport import EchoSurveyReport
-
-import numpy as np
-import polars as pl
-import logging
 
 logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from io import BytesIO
     from pathlib import Path
 
+    from lxml import etree
     from matplotlib.axes import Axes
 
-    from lxml import etree
 
 class _SurveySelectorArgs(TypedDict, total=False):
     plate_name: str
@@ -285,7 +285,7 @@ class SurveyData:
         )
         plot_plate_array(array, **kwargs)
 
-    def heatmap(  # noqa: PLR0913
+    def heatmap(
         self,
         value: str | pl.Expr = "volume",
         sel: pl.Expr | None = None,
@@ -472,7 +472,6 @@ class SurveyData:
         except ParsingError:
             return EchoSurveyReport.from_xml(xml_str).to_surveydata()
 
-
     @classmethod
     def from_xml_tree(cls, xml_tree: "etree._Element") -> Self:
         """
@@ -500,8 +499,6 @@ class SurveyData:
             return cls(d)
         except ParsingError:
             return EchoSurveyReport.from_xml_tree(xml_tree).to_surveydata()
-
-        
 
     @classmethod
     def from_platesurvey(cls, ps: EchoPlateSurveyXML) -> Self:
@@ -779,22 +776,21 @@ class SurveyData:
         -------
         SurveyData
             The data for the latest survey that matches the given criteria.
-        """      
+        """
         # TODO: should use other methods
         s = self.__class__(
             self.lazy_data.filter(*args, **kwargs)
             .filter(pl.col.timestamp == pl.col.timestamp.max())
             .collect()
         )
-        
+
         if len(s) == 0:
             raise KeyError("No survey found")
-        
+
         if len(s.surveys) != 1:
             raise ValueError(f"Expected exactly one survey, got {len(s.surveys)}")
-        
+
         return s
-            
 
     def _get_single_survey(self, timestamp: datetime) -> Self:
         return self.__class__(self.data.filter(pl.col("timestamp") == timestamp))

@@ -8,16 +8,18 @@ from typing import TYPE_CHECKING, cast
 try:
     from typing import Self
 except ImportError:
-    from typing_extensions import Self  # noqa: UP035
+    from typing_extensions import Self
 
 import logging
-logger = logging.getLogger(__name__)
+
 from lxml import etree as ET
 from pydantic import model_validator
 from pydantic_xml import BaseXmlModel, element
 
 if TYPE_CHECKING:
     from .surveydata import SurveyData
+
+logger = logging.getLogger(__name__)
 
 
 class EchoReportHeader(BaseXmlModel, tag="reportheader"):
@@ -36,7 +38,7 @@ class EchoReportHeader(BaseXmlModel, tag="reportheader"):
     def warn_on_untested_versions(self) -> "EchoReportHeader":
         version = self.AppVersion
         version_triple = version.split(".")
-        if len(version_triple) != 3:  # noqa: PLR2004
+        if len(version_triple) != 3:
             logger.warning(
                 f"Unexpected version format {self.AppVersion} for {self.AppName}.  There may be errors in parsing."
             )

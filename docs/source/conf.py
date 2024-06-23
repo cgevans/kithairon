@@ -205,7 +205,7 @@ def _minify_classpaths(s: str) -> str:
 #     return f"{github_root}/blob/{git_ref}/py-polars/polars/{fn}{linespec}"
 
 
-def process_signature(app, what, name, obj, opts, sig, ret):  # noqa: PLR0913
+def process_signature(app, what, name, obj, opts, sig, ret):
     return (
         _minify_classpaths(sig) if sig else sig,
         _minify_classpaths(ret) if ret else ret,

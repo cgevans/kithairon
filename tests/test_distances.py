@@ -1,4 +1,5 @@
-from hypothesis import given, strategies as st
+from hypothesis import given
+from hypothesis import strategies as st
 
 from kithairon.picklists import (
     _dest_motion_distance_by_wells,
@@ -17,7 +18,7 @@ well96 = st.tuples(
 
 
 def tuple_to_well(t: tuple[int, int]) -> str:
-    if t[1] < 0 or t[1] >= 24:  # max 24 for 384-well plate  # noqa: PLR2004
+    if t[1] < 0 or t[1] >= 24:  # max 24 for 384-well plate
         raise IndexError
     return "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[t[0]] + str(t[1] + 1)
 

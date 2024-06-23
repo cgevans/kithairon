@@ -1,19 +1,17 @@
 """Echo PickList support (Kithairon-extended)."""
 
-from collections.abc import Sequence
-from typing import TYPE_CHECKING, Literal, Any
-
-import rich
-from kithairon.surveys.surveydata import SurveyData
-
-import polars as pl
 import logging
-
-from .labware import Labware, _CONSISTENT_COLS, get_default_labware
-
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, Any, Literal
 
 import networkx as nx
 import networkx.algorithms.approximation as nxaa
+import polars as pl
+import rich
+
+from kithairon.surveys.surveydata import SurveyData
+
+from .labware import _CONSISTENT_COLS, Labware, get_default_labware
 
 
 def _rotate_cycle(ln: Sequence[Any], elem: Any) -> Sequence[Any]:
@@ -25,7 +23,7 @@ def _rotate_cycle(ln: Sequence[Any], elem: Any) -> Sequence[Any]:
     return ln[i:] + ln[1:i] + [elem]  # type: ignore
 
 
-def _dest_motion_distance(  # noqa: PLR0913
+def _dest_motion_distance(
     sp1: tuple[int, int],  # row, column
     dp1: tuple[int, int],
     sp2: tuple[int, int],
@@ -46,7 +44,7 @@ def well_to_tuple(well: str) -> tuple[int, int]:
     return (ord(well[0]) - 65, int(well[1:]) - 1)
 
 
-def _dest_motion_distance_by_wells(  # noqa: PLR0913
+def _dest_motion_distance_by_wells(
     sp1: str,
     dp1: str,
     sp2: str,
@@ -63,14 +61,14 @@ def _dest_motion_distance_by_wells(  # noqa: PLR0913
     return _dest_motion_distance(sp1t, dp1t, sp2t, dp2t, swsx, swsy, dwsx, dwsy)
 
 
-def _transducer_motion_distance(  # noqa: PLR0913
+def _transducer_motion_distance(
     sp1, dp1, sp2, dp2, swsx=4.5, swsy=4.5, dwsx=4.5, dwsy=4.5
 ) -> float:
     vec = ((sp2[1] - sp1[1]) * swsx, (sp2[0] - sp1[0]) * swsy)
     return abs(vec[0]) + abs(vec[1])
 
 
-def _transducer_motion_distance_by_wells(  # noqa: PLR0913
+def _transducer_motion_distance_by_wells(
     sp1: str,
     dp1: str,
     sp2: str,
@@ -92,8 +90,8 @@ logger = logging.getLogger(__name__)
 # from kithairon.surveys import SurveyData
 
 if TYPE_CHECKING:  # pragma: no cover
-    from networkx import DiGraph, MultiDiGraph
     import pandas as pd
+    from networkx import DiGraph, MultiDiGraph
 
 
 class PickList:
@@ -758,4 +756,3 @@ class PickList:
                 how="left",
             ).sort(["segment_index", "well_well_index"])
         )
-

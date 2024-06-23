@@ -1,7 +1,10 @@
+import io
+import json
 import re
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import numpy as np
+import polars as pl
 
 if TYPE_CHECKING:  # pragma: no cover
     from matplotlib.axes import Axes
@@ -37,7 +40,7 @@ _WELL_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 #     return v
 
 
-def plot_plate_array(  # noqa: PLR0913
+def plot_plate_array(
     array: np.ndarray,
     *,
     annot: bool = True,
@@ -126,10 +129,6 @@ def plate_shape_from_name(plate_type: str) -> tuple[int, int]:
         raise ValueError(f"Could not parse plate type {plate_type}")
     return PLATE_SHAPE_FROM_SIZE[int(total_wells_match.group(1))]
 
-import io
-import json
-from typing import Any
-import polars as pl
 
 def _polars_df_to_json_dict(df: pl.DataFrame) -> dict[str, Any]:
     buffer = io.StringIO()

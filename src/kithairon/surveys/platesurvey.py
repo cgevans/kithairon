@@ -8,19 +8,20 @@ from typing import TYPE_CHECKING, Annotated, cast
 try:
     from typing import Self
 except ImportError:
-    from typing_extensions import Self  # noqa: UP035
+    from typing_extensions import Self
+
+import logging
 
 import lxml.etree as ET
 import polars as pl
-import logging
-logger = logging.getLogger(__name__)
 from pydantic import BeforeValidator, NonNegativeInt, PlainSerializer, model_validator
 from pydantic_xml import BaseXmlModel, attr
 
-_PARSER = ET.XMLParser(resolve_entities=False)
-
 if TYPE_CHECKING:
     from .surveydata import SurveyData
+
+_PARSER = ET.XMLParser(resolve_entities=False)
+logger = logging.getLogger(__name__)
 
 Barcode = Annotated[
     str | None,
@@ -134,7 +135,8 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
         if self.data_format_version != 1:
             logger.warning(
                 "Unexpected data format version %s."
-                " This library has been tested on version 1.", self.data_format_version
+                " This library has been tested on version 1.",
+                self.data_format_version,
             )
         return self
 
