@@ -100,7 +100,7 @@ def tuple_to_well(row: int, col: int) -> str:
 
 
 def wells_to_start_and_shape(
-    wells: list[str]
+    wells: list[str],
 ) -> tuple[tuple[int, int], tuple[int, int]]:
     """Given a list of well names, return the start and shape of the plate."""
     row_start = ord(wells[0][0]) - 65

@@ -2,12 +2,13 @@
 
 import logging
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any, Literal, Self
 
 import networkx as nx
 import networkx.algorithms.approximation as nxaa
 import polars as pl
 import rich
+from polars import LazyFrame
 
 from kithairon.surveys.surveydata import SurveyData
 
@@ -127,7 +128,7 @@ class PickList:
     def __add__(self, other: "PickList") -> "PickList":
         return self.__class__(pl.concat([self.data, other.data], how="diagonal"))
 
-    def _repr_html_(self):
+    def _repr_html_(self) -> Self:
         return self.data._repr_html_()
 
     def to_polars(self) -> pl.DataFrame:
@@ -137,15 +138,15 @@ class PickList:
         return self.data.to_pandas()
 
     @classmethod
-    def read_csv(cls, path: str):
+    def read_csv(cls, path: str) -> Self:
         """Read a picklist from a csv file."""
         return cls(pl.read_csv(path))
 
-    def write_csv(self, path: str):
+    def write_csv(self, path: str) -> None:
         """Write picklist to a csv file (usable by Labcyte/Beckman software)."""
         self.data.write_csv(path)
 
-    def _totvols(self):
+    def _totvols(self) -> pl.DataFrame:
         return self.data.group_by(["Destination Plate Name", "Destination Well"]).agg(
             pl.col("Transfer Volume").sum().alias("total_volume")
         )
@@ -204,7 +205,7 @@ class PickList:
             self.data.lazy()
             .group_by("Destination Plate Name")
             .agg(pl.col("Destination Plate Type").unique().alias("plate_types"))
-            .with_columns(pl.col("plate_types").list.lengths().alias("n_plate_types"))
+            .with_columns(pl.col("plate_types").list.len().alias("n_plate_types"))
             .select("Destination Plate Name", "plate_types", "n_plate_types")
             .collect()
         )
@@ -224,7 +225,7 @@ class PickList:
             self.data.lazy()
             .group_by("Source Plate Name")
             .agg(pl.col("Source Plate Type").unique().alias("plate_types"))
-            .with_columns(pl.col("plate_types").list.lengths().alias("n_plate_types"))
+            .with_columns(pl.col("plate_types").list.len().alias("n_plate_types"))
             .select("Source Plate Name", "plate_types", "n_plate_types")
             .collect()
         )
@@ -349,7 +350,7 @@ class PickList:
 
         if not nx.is_directed_acyclic_graph(g):
             c = nx.find_cycle(g)
-            add_warning("Well transfer multigraph has a cycle: {c}")
+            add_warning(f"Well transfer multigraph has a cycle: {c}")
 
         a = list(enumerate(nx.topological_generations(g)))
 
@@ -529,7 +530,7 @@ class PickList:
         plate: str | None = None,
         well: str | None = None,
         name: str | None = None,
-    ):
+    ) -> pl.DataFrame:
         """Recursively get the contents of a particular destination."""
         if (plate is not None) and (well is None):
             if name is not None:
@@ -563,7 +564,7 @@ class PickList:
         else:
             selfdf = self.data.lazy()
 
-        transfers_to = (
+        transfers_to: LazyFrame = (
             transfers_to.lazy()
             .join(
                 totvols.lazy(),

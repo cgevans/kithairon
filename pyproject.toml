@@ -33,6 +33,7 @@ dependencies = [
     "rich >= 13",
     "xdg_base_dirs",
     "networkx >= 3.2",
+    "seaborn >= 0.13",
 ]
 
 [tool.ruff]
@@ -78,12 +79,6 @@ Documentation = "https://kithairon.readthedocs.io/en/latest/"
 
 
 [project.optional-dependencies]
-graphics = [
-    "seaborn >= 0.13",
-]
-all = [
-    "kithairon[graphics]",
-]
 testing = [
     "kithairon[all]",
     "pytest ~= 7.4",
@@ -112,3 +107,7 @@ where = ["src"]
 addopts = "--cov kithairon --cov-report term-missing --verbose"
 norecursedirs = ["dist", "build", ".tox"]
 testpaths = ["tests"]
+
+[tool.mypy]
+allow_redefinition = true
+strict = true

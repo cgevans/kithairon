@@ -63,7 +63,7 @@ extensions = [
 ]
 
 __version__ = get_distribution("kithairon").version
-...  # I use __version__ to define Sphinx variables
+# I use __version__ to define Sphinx variables
 
 
 # -- Project information -----------------------------------------------------

@@ -3,7 +3,7 @@
 import os
 from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, Annotated, cast
+from typing import TYPE_CHECKING, Annotated, Any, cast
 
 try:
     from typing import Self
@@ -154,7 +154,7 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
         self,
         path: os.PathLike[str] | str | Callable[[Self], str],
         path_str_format: bool = True,
-        **kwargs,
+        **kwargs: dict[str, Any],
     ) -> str | os.PathLike[str]:
         """Write a platesurvey XML file.
 

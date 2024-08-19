@@ -4,7 +4,7 @@ import logging
 import os
 import typing
 from pathlib import Path
-from typing import cast
+from typing import Any, Self, cast
 
 import polars as pl
 import xdg_base_dirs
@@ -123,13 +123,25 @@ class _PlateInfoELWDest(PlateInfo):
     def usage(self) -> str:
         return "DEST"
 
+    @usage.setter
+    def usage(self, value: str) -> None:
+        raise ValueError("Cannot set usage in ELW (ELWX-specific)")
+
     @property
     def well_length(self) -> int:
-        return self.wellwidth
+        return self.well_width
+
+    @well_length.setter
+    def well_length(self, value: str) -> None:
+        raise ValueError("Cannot set well_length in ELW (ELWX-specific)")
 
     @property
     def plate_format(self) -> str:
         return "UNKNOWN"
+
+    @plate_format.setter
+    def plate_format(self, value: str) -> None:
+        raise ValueError("Cannot set plate_format in ELW (ELWX-specific)")
 
 
 class _PlateInfoELWSrc(PlateInfo):
@@ -137,13 +149,25 @@ class _PlateInfoELWSrc(PlateInfo):
     def usage(self) -> str:
         return "SRC"
 
+    @usage.setter
+    def usage(self, value: str) -> None:
+        raise ValueError("Cannot set usage in ELW (ELWX-specific)")
+
     @property
     def well_length(self) -> int:
-        return self.wellwidth
+        return self.well_width
+
+    @well_length.setter
+    def well_length(self, value: str) -> None:
+        raise ValueError("Cannot set well_length in ELW (ELWX-specific)")
 
     @property
     def plate_format(self) -> str:
         return "UNKNOWN"
+
+    @plate_format.setter
+    def plate_format(self, value: str) -> None:
+        raise ValueError("Cannot set plate_format in ELW (ELWX-specific)")
 
 
 class _SourcePlateListELWX(BaseXmlModel, tag="sourceplates"):
@@ -181,14 +205,14 @@ class Labware:
         self._plates = plates
 
     @classmethod
-    def from_raw(cls, raw: EchoLabwareELWX | EchoLabwareELW):
+    def from_raw(cls, raw: EchoLabwareELWX | EchoLabwareELW) -> Self:
         return cls(
             cast(list[PlateInfo], raw.source_plates.plates)
             + cast(list[PlateInfo], raw.destination_plates.plates)
         )
 
     @classmethod
-    def from_file(cls, path: str | os.PathLike[str]) -> "Labware":
+    def from_file(cls, path: str | os.PathLike[str]) -> Self:
         with Path(path).open("rb") as p:
             xml_string = p.read()
         try:
@@ -196,7 +220,7 @@ class Labware:
         except Exception:
             return cls.from_raw(EchoLabwareELW.from_xml(xml_string))
 
-    def to_file(self, path: str | os.PathLike[str], **kwargs):
+    def to_file(self, path: str | os.PathLike[str], **kwargs: dict[str, Any]) -> None:
         """Write an ELWX labware file.
 
         Parameters
@@ -214,7 +238,7 @@ class Labware:
                 with path.open("wb") as f:
                     f.write(xml_string)
 
-    def to_xml(self, **kwargs) -> str | bytes:
+    def to_xml(self, **kwargs: dict[str, Any]) -> str | bytes:
         """Generate an ELWX XML string.
 
         Parameters
@@ -242,21 +266,21 @@ class Labware:
             ),
         )
 
-    def __getitem__(self, plate_type: str):
+    def __getitem__(self, plate_type: str) -> PlateInfo:
         for plate in self._plates:
             if plate.plate_type == plate_type:
                 return plate
         raise KeyError(plate_type)
 
-    def keys(self):
+    def keys(self) -> list[str]:
         return [plate.plate_type for plate in self._plates]
 
-    def add(self, plate: PlateInfo):
+    def add(self, plate: PlateInfo) -> None:
         if plate.plate_type in self.keys():
             raise KeyError(f"Plate of type {plate.plate_type} already exists.")
         self._plates.append(plate)
 
-    def make_default(self):
+    def make_default(self) -> None:
         global DEFAULT_LABWARE  # noqa
         DEFAULT_LABWARE = self
         p = _DEFAULT_LABWARE_PATH.parent

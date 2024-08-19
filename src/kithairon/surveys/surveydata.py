@@ -326,7 +326,7 @@ class SurveyData:
             surveys = surveys.filter(sel)
         timestamps = surveys.get_column("timestamp")
 
-        used_axes: "list[Axes]" = []
+        used_axes: list[Axes] = []
         if axs is None:
             axs = [None] * len(timestamps)
         elif not isinstance(axs, Iterable):
