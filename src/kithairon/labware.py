@@ -4,7 +4,8 @@ import logging
 import os
 import typing
 from pathlib import Path
-from typing import Any, Self, cast
+from typing import Any, cast
+from typing_extensions import Self
 
 import polars as pl
 import xdg_base_dirs

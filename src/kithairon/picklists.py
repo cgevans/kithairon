@@ -2,7 +2,8 @@
 
 import logging
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal, Self
+from typing import TYPE_CHECKING, Any, Literal
+from typing_extensions import Self
 
 import networkx as nx
 import networkx.algorithms.approximation as nxaa
