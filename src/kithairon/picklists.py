@@ -3,17 +3,17 @@
 import logging
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal
-from typing_extensions import Self
 
 import networkx as nx
 import networkx.algorithms.approximation as nxaa
 import polars as pl
 import rich
 from polars import LazyFrame
+from typing_extensions import Self
 
 from kithairon.surveys.surveydata import SurveyData
 
-from .labware import _CONSISTENT_COLS, Labware, get_default_labware
+from .labware import Labware, get_default_labware
 
 
 def _rotate_cycle(ln: Sequence[Any], elem: Any) -> Sequence[Any]:
@@ -202,7 +202,7 @@ class PickList:
 
     def _dest_plate_type_per_name(self) -> pl.DataFrame:
         # FIXME: havinge multiple consistent plate types is not an error
-        df = (
+        plate_types = (
             self.data.lazy()
             .group_by("Destination Plate Name")
             .agg(pl.col("Destination Plate Type").unique().alias("plate_types"))
@@ -211,18 +211,18 @@ class PickList:
             .collect()
         )
 
-        n = df.filter(pl.col("n_plate_types") > 1)
+        n = plate_types.filter(pl.col("n_plate_types") > 1)
         if len(n) > 0:
             logger.error("Plate Name appears with multiple Plate Types: %r", n)
             raise ValueError("Plate Name appears with multiple Plate Types")
-        return df.select(
+        return plate_types.select(
             plate_name=pl.col("Destination Plate Name"),
             plate_type=pl.col("plate_types").list.first(),
         )
 
     def _src_plate_type_per_name(self) -> pl.DataFrame:
         # FIXME: having multiple consistent plate types is not an error
-        df = (
+        plate_types = (
             self.data.lazy()
             .group_by("Source Plate Name")
             .agg(pl.col("Source Plate Type").unique().alias("plate_types"))
@@ -231,11 +231,11 @@ class PickList:
             .collect()
         )
 
-        n = df.filter(pl.col("n_plate_types") > 1)
+        n = plate_types.filter(pl.col("n_plate_types") > 1)
         if len(n) > 0:
             logger.error("Plate Name appears with multiple Plate Types: %r", n)
             raise ValueError("Plate Name appears with multiple Plate Types")
-        return df.select(
+        return plate_types.select(
             plate_name=pl.col("Source Plate Name"),
             plate_type=pl.col("plate_types").list.first(),
         )
@@ -248,10 +248,10 @@ class PickList:
             )
         ).unique(maintain_order=True)
 
-    def validate(
+    def validate(  # noqa: PLR0912, PLR0915
         self,
-        labware: Labware | None = None,
         surveys: SurveyData | None = None,
+        labware: Labware | None = None,
         raise_on: Literal[False, True, "warning", "error"] = "error",
     ) -> tuple[list[str], list[str]]:
         """Check the picklist for errors and potential problems."""
@@ -310,10 +310,10 @@ class PickList:
 
         # TODO: add check that plates used for both source and dest have consistent
         # plate types.
-        all_plate_info = dest_plate_info.vstack(src_plate_info)
-        nu = all_plate_info.group_by("plate_name").agg(
-            [pl.col(x).n_unique() for x in _CONSISTENT_COLS]
-        )
+        # all_plate_info = dest_plate_info.vstack(src_plate_info)
+        # nu = all_plate_info.group_by("plate_name").agg(
+        #     [pl.col(x).n_unique() for x in _CONSISTENT_COLS]
+        # )
 
         p_with_lb = (
             self.data.lazy()
@@ -353,9 +353,9 @@ class PickList:
             c = nx.find_cycle(g)
             add_warning(f"Well transfer multigraph has a cycle: {c}")
 
-        a = list(enumerate(nx.topological_generations(g)))
+        a = enumerate(nx.topological_generations(g))
 
-        topogen = sum(([x[0]] * len(x[1]) for x in a), [])
+        topogen = sum(([x[0]] * len(x[1]) for x in a), [])  # noqa: RUF017
         plate = [y[0] for x in a for y in x[1]]
         well = [y[1] for x in a for y in x[1]]
 
@@ -425,8 +425,8 @@ class PickList:
                 )
             ).collect()
 
-            source_ever = change_data.select((pl.col.use == "source").any())[0, 0]
-            dest_ever = change_data.select((pl.col.use == "dest").any())[0, 0]
+            # source_ever = change_data.select((pl.col.use == "source").any())[0, 0]
+            # dest_ever = change_data.select((pl.col.use == "dest").any())[0, 0]
 
             source_first = change_data.select((pl.col.use == "source").first())[0, 0]
 
@@ -757,4 +757,24 @@ class PickList:
                 ],
                 how="left",
             ).sort(["segment_index", "well_well_index"])
+        )
+
+    def non_intermediate_transfers(self):
+        return self.filter(
+            pl.struct("Source Plate Name", "Source Well")
+            .struct.rename_fields(["Plate", "Well"])
+            .alias("Source")
+            .is_in(
+                pl.struct("Destination Plate Name", "Destination Well")
+                .struct.rename_fields(["Plate", "Well"])
+                .alias("Dest")
+            )
+            .not_()
+        )
+
+    def non_intermediate_source_plate_names(self):
+        return (
+            self.non_intermediate_transfers()
+            .data.get_column("Source Plate Name")
+            .unique()
         )

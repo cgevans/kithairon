@@ -659,8 +659,7 @@ class SurveyData:
                 )
         try:
             return self.__class__(pl.concat(datas))
-        except pl.ShapeError as e:
-            logger.warning("Shape mismatch: %s", e)
+        except pl.ShapeError as _:
             return self.__class__(pl.concat(datas, how="diagonal"))
 
     def __add__(self, other: Self | Iterable[Self]) -> Self:
