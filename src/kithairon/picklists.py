@@ -464,7 +464,7 @@ class PickList:
                 (pl.col.use == "source") & (pl.col.volume_before > pl.col.max_well_vol)
             )
             for row in above_max.iter_rows(named=True):
-                tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} → {Destination Plate Name} {Destination Well}".format(
+                tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} ({Sample Name}) → {Destination Plate Name} {Destination Well} ({Destination Sample Name})".format(
                     **row
                 )
                 add_warning(
@@ -477,7 +477,7 @@ class PickList:
             for row in change_data.filter(
                 pl.col.use == "source", -pl.col.volume_change > pl.col.max_vol_total
             ).iter_rows(named=True):
-                tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} → {Destination Plate Name} {Destination Well}".format(
+                tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} ({Sample Name}) → {Destination Plate Name} {Destination Well} ({Destination Sample Name})".format(
                     **row
                 )
                 add_warning(
@@ -492,7 +492,7 @@ class PickList:
                 for row in change_data.filter(
                     pl.col.use == "source", pl.col.volume_after < pl.col.min_well_vol
                 ).iter_rows(named=True):
-                    tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} → {Destination Plate Name} {Destination Well}".format(
+                    tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} ({Sample Name}) → {Destination Plate Name} {Destination Well} ({Destination Sample Name})".format(
                         **row
                     )
                     add_warning(
@@ -506,7 +506,7 @@ class PickList:
                     pl.col.use == "source",
                     pl.col.volume_before < (pl.col.min_well_vol - pl.col.max_well_vol),
                 ).iter_rows(named=True):
-                    tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} → {Destination Plate Name} {Destination Well}".format(
+                    tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} ({Sample Name}) → {Destination Plate Name} {Destination Well} ({Destination Sample Name})".format(
                         **row
                     )
                     add_warning(
