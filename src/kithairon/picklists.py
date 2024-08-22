@@ -353,7 +353,7 @@ class PickList:
             c = nx.find_cycle(g)
             add_warning(f"Well transfer multigraph has a cycle: {c}")
 
-        a = enumerate(nx.topological_generations(g))
+        a = list(enumerate(nx.topological_generations(g)))
 
         topogen = sum(([x[0]] * len(x[1]) for x in a), [])  # noqa: RUF017
         plate = [y[0] for x in a for y in x[1]]
