@@ -668,8 +668,72 @@ class PickList:
         ).collect()
 
     def optimize_well_transfer_order(
-        self: "PickList", labware: Labware | None = None
+        self, labware: Labware | None = None, method: Literal["quick", "slow"] = "quick"
     ) -> "PickList":
+        if method == "quick":
+            return self._optimize_well_transfer_order_quick()
+        else:
+            return self._optimize_well_transfer_order_full()
+
+    def _optimize_well_transfer_order_quick(self) -> Self:
+        p = (
+            self.with_columns(
+                [
+                    pl.col("Source Well")
+                    .str.slice(0, 1)
+                    .alias("source_row")
+                    .cast(pl.Binary)
+                    .cast(pl.List(pl.UInt8))
+                    .list.first()
+                    - 65,
+                    pl.col("Source Well")
+                    .str.slice(1, None)
+                    .str.to_integer()
+                    .alias("source_col")
+                    .alias("source_col"),
+                    pl.col("Destination Well")
+                    .str.slice(0, 1)
+                    .alias("dest_row")
+                    .cast(pl.Binary)
+                    .cast(pl.List(pl.UInt8))
+                    .list.first()
+                    - 65,
+                    pl.col("Destination Well")
+                    .str.slice(1, None)
+                    .str.to_integer()
+                    .alias("dest_col"),
+                ]
+            )
+            .with_segment_index()
+            .select(
+                pl.all()
+                .sort_by(
+                    [
+                        pl.col("source_row"),
+                        pl.when(pl.col("source_row") % 2 == 0)
+                        .then(pl.col("source_col"))
+                        .otherwise(-pl.col("source_col")),
+                        pl.col("dest_row"),
+                        pl.when(pl.col("dest_row") % 2 == 0)
+                        .then(pl.col("dest_col"))
+                        .otherwise(-pl.col("dest_col")),
+                    ]
+                )
+                .over(["segment_index"])
+            )
+        )
+
+        p = PickList(
+            p.data.drop(
+                ["source_row", "source_col", "dest_row", "dest_col", "segment_index"]
+            )
+        )
+
+        return p
+
+    def _optimize_well_transfer_order_full(
+        self, labware: Labware | None = None
+    ) -> Self:
         orders = []
 
         if labware is None:
@@ -777,4 +841,20 @@ class PickList:
             self.non_intermediate_transfers()
             .data.get_column("Source Plate Name")
             .unique()
+        )
+
+    def with_segment_index(self):
+        return self.with_columns(
+            segment_index=(
+                (
+                    pl.col("Source Plate Name").ne_missing(
+                        pl.col("Source Plate Name").shift()
+                    )
+                )
+                | (
+                    pl.col("Destination Plate Name").ne_missing(
+                        pl.col("Destination Plate Name").shift()
+                    )
+                )
+            ).cum_sum()
         )
