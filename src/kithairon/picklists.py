@@ -345,6 +345,17 @@ class PickList:
                 f"Transfer volumes are not multiples of drop volume: {wrongvolume}"
             )
 
+        zerovolume = (
+            p_with_lb.with_columns(
+                tx_mod=(pl.col("Transfer Volume") % pl.col("drop_volume"))
+            )
+            .filter(pl.col("Transfer Volume") == 0)
+            .collect()
+        )
+
+        if len(zerovolume) > 0:
+            add_error(f"Transfer volumes are zero: {zerovolume}")
+
         import networkx as nx
 
         g = self.well_transfer_multigraph()
