@@ -851,7 +851,7 @@ class PickList:
         return (
             self.non_intermediate_transfers()
             .data.get_column("Source Plate Name")
-            .unique()
+            .unique(maintain_order=True)
         )
 
     def with_segment_index(self):
