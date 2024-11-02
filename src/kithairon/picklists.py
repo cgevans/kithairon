@@ -106,7 +106,7 @@ class PickList:
 
     @classmethod
     def concat(cls, picklists: Sequence["PickList"]) -> "PickList":
-        return cls(pl.concat(p.data for p in picklists))
+        return cls(pl.concat((p.data for p in picklists), how="diagonal"))
 
     def select(self, *args, **kwargs) -> "PickList":
         return self.__class__(self.data.select(*args, **kwargs))
