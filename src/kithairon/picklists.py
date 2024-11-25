@@ -403,6 +403,22 @@ class PickList:
 
         dwi = self.data.lazy().with_row_index()
 
+        # Check that each well has only one sample name
+        if "Destination Sample Name" in self.data.columns:
+            u = pl.col("Destination Sample Name").unique()
+            sample_names = self.data.group_by(
+                ["Destination Plate Name", "Destination Well"], maintain_order=True
+            ).agg(u.alias("sample_names"), u.len().alias("n_sample_names"))
+            del u
+
+            errs = sample_names.filter(pl.col("n_sample_names") > 1)
+            if not errs.is_empty():
+                errstring = ", ".join(
+                    f"{r['Destination Plate Name']} {r['Destination Well']}: {r['sample_names']}"
+                    for r in errs.iter_rows(named=True)
+                )
+                add_error(f"Multiple sample names found in well(s): {errstring}")
+
         for p in self.all_plate_names():
             change_data = (
                 dwi.filter(
