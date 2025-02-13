@@ -37,7 +37,7 @@ dependencies = [
 ]
 
 [tool.ruff]
-target-version = "py38"
+target-version = "py311"
 
 # Same as Black.
 line-length = 88

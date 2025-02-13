@@ -1,10 +1,20 @@
 import io
 import json
 import re
+from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 import numpy as np
 import polars as pl
+import xdg_base_dirs
+
+
+def get_local_store_path() -> Path:
+    p = xdg_base_dirs.xdg_data_home() / "kithairon" / "local_store"
+    if not p.exists():
+        p.mkdir(parents=True)
+    return p
+
 
 if TYPE_CHECKING:  # pragma: no cover
     from matplotlib.axes import Axes
