@@ -2,14 +2,13 @@
 
 import logging
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Literal
+from typing import TYPE_CHECKING, Any, Literal, Self
 
 import networkx as nx
 import networkx.algorithms.approximation as nxaa
 import polars as pl
 import rich
 from polars import LazyFrame
-from typing_extensions import Self
 
 from kithairon.surveys.surveydata import SurveyData
 
@@ -537,7 +536,7 @@ class PickList:
                         **row
                     )
                     add_warning(
-                        "Net transfers for {Source Plate Name} {plate_well} (no survey) go below min_well_vol-max_well_vol ({volume_before} nL < {max_def} nL) {tx}".format(
+                        "Net transfers for {Source Plate Name} {plate_well} (no survey) go below min_well_vol-max_well_vol ({volume_before} nL) {tx}".format(
                             tx=tx, **row
                         )
                     )

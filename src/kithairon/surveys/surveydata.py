@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING, Any, BinaryIO, TypedDict, cast
 try:
     from typing import Self
 except ImportError:
-    from typing_extensions import Self
+    from typing import Self
 
 import logging
 
@@ -221,6 +221,24 @@ class SurveyData:
             ["timestamp", "plate_name"], maintain_order=True
         ).select(*PER_SURVEY_COLUMNS)
 
+    @property
+    def single_surveys(self) -> list[Self]:
+        """A list of SurveyData instances, for each individual plate survey in the data."""
+        return [self.__class__(x) for _, x in self.group_by(*PER_SURVEY_COLUMNS)]
+
+    @property
+    def latest_single_surveys(self) -> list[Self]:
+        """A list of SurveyData instances, for the latest survey of each plate in the data."""
+        latest_data = (
+            self.data.group_by("plate_name")
+            .agg(pl.all().filter(pl.col("timestamp") == pl.col("timestamp").max()))
+            .explode(pl.all().exclude("plate_name"))
+        )
+        return [
+            self.__class__(group_data)
+            for _, group_data in latest_data.group_by("plate_name")
+        ]
+
     @cached_property
     def is_single_survey(self) -> bool:
         """True if the SurveyData contains a single survey, False otherwise."""
@@ -255,16 +273,17 @@ class SurveyData:
         timestamp: datetime | None = None,
         *,
         full_plate: bool = True,
+        dtype: np.dtype = np.float64,
         fill_value: Any = np.nan,
     ) -> np.ndarray:
         if timestamp is None:
             timestamp = self.timestamp
         survey = self._get_single_survey(timestamp)
         if full_plate:
-            array = np.full(survey.plate_shape, fill_value)
+            array = np.full(survey.plate_shape, fill_value, dtype=dtype)
             ro, co = 0, 0
         else:
-            array = np.full(survey.survey_shape, fill_value)
+            array = np.full(survey.survey_shape, fill_value, dtype=dtype)
             ro, co = survey.survey_offset
         if isinstance(value_selector, str):
             value_selector = pl.col(value_selector)
