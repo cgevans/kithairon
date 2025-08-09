@@ -33,16 +33,14 @@ jobs:
       wheel-distribution: ${{ steps.wheel-distribution.outputs.path }}
     steps:
       - uses: actions/checkout@v4
-        with: {fetch-depth: 0}  # deep clone for setuptools-scm
       - uses: actions/setup-python@v5
         id: setup-python
-        with: {python-version: "3.11"}
-      # - name: Run static analysis and format checkers
-      #   run: pipx run pre-commit run --all-files --show-diff-on-failure
+        with: {python-version: "3.13"}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
       - name: Build package distribution files
         run: >-
-          pipx run --python '${{ steps.setup-python.outputs.python-path }}'
-          tox -e clean,build
+          uv build
       - name: Record the path of wheel distribution
         id: wheel-distribution
         run: echo "path=$(ls dist/*.whl)" >> $GITHUB_OUTPUT
@@ -74,14 +72,16 @@ jobs:
         id: setup-python
         with:
           python-version: ${{ matrix.python }}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
       - name: Retrieve pre-built distribution files
         uses: actions/download-artifact@v4
         with: {name: python-distribution-files, path: dist/}
       - name: Run tests
         run: >-
-          pipx run --python '${{ steps.setup-python.outputs.python-path }}'
-          tox --installpkg '${{ needs.prepare.outputs.wheel-distribution }}'
-          -- -rFEx --durations 10 --color yes --cov-report=lcov # pytest args
+          uv run --group testing pytest -rFEx --durations 10 --color yes --cov-report=lcov # pytest args
+      - name: Run static analysis and format checkers
+        run: uv run --group testing pre-commit run --all-files --show-diff-on-failure
       - name: Upload partial coverage report
         uses: coverallsapp/github-action@master
         with:
