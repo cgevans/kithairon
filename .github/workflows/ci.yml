@@ -81,7 +81,7 @@ jobs:
         run: >-
           uv run --group testing pytest -rFEx --durations 10 --color yes --cov-report=lcov # pytest args
       - name: Run static analysis and format checkers
-        run: uv run --group testing pre-commit run --all-files --show-diff-on-failure
+        run: uv run --group testing --with pre-commit pre-commit run --all-files --show-diff-on-failure
       - name: Upload partial coverage report
         uses: coverallsapp/github-action@master
         with:
