@@ -224,7 +224,7 @@ class SurveyData:
     @property
     def single_surveys(self) -> list[Self]:
         """A list of SurveyData instances, for each individual plate survey in the data."""
-        return [self.__class__(x) for _, x in self.group_by(*PER_SURVEY_COLUMNS)]
+        return [self.__class__(x) for _, x in self.data.group_by(*PER_SURVEY_COLUMNS)]
 
     @property
     def latest_single_surveys(self) -> list[Self]:
@@ -605,7 +605,7 @@ class SurveyData:
             elif path_str_format and hasattr(paths, "format"):
                 path = paths.format(ps.model_dump(exclude=["wells"]))  # type: ignore
             else:
-                path = cast(str, paths)
+                path = cast("str", paths)
 
             if path in usedpaths:
                 raise ValueError(f"Duplicate path {path}")

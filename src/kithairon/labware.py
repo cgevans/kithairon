@@ -4,8 +4,7 @@ import logging
 import os
 import typing
 from pathlib import Path
-from typing import Any, cast
-from typing_extensions import Self
+from typing import Any, Self, cast
 
 import polars as pl
 import xdg_base_dirs
@@ -110,7 +109,7 @@ class PlateInfo(BaseXmlModel, tag="plateinfo"):
 
 _PLATE_INFO_SCHEMA = {
     k: cast(
-        type,
+        "type",
         v.annotation
         if not (type_union := typing.get_args(v.annotation))
         else type_union[0],
@@ -125,7 +124,7 @@ class _PlateInfoELWDest(PlateInfo):
         return "DEST"
 
     @usage.setter
-    def usage(self, value: str) -> None:
+    def usage(self, _value: str) -> None:
         raise ValueError("Cannot set usage in ELW (ELWX-specific)")
 
     @property
@@ -208,8 +207,8 @@ class Labware:
     @classmethod
     def from_raw(cls, raw: EchoLabwareELWX | EchoLabwareELW) -> Self:
         return cls(
-            cast(list[PlateInfo], raw.source_plates.plates)
-            + cast(list[PlateInfo], raw.destination_plates.plates)
+            cast("list[PlateInfo]", raw.source_plates.plates)
+            + cast("list[PlateInfo]", raw.destination_plates.plates)
         )
 
     @classmethod

@@ -1,16 +1,10 @@
 """Model for platesurvey XML file format."""
 
+import logging
 import os
 from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, Annotated, Any, cast
-
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
-
-import logging
+from typing import TYPE_CHECKING, Annotated, Any, Self, cast
 
 import lxml.etree as ET
 import polars as pl

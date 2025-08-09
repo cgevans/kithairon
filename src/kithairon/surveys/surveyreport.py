@@ -1,16 +1,10 @@
 """Echo survey report format."""
 
+import logging
 import os
 from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, cast
-
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
-
-import logging
+from typing import TYPE_CHECKING, Self, cast
 
 from lxml import etree as ET
 from pydantic import model_validator
@@ -195,7 +189,10 @@ class EchoSurveyReport(BaseXmlModel, tag="report"):
                 for r in self.reportbody.records
             ]
         ).with_columns(
-            pl.col("well").str.slice(0, 1).replace(ROW_NUMBER_DICT, default=None).alias("row"),
+            pl.col("well")
+            .str.slice(0, 1)
+            .replace(ROW_NUMBER_DICT, default=None)
+            .alias("row"),
             (pl.col("well").str.slice(1).cast(pl.Int32) - 1).alias("column"),
             **const_columns,
         )
@@ -222,7 +219,7 @@ class EchoSurveyReport(BaseXmlModel, tag="report"):
     ) -> str | os.PathLike[str]:
         """Write a platesurvey XML file."""
         if hasattr(path, "format") and path_str_format:
-            path = cast(str, path).format(self.model_dump(exclude=["wells"]))  # type: ignore
+            path = cast("str", path).format(self.model_dump(exclude=["wells"]))  # type: ignore
         elif isinstance(path, Callable):
             path = path(self)
         ET.ElementTree(self.to_xml_tree()).write(path, **kwargs)

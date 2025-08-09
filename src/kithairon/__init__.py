@@ -9,4 +9,4 @@ from .surveys import SurveyData
 if importlib.util.find_spec("kithairon_extra"):
     from kithairon_extra import *  # noqa
 
-__all__ = ["SurveyData", "PickList", "Labware", "PlateInfo"]
+__all__ = ["Labware", "PickList", "PlateInfo", "SurveyData"]

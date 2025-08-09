@@ -1,7 +1,8 @@
 """Echo PickList support (Kithairon-extended)."""
 
+from __future__ import annotations
+
 import logging
-from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Literal, Self
 
 import networkx as nx
@@ -14,8 +15,11 @@ from kithairon.surveys.surveydata import SurveyData
 
 from .labware import Labware, get_default_labware
 
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
-def _rotate_cycle(ln: Sequence[Any], elem: Any) -> Sequence[Any]:
+
+def _rotate_cycle(ln: Sequence[Any], elem: Any) -> Sequence[Any]:  # type: ignore
     i = ln.index(elem)
     assert ln[0] == ln[-1]
     if i == 0:
@@ -104,19 +108,19 @@ class PickList:
         self.data = df
 
     @classmethod
-    def concat(cls, picklists: Sequence["PickList"]) -> "PickList":
+    def concat(cls, picklists: Sequence[PickList]) -> PickList:
         return cls(pl.concat((p.data for p in picklists), how="diagonal"))
 
-    def select(self, *args, **kwargs) -> "PickList":
+    def select(self, *args, **kwargs) -> PickList:
         return self.__class__(self.data.select(*args, **kwargs))
 
-    def filter(self, *args, **kwargs) -> "PickList":
+    def filter(self, *args, **kwargs) -> PickList:
         return self.__class__(self.data.filter(*args, **kwargs))
 
-    def with_columns(self, *args, **kwargs) -> "PickList":
+    def with_columns(self, *args, **kwargs) -> PickList:
         return self.__class__(self.data.with_columns(*args, **kwargs))
 
-    def join(self, *args, **kwargs) -> "PickList":
+    def join(self, *args, **kwargs) -> PickList:
         return self.__class__(self.data.join(*args, **kwargs))
 
     def __repr__(self):
@@ -125,16 +129,16 @@ class PickList:
     def __str__(self):
         return str(self.data)
 
-    def __add__(self, other: "PickList") -> "PickList":
+    def __add__(self, other: PickList) -> PickList:
         return self.__class__(pl.concat([self.data, other.data], how="diagonal"))
 
-    def _repr_html_(self) -> Self:
+    def _repr_html_(self) -> str:
         return self.data._repr_html_()
 
     def to_polars(self) -> pl.DataFrame:
         return self.data
 
-    def to_pandas(self) -> "pd.DataFrame":
+    def to_pandas(self) -> pd.DataFrame:
         return self.data.to_pandas()
 
     @classmethod
@@ -151,7 +155,7 @@ class PickList:
             pl.col("Transfer Volume").sum().alias("total_volume")
         )
 
-    def plate_transfer_graph(self) -> "DiGraph":
+    def plate_transfer_graph(self) -> DiGraph:
         """Generate graph of plate usage (source plate -> destination plate)."""
         from networkx import DiGraph, is_directed_acyclic_graph
 
@@ -176,7 +180,7 @@ class PickList:
 
         return G
 
-    def well_transfer_multigraph(self) -> "MultiDiGraph":
+    def well_transfer_multigraph(self) -> MultiDiGraph:
         """Generate a multigraph of each transfer."""
         from networkx import MultiDiGraph, is_directed_acyclic_graph
 
@@ -695,7 +699,7 @@ class PickList:
 
     def optimize_well_transfer_order(
         self, labware: Labware | None = None, method: Literal["quick", "slow"] = "quick"
-    ) -> "PickList":
+    ) -> PickList:
         if method == "quick":
             return self._optimize_well_transfer_order_quick()
         else:
