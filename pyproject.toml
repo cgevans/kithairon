@@ -6,6 +6,7 @@ build-backend = "uv_build"
 name = "kithairon"
 readme = "README.md"
 version = "0.3.0.dev1"
+requires-python = ">=3.11"
 description = "A library for the Echo liquid handler."
 authors = [{ name = "Constantine Evans", email = "const@costi.net" }]
 license = { file = "LICENCE.txt" }
