@@ -1,0 +1,8 @@
+# Enforce LF line endings in working trees on all platforms, so the
+# mixed-line-ending pre-commit hook stays a no-op on Windows CI runners.
+* text=auto eol=lf
+
+# Echo labware files are zip archives even though they carry a .elw/.elwx
+# extension; mark them binary so Git doesn't try to normalize contents.
+*.elw  binary
+*.elwx binary
