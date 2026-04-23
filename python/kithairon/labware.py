@@ -1,296 +1,131 @@
-"""Labware definition file support."""
+"""Labware definition file support.
+
+Thin Python wrapper over the Rust implementation in ``kithairon._native``.
+The XML parsing, round-tripping, and in-memory model live in Rust; this
+module adds the Python-side niceties (`to_polars`, XDG default-labware
+discovery) that would otherwise pull Python-specific deps into the Rust
+crate.
+"""
+
+from __future__ import annotations
 
 import logging
-import os
-import typing
-from pathlib import Path
-from typing import Any, Self, cast
+from typing import TYPE_CHECKING, Any, Self
 
 import polars as pl
 import xdg_base_dirs
-from pydantic_xml import BaseXmlModel, attr
+
+from kithairon._native import Labware as _NativeLabware
+from kithairon._native import PlateInfo
+
+if TYPE_CHECKING:
+    import os
+
+__all__ = ["Labware", "PlateInfo", "get_default_labware"]
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_LABWARE = None
+DEFAULT_LABWARE: Labware | None = None
 
-_CONSISTENT_COLS = [
-    "plate_format",
-    "rows",
-    "cols",
-    "a1_offset_y",
-    "center_spacing_x",
-    "center_spacing_y",
-    "plate_height",
-    "skirt_height",
-    "well_width",
-    "well_length",
-    "well_capacity",
-    "bottom_inset",
-    "center_well_pos_x",
-    "center_well_pos_y",
-    "min_well_vol",
-    "max_well_vol",
-    "max_vol_total",
-    "min_volume",
-    "drop_volume",
-]
-
-
-class PlateInfo(BaseXmlModel, tag="plateinfo"):
-    """Plate type information."""
-
-    plate_type: str = attr(
-        name="platetype",
-    )
-    plate_format: str = attr(
-        name="plateformat",
-    )
-    usage: str = attr(
-        name="usage",
-    )
-    fluid: str | None = attr(name="fluid", default=None)
-    manufacturer: str = attr(
-        name="manufacturer",
-    )
-    lot_number: str = attr(
-        name="lotnumber",
-    )
-    part_number: str = attr(
-        name="partnumber",
-    )
-    rows: int = attr(
-        name="rows",
-    )
-    cols: int = attr(name="cols")  # FIXME
-    a1_offset_y: int = attr(
-        name="a1offsety",
-    )
-    center_spacing_x: int = attr(
-        name="centerspacingx",
-    )
-    center_spacing_y: int = attr(
-        name="centerspacingy",
-    )
-    plate_height: int = attr(
-        name="plateheight",
-    )
-    skirt_height: int = attr(
-        name="skirtheight",
-    )
-    well_width: int = attr(
-        name="wellwidth",
-    )
-    well_length: int = attr(
-        name="welllength",
-    )
-    well_capacity: int = attr(
-        name="wellcapacity",
-    )
-    bottom_inset: float = attr(
-        name="bottominset",
-    )
-    center_well_pos_x: float = attr(
-        name="centerwellposx",
-    )
-    center_well_pos_y: float = attr(
-        name="centerwellposy",
-    )
-    min_well_vol: float | None = attr(name="minwellvol", default=None)
-    max_well_vol: float | None = attr(name="maxwellvol", default=None)
-    max_vol_total: float | None = attr(name="maxvoltotal", default=None)
-    min_volume: float | None = attr(name="minvolume", default=None)
-    drop_volume: float | None = attr(name="dropvolume", default=None)
-
-    @property
-    def shape(self) -> tuple[int, int]:
-        return (self.rows, self.cols)
-
-
-_PLATE_INFO_SCHEMA = {
-    k: cast(
-        "type",
-        v.annotation
-        if not (type_union := typing.get_args(v.annotation))
-        else type_union[0],
-    )
-    for k, v in PlateInfo.model_fields.items()
+_POLARS_SCHEMA = {
+    "plate_type": pl.String,
+    "plate_format": pl.String,
+    "usage": pl.String,
+    "fluid": pl.String,
+    "manufacturer": pl.String,
+    "lot_number": pl.String,
+    "part_number": pl.String,
+    "rows": pl.Int64,
+    "cols": pl.Int64,
+    "a1_offset_y": pl.Int64,
+    "center_spacing_x": pl.Int64,
+    "center_spacing_y": pl.Int64,
+    "plate_height": pl.Int64,
+    "skirt_height": pl.Int64,
+    "well_width": pl.Int64,
+    "well_length": pl.Int64,
+    "well_capacity": pl.Int64,
+    "bottom_inset": pl.Float64,
+    "center_well_pos_x": pl.Float64,
+    "center_well_pos_y": pl.Float64,
+    "min_well_vol": pl.Float64,
+    "max_well_vol": pl.Float64,
+    "max_vol_total": pl.Float64,
+    "min_volume": pl.Float64,
+    "drop_volume": pl.Float64,
 }
 
 
-class _PlateInfoELWDest(PlateInfo):
-    @property
-    def usage(self) -> str:
-        return "DEST"
-
-    @usage.setter
-    def usage(self, _value: str) -> None:
-        raise ValueError("Cannot set usage in ELW (ELWX-specific)")
-
-    @property
-    def well_length(self) -> int:
-        return self.well_width
-
-    @well_length.setter
-    def well_length(self, value: str) -> None:
-        raise ValueError("Cannot set well_length in ELW (ELWX-specific)")
-
-    @property
-    def plate_format(self) -> str:
-        return "UNKNOWN"
-
-    @plate_format.setter
-    def plate_format(self, value: str) -> None:
-        raise ValueError("Cannot set plate_format in ELW (ELWX-specific)")
-
-
-class _PlateInfoELWSrc(PlateInfo):
-    @property
-    def usage(self) -> str:
-        return "SRC"
-
-    @usage.setter
-    def usage(self, value: str) -> None:
-        raise ValueError("Cannot set usage in ELW (ELWX-specific)")
-
-    @property
-    def well_length(self) -> int:
-        return self.well_width
-
-    @well_length.setter
-    def well_length(self, value: str) -> None:
-        raise ValueError("Cannot set well_length in ELW (ELWX-specific)")
-
-    @property
-    def plate_format(self) -> str:
-        return "UNKNOWN"
-
-    @plate_format.setter
-    def plate_format(self, value: str) -> None:
-        raise ValueError("Cannot set plate_format in ELW (ELWX-specific)")
-
-
-class _SourcePlateListELWX(BaseXmlModel, tag="sourceplates"):
-    plates: list[PlateInfo]
-
-
-class _DestinationPlateListELWX(BaseXmlModel, tag="destinationplates"):
-    plates: list[PlateInfo]
-
-
-class _SourcePlateListELW(BaseXmlModel, tag="sourceplates"):
-    plates: list[_PlateInfoELWSrc]
-
-
-class _DestinationPlateListELW(BaseXmlModel, tag="destinationplates"):
-    plates: list[_PlateInfoELWDest]
-
-
-class EchoLabwareELWX(BaseXmlModel, tag="EchoLabware"):
-    source_plates: _SourcePlateListELWX
-    destination_plates: _DestinationPlateListELWX
-
-
-class EchoLabwareELW(BaseXmlModel, tag="EchoLabware"):
-    source_plates: _SourcePlateListELW
-    destination_plates: _DestinationPlateListELW
+def _plate_record(p: PlateInfo) -> dict[str, Any]:
+    return {k: getattr(p, k) for k in _POLARS_SCHEMA}
 
 
 class Labware:
-    """A collection of plate type information."""
+    """A collection of plate-type information."""
 
-    _plates: list[PlateInfo]
+    _inner: _NativeLabware
 
-    def __init__(self, plates: list[PlateInfo]):
-        self._plates = plates
+    def __init__(self, plates: list[PlateInfo] | None = None) -> None:
+        self._inner = _NativeLabware(plates or [])
 
     @classmethod
-    def from_raw(cls, raw: EchoLabwareELWX | EchoLabwareELW) -> Self:
-        return cls(
-            cast("list[PlateInfo]", raw.source_plates.plates)
-            + cast("list[PlateInfo]", raw.destination_plates.plates)
-        )
+    def _from_native(cls, native: _NativeLabware) -> Self:
+        obj = cls.__new__(cls)
+        obj._inner = native
+        return obj
 
     @classmethod
     def from_file(cls, path: str | os.PathLike[str]) -> Self:
-        with Path(path).open("rb") as p:
-            xml_string = p.read()
-        try:
-            return cls.from_raw(EchoLabwareELWX.from_xml(xml_string))
-        except Exception:
-            return cls.from_raw(EchoLabwareELW.from_xml(xml_string))
+        return cls._from_native(_NativeLabware.from_file(str(path)))
 
-    def to_file(self, path: str | os.PathLike[str], **kwargs: dict[str, Any]) -> None:
-        """Write an ELWX labware file.
+    @classmethod
+    def from_xml_str(cls, xml: str) -> Self:
+        return cls._from_native(_NativeLabware.from_xml_str(xml))
 
-        Parameters
-        ----------
-        path : str | os.PathLike[str]
-            path to write to
-        """
-        xml_string = self.to_xml(**kwargs)
-        path = Path(path)
-        match xml_string:
-            case str():
-                with path.open("w") as f:
-                    f.write(xml_string)
-            case bytes():
-                with path.open("wb") as f:
-                    f.write(xml_string)
+    def to_file(self, path: str | os.PathLike[str]) -> None:
+        self._inner.to_file(str(path))
 
-    def to_xml(self, **kwargs: dict[str, Any]) -> str | bytes:
-        """Generate an ELWX XML string.
+    def to_xml(self) -> str:
+        return self._inner.to_elwx_string()
 
-        Parameters
-        ----------
-        **kwargs
-            passed to pydantic_xml.BaseXmlModel.to_xml
-
-        Returns
-        -------
-        str | bytes
-            XML string
-        """
-        return self.to_elwx().to_xml(**({"skip_empty": True} | kwargs))
+    def to_elwx_string(self) -> str:
+        return self._inner.to_elwx_string()
 
     def to_polars(self) -> pl.DataFrame:
-        return pl.from_records(self._plates, schema=_PLATE_INFO_SCHEMA)
+        records = [_plate_record(p) for p in self._inner.plates()]
+        return pl.DataFrame(records, schema=_POLARS_SCHEMA)
 
-    def to_elwx(self) -> EchoLabwareELWX:
-        return EchoLabwareELWX(
-            source_plates=_SourcePlateListELWX(
-                plates=[plate for plate in self._plates if plate.usage == "SRC"]
-            ),
-            destination_plates=_DestinationPlateListELWX(
-                plates=[plate for plate in self._plates if plate.usage == "DEST"]
-            ),
-        )
-
-    def __getitem__(self, plate_type: str) -> PlateInfo:
-        for plate in self._plates:
-            if plate.plate_type == plate_type:
-                return plate
-        raise KeyError(plate_type)
+    def plates(self) -> list[PlateInfo]:
+        return self._inner.plates()
 
     def keys(self) -> list[str]:
-        return [plate.plate_type for plate in self._plates]
+        return self._inner.keys()
 
     def add(self, plate: PlateInfo) -> None:
-        if plate.plate_type in self.keys():
-            raise KeyError(f"Plate of type {plate.plate_type} already exists.")
-        self._plates.append(plate)
+        self._inner.add(plate)
+
+    def __getitem__(self, plate_type: str) -> PlateInfo:
+        try:
+            return self._inner[plate_type]
+        except IndexError as e:
+            raise KeyError(plate_type) from e
+
+    def __contains__(self, plate_type: str) -> bool:
+        return plate_type in self._inner
+
+    def __len__(self) -> int:
+        return len(self._inner)
+
+    def __repr__(self) -> str:
+        return repr(self._inner)
 
     def make_default(self) -> None:
-        global DEFAULT_LABWARE  # noqa
+        global DEFAULT_LABWARE  # noqa: PLW0603
         DEFAULT_LABWARE = self
         p = _DEFAULT_LABWARE_PATH.parent
         if not p.exists():
             p.mkdir(parents=True)
-        x = self.to_xml()
-        with _DEFAULT_LABWARE_PATH.open(
-            "wb",
-        ) as f:
-            f.write(x)
+        self.to_file(_DEFAULT_LABWARE_PATH)
 
 
 _DEFAULT_LABWARE_PATH = xdg_base_dirs.xdg_data_home() / "kithairon" / "labware.elwx"
