@@ -12,6 +12,7 @@ import rich
 from polars import LazyFrame
 
 from kithairon import _native
+from kithairon._util import well_to_tuple as well_to_tuple  # re-export
 
 from .labware import Labware, get_default_labware
 
@@ -44,11 +45,6 @@ def _dest_motion_distance(
     vec = (dwsx * (dp1[1] - dp2[1]) - off[0], dwsy * (dp2[0] - dp1[0]) - off[1])
     # return (vec[0] ** 2 + vec[1] ** 2) ** 0.5
     return abs(vec[0]) + abs(vec[1])
-
-
-def well_to_tuple(well: str) -> tuple[int, int]:
-    # (row, column)
-    return (ord(well[0]) - 65, int(well[1:]) - 1)
 
 
 def _dest_motion_distance_by_wells(

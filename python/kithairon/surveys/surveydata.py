@@ -128,8 +128,8 @@ class SurveyData:
         return v[0]
 
     @cached_property
-    def plate_name(self) -> int:
-        """Number of rows in the survey.  Single survey only."""
+    def plate_name(self) -> str:
+        """Plate name attached to the survey.  Single survey only."""
         v = self.data.get_column("plate_name").unique()
         if len(v) != 1:
             raise ValueError(f"Expected exactly one plate name, got {len(v)}: {v}")
@@ -166,9 +166,14 @@ class SurveyData:
         ValueError
             Multiple offsets were returned.
         """
+        # `single survey only` per docstring — one timestamp's worth of
+        # rows. Aggregate to min row / min column directly; the previous
+        # `.over("timestamp")` form was a window expression that produced
+        # one row per well, so the `len(vals) != 1` guard always tripped
+        # on real surveys.
         vals = self.data.select(
-            pl.col("row").over("timestamp").min(),
-            pl.col("column").over("timestamp").min(),
+            pl.col("row").min(),
+            pl.col("column").min(),
         )
         if len(vals) != 1:
             raise ValueError(f"Expected exactly one offset, got {len(vals)}: {vals}")
@@ -551,7 +556,7 @@ class SurveyData:
             if path in usedpaths:
                 raise ValueError(f"Duplicate path {path}")
             ps.write_xml(path, path_str_format=False)
-            usedpaths = []
+            usedpaths.append(path)
 
     def extend_read_xml(self, path: str | os.PathLike) -> Self:
         """
