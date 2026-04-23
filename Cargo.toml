@@ -21,4 +21,9 @@ abi3 = ["python", "pyo3/abi3-py311"]
 
 [dependencies]
 thiserror = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+quick-xml = { version = "0.31", features = ["serialize"] }
 pyo3 = { version = "0.28", features = ["extension-module"], optional = true }
+
+[dev-dependencies]
+insta = "1.41"
