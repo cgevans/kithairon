@@ -4,9 +4,9 @@ import logging
 import os
 from collections.abc import Callable
 from datetime import datetime
-from typing import TYPE_CHECKING, Self, cast
+from pathlib import Path
+from typing import TYPE_CHECKING, Any, Self, cast
 
-from lxml import etree as ET
 from pydantic import model_validator
 from pydantic_xml import BaseXmlModel, element
 
@@ -209,18 +209,20 @@ class EchoSurveyReport(BaseXmlModel, tag="report"):
     @classmethod
     def read_xml(cls, path: os.PathLike | str) -> Self:
         """Read a platesurvey XML file."""
-        return cls.from_xml_tree(ET.parse(path, parser=ET.XMLParser()).getroot())
+        return cls.from_xml(Path(path).read_bytes())
 
     def write_xml(
         self,
         path: os.PathLike[str] | str | Callable[[Self], str],
         path_str_format: bool = True,
-        **kwargs,
+        **kwargs: Any,
     ) -> str | os.PathLike[str]:
         """Write a platesurvey XML file."""
         if hasattr(path, "format") and path_str_format:
             path = cast("str", path).format(self.model_dump(exclude=["wells"]))  # type: ignore
         elif isinstance(path, Callable):
             path = path(self)
-        ET.ElementTree(self.to_xml_tree()).write(path, **kwargs)
+        xml = self.to_xml(**kwargs)
+        data = xml if isinstance(xml, bytes) else xml.encode("utf-8")
+        Path(path).write_bytes(data)
         return path

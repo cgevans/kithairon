@@ -4,9 +4,9 @@ import logging
 import os
 from collections.abc import Callable
 from datetime import datetime
+from pathlib import Path
 from typing import TYPE_CHECKING, Annotated, Any, Self, cast
 
-import lxml.etree as ET
 import polars as pl
 from pydantic import BeforeValidator, NonNegativeInt, PlainSerializer, model_validator
 from pydantic_xml import BaseXmlModel, attr
@@ -14,7 +14,6 @@ from pydantic_xml import BaseXmlModel, attr
 if TYPE_CHECKING:
     from .surveydata import SurveyData
 
-_PARSER = ET.XMLParser(resolve_entities=False)
 logger = logging.getLogger(__name__)
 
 Barcode = Annotated[
@@ -142,13 +141,13 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
         -------
         EchoPlateSurveyXML
         """
-        return cls.from_xml_tree(ET.parse(path, parser=_PARSER).getroot())
+        return cls.from_xml(Path(path).read_bytes())
 
     def write_xml(
         self,
         path: os.PathLike[str] | str | Callable[[Self], str],
         path_str_format: bool = True,
-        **kwargs: dict[str, Any],
+        **kwargs: Any,
     ) -> str | os.PathLike[str]:
         """Write a platesurvey XML file.
 
@@ -170,7 +169,9 @@ class EchoPlateSurveyXML(BaseXmlModel, tag="platesurvey"):
             path = cast(str, path).format(self.model_dump(exclude=["wells"]))  # type: ignore
         elif isinstance(path, Callable):
             path = path(self)
-        ET.ElementTree(self.to_xml_tree()).write(path, **kwargs)
+        xml = self.to_xml(**kwargs)
+        data = xml if isinstance(xml, bytes) else xml.encode("utf-8")
+        Path(path).write_bytes(data)
         return path
 
     def _to_polars(self) -> pl.DataFrame:
