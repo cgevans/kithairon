@@ -7,7 +7,7 @@
 
 use chrono::NaiveDateTime;
 use quick_xml::de::from_str;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use crate::LibraryError;
 
@@ -84,12 +84,28 @@ impl PlateSurvey {
         let raw: RawPlateSurvey = from_str(trimmed)?;
         raw.try_into()
     }
+
+    /// Serialize back to the firmware's `<platesurvey>` XML form.
+    ///
+    /// Inverse of [`Self::from_platesurvey_xml`]. The fixture-based test
+    /// `platesurvey_round_trip_*` covers the parse → serialize → parse
+    /// equivalence on a real plate survey emitted by the instrument.
+    /// Per-well timestamps in the original may not reach byte-identical
+    /// because the parser normalises a few quirks (`vl="0"` ↔ `None`),
+    /// but the parsed-data round-trip is exact.
+    pub fn to_platesurvey_xml(&self) -> Result<String, LibraryError> {
+        let raw = RawPlateSurvey::from(self);
+        let mut buf = String::new();
+        let ser = quick_xml::se::Serializer::with_root(&mut buf, Some("platesurvey"))?;
+        raw.serialize(ser)?;
+        Ok(buf)
+    }
 }
 
 // ---------------------------------------------------------------------------
 // XML-binding types.
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename = "platesurvey")]
 struct RawPlateSurvey {
     #[serde(rename = "@name")]
@@ -112,15 +128,15 @@ struct RawPlateSurvey {
     cols: i32,
     #[serde(rename = "@totalWells")]
     total_wells: i32,
-    #[serde(rename = "@plate_name", default)]
+    #[serde(rename = "@plate_name", default, skip_serializing_if = "Option::is_none")]
     plate_name: Option<String>,
-    #[serde(rename = "@note", default)]
+    #[serde(rename = "@note", default, skip_serializing_if = "Option::is_none")]
     note: Option<String>,
     #[serde(rename = "w", default)]
     wells: Vec<RawWell>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct RawWell {
     #[serde(rename = "@r")]
     r: u32,
@@ -162,11 +178,11 @@ struct RawWell {
     o: f64,
     #[serde(rename = "@a")]
     a: String,
-    #[serde(rename = "e", default)]
+    #[serde(rename = "e", default, skip_serializing_if = "Option::is_none")]
     echo_signal: Option<RawEchoSignal>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct RawEchoSignal {
     #[serde(rename = "@t")]
     t: String,
@@ -180,7 +196,7 @@ struct RawEchoSignal {
     features: Vec<RawFeature>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct RawFeature {
     #[serde(rename = "@t")]
     t: String,
@@ -293,6 +309,100 @@ impl From<RawFeature> for SignalFeature {
 }
 
 // ---------------------------------------------------------------------------
+// PlateSurvey → RawPlateSurvey for serialize.
+//
+// Mirrors `RawPlateSurvey → PlateSurvey` field-for-field. Two
+// normalisations are reversed at this boundary so the wire form matches
+// what the firmware emits:
+//
+//   - `Option<volume>` (None means "missing measurement") → `0.0`.
+//   - `Option<plate_barcode>` (None means absent) → `"UnknownBarCode"`.
+//
+// Timestamps reformat to "YYYY-MM-DD HH:MM:SS%.3f" — the same shape
+// `parse_timestamp` accepts.
+
+fn unnull_zero(v: Option<f64>) -> f64 {
+    v.unwrap_or(0.0)
+}
+
+fn format_timestamp(ts: &NaiveDateTime) -> String {
+    ts.format("%Y-%m-%d %H:%M:%S%.3f").to_string()
+}
+
+impl From<&PlateSurvey> for RawPlateSurvey {
+    fn from(p: &PlateSurvey) -> Self {
+        Self {
+            name: p.plate_type.clone(),
+            barcode: p
+                .plate_barcode
+                .clone()
+                .unwrap_or_else(|| "UnknownBarCode".to_string()),
+            date: format_timestamp(&p.timestamp),
+            serial_number: p.instrument_serial_number.clone(),
+            vtl: p.vtl,
+            original: p.original,
+            frmt: p.data_format_version,
+            rows: p.survey_rows,
+            cols: p.survey_columns,
+            total_wells: p.survey_total_wells,
+            plate_name: p.plate_name.clone(),
+            note: p.comment.clone(),
+            wells: p.wells.iter().map(RawWell::from).collect(),
+        }
+    }
+}
+
+impl From<&WellSurvey> for RawWell {
+    fn from(w: &WellSurvey) -> Self {
+        Self {
+            r: w.row,
+            c: w.column,
+            n: w.well.clone(),
+            vl: unnull_zero(w.volume),
+            cvl: unnull_zero(w.current_volume),
+            status: w.status.clone(),
+            fld: w.fluid.clone(),
+            fldu: w.fluid_units.clone(),
+            x: w.meniscus_x,
+            y: w.meniscus_y,
+            s: w.fluid_composition,
+            fsh: w.dmso_homogeneous,
+            fsinh: w.dmso_inhomogeneous,
+            t: w.fluid_thickness,
+            ct: w.current_fluid_thickness,
+            b: w.bottom_thickness,
+            fth: w.fluid_thickness_homogeneous,
+            ftinh: w.fluid_thickness_imhomogeneous,
+            o: w.outlier,
+            a: w.corrective_action.clone(),
+            echo_signal: w.echo_signal.as_ref().map(RawEchoSignal::from),
+        }
+    }
+}
+
+impl From<&EchoSignal> for RawEchoSignal {
+    fn from(s: &EchoSignal) -> Self {
+        Self {
+            t: s.signal_type.clone(),
+            x: s.transducer_x,
+            y: s.transducer_y,
+            z: s.transducer_z,
+            features: s.features.iter().map(RawFeature::from).collect(),
+        }
+    }
+}
+
+impl From<&SignalFeature> for RawFeature {
+    fn from(f: &SignalFeature) -> Self {
+        Self {
+            t: f.feature_type.clone(),
+            o: f.tof,
+            v: f.vpp,
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Tests
 
 #[cfg(test)]
@@ -331,6 +441,45 @@ mod tests {
         assert_eq!(signal.signal_type, "AVG");
         assert_eq!(signal.features.len(), 3);
         assert_eq!(signal.features[0].feature_type, "FW BB");
+    }
+
+    #[test]
+    fn platesurvey_round_trip_preserves_parsed_data() {
+        // Parse → serialize → re-parse: the second parsed value must
+        // equal the first. We don't compare XML strings byte-for-byte
+        // because the parser normalises a few quirks (vl="0" ↔ None).
+        let original = PlateSurvey::from_platesurvey_xml(PLATESURVEY_XML).expect("parse");
+        let serialized = original
+            .to_platesurvey_xml()
+            .expect("serialize");
+        let reparsed = PlateSurvey::from_platesurvey_xml(&serialized).expect("re-parse");
+        assert_eq!(reparsed, original);
+    }
+
+    #[test]
+    fn platesurvey_round_trip_preserves_optional_metadata() {
+        // Drive the Some-for-plate_name/comment/echo_signal branch.
+        let mut ps = PlateSurvey::from_platesurvey_xml(PLATESURVEY_XML).expect("parse");
+        ps.plate_name = Some("source1".into());
+        ps.comment = Some("before".into());
+        ps.plate_barcode = Some("BC-12345".into());
+        let serialized = ps.to_platesurvey_xml().expect("serialize");
+        let reparsed = PlateSurvey::from_platesurvey_xml(&serialized).expect("re-parse");
+        assert_eq!(reparsed.plate_name.as_deref(), Some("source1"));
+        assert_eq!(reparsed.comment.as_deref(), Some("before"));
+        assert_eq!(reparsed.plate_barcode.as_deref(), Some("BC-12345"));
+    }
+
+    #[test]
+    fn platesurvey_round_trip_unknown_barcode_normalises_to_none() {
+        // Round-tripping a survey with no barcode keeps it None on the
+        // Rust side (the wire form puts back "UnknownBarCode").
+        let original = PlateSurvey::from_platesurvey_xml(PLATESURVEY_XML).expect("parse");
+        assert!(original.plate_barcode.is_none());
+        let serialized = original.to_platesurvey_xml().expect("serialize");
+        assert!(serialized.contains(r#"barcode="UnknownBarCode""#));
+        let reparsed = PlateSurvey::from_platesurvey_xml(&serialized).expect("re-parse");
+        assert!(reparsed.plate_barcode.is_none());
     }
 
     #[test]
