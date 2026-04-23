@@ -17,7 +17,6 @@ import logging
 
 import numpy as np
 import polars as pl
-from pydantic_xml import ParsingError
 
 from kithairon._util import (
     PLATE_SHAPE_FROM_SIZE,
@@ -27,14 +26,12 @@ from kithairon._util import (
 )
 
 from .platesurvey import EchoPlateSurveyXML
-from .surveyreport import EchoSurveyReport
 
 logger = logging.getLogger(__name__)
 if TYPE_CHECKING:
     from io import BytesIO
     from pathlib import Path
 
-    from lxml import etree
     from matplotlib.axes import Axes
 
 
@@ -462,34 +459,6 @@ class SurveyData:
         d = pl.DataFrame(records)
         d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
         return cls(d)
-
-    @classmethod
-    def from_xml_tree(cls, xml_tree: "etree._Element") -> Self:
-        """
-        Create a new instance of `SurveyData` from an XML string.
-
-        Parameters
-        ----------
-        xml_tree : lxml.etree._Element
-            The XML tree to parse.
-
-        Returns
-        -------
-        SurveyData
-            A new instance of `SurveyData` created from the parsed XML.
-
-        Raises
-        ------
-        ParsingError
-            If the XML tree cannot be parsed.
-
-        """
-        try:
-            d = EchoPlateSurveyXML.from_xml_tree(xml_tree)._to_polars()
-            d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
-            return cls(d)
-        except ParsingError:
-            return EchoSurveyReport.from_xml_tree(xml_tree).to_surveydata()
 
     @classmethod
     def from_platesurvey(cls, ps: EchoPlateSurveyXML) -> Self:

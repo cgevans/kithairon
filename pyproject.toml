@@ -30,7 +30,6 @@ dependencies = [
     "numpy >= 1",
     "pydantic-xml ~= 2.9",
     "typing_extensions ~= 4.4",
-    "lxml >= 4.9",
     "rich >= 13",
     "xdg_base_dirs",
     "networkx >= 3.2",
