@@ -1,10 +1,13 @@
 //! PyO3 bindings exposing the Rust API to Python as `kithairon._native`.
 
+use std::collections::HashMap;
+
 use pyo3::exceptions::{PyIndexError, PyValueError};
 use pyo3::prelude::*;
 use pyo3::types::{PyDict, PyList};
 
 use crate::labware::{Labware, PlateInfo};
+use crate::picklist::{PickList, Transfer};
 use crate::surveys::platesurvey::{EchoSignal, PlateSurvey, SignalFeature, WellSurvey};
 use crate::surveys::{read_survey_file, read_survey_str};
 
@@ -322,11 +325,246 @@ fn read_survey_str_records<'py>(py: Python<'py>, xml: &str) -> PyResult<Bound<'p
     survey_to_records(py, &ps)
 }
 
+// ---------------------------------------------------------------------------
+// Picklist bindings.
+//
+// PickList data is exchanged with Python as a list of per-row dicts, matching
+// the Echo CSV column names verbatim. Python wraps the list into a Polars
+// DataFrame (or consumes it directly). This avoids pulling pyo3-polars, which
+// targets an incompatible pyo3 version, while giving us Rust-backed validation,
+// ordering, and graph construction.
+
+fn transfer_to_dict<'py>(py: Python<'py>, t: &Transfer) -> PyResult<Bound<'py, PyDict>> {
+    let d = PyDict::new(py);
+    d.set_item("Source Plate Name", &t.source_plate_name)?;
+    d.set_item("Source Well", &t.source_well)?;
+    d.set_item("Destination Plate Name", &t.destination_plate_name)?;
+    d.set_item("Destination Well", &t.destination_well)?;
+    d.set_item("Transfer Volume", t.transfer_volume)?;
+    if let Some(v) = &t.source_plate_type {
+        d.set_item("Source Plate Type", v)?;
+    }
+    if let Some(v) = &t.source_plate_barcode {
+        d.set_item("Source Plate Barcode", v)?;
+    }
+    if let Some(v) = &t.sample_name {
+        d.set_item("Sample Name", v)?;
+    }
+    if let Some(v) = t.source_concentration {
+        d.set_item("Source Concentration", v)?;
+    }
+    if let Some(v) = &t.source_concentration_units {
+        d.set_item("Source Concentration Units", v)?;
+    }
+    if let Some(v) = &t.destination_plate_type {
+        d.set_item("Destination Plate Type", v)?;
+    }
+    if let Some(v) = &t.destination_plate_barcode {
+        d.set_item("Destination Plate Barcode", v)?;
+    }
+    if let Some(v) = &t.destination_sample_name {
+        d.set_item("Destination Sample Name", v)?;
+    }
+    if let Some(v) = t.destination_concentration {
+        d.set_item("Destination Concentration", v)?;
+    }
+    if let Some(v) = &t.destination_concentration_units {
+        d.set_item("Destination Concentration Units", v)?;
+    }
+    for (k, v) in &t.extra {
+        d.set_item(k.as_str(), v)?;
+    }
+    Ok(d)
+}
+
+fn picklist_to_records<'py>(py: Python<'py>, pl: &PickList) -> PyResult<Bound<'py, PyList>> {
+    let list = PyList::empty(py);
+    for t in pl.transfers() {
+        list.append(transfer_to_dict(py, t)?)?;
+    }
+    Ok(list)
+}
+
+fn picklist_from_records(records: &Bound<'_, PyList>) -> PyResult<PickList> {
+    let mut transfers: Vec<Transfer> = Vec::with_capacity(records.len());
+    for item in records.iter() {
+        let d: Bound<PyDict> = item.cast_into()?;
+        let get_str = |k: &str| -> PyResult<Option<String>> {
+            match d.get_item(k)? {
+                Some(v) if !v.is_none() => Ok(Some(v.extract::<String>()?)),
+                _ => Ok(None),
+            }
+        };
+        let get_f64 = |k: &str| -> PyResult<Option<f64>> {
+            match d.get_item(k)? {
+                Some(v) if !v.is_none() => Ok(Some(v.extract::<f64>()?)),
+                _ => Ok(None),
+            }
+        };
+        let req_str = |k: &str| -> PyResult<String> {
+            get_str(k)?
+                .ok_or_else(|| PyValueError::new_err(format!("row missing required field {k:?}")))
+        };
+        let transfer_volume = get_f64("Transfer Volume")?.ok_or_else(|| {
+            PyValueError::new_err("row missing required field \"Transfer Volume\"")
+        })?;
+        transfers.push(Transfer {
+            source_plate_name: req_str("Source Plate Name")?,
+            source_well: req_str("Source Well")?,
+            destination_plate_name: req_str("Destination Plate Name")?,
+            destination_well: req_str("Destination Well")?,
+            transfer_volume,
+            source_plate_type: get_str("Source Plate Type")?,
+            source_plate_barcode: get_str("Source Plate Barcode")?,
+            sample_name: get_str("Sample Name")?,
+            source_concentration: get_f64("Source Concentration")?,
+            source_concentration_units: get_str("Source Concentration Units")?,
+            destination_plate_type: get_str("Destination Plate Type")?,
+            destination_plate_barcode: get_str("Destination Plate Barcode")?,
+            destination_sample_name: get_str("Destination Sample Name")?,
+            destination_concentration: get_f64("Destination Concentration")?,
+            destination_concentration_units: get_str("Destination Concentration Units")?,
+            extra: indexmap::IndexMap::new(),
+        });
+    }
+    Ok(PickList::new(transfers))
+}
+
+/// Read a picklist CSV and return the rows as a list of dicts.
+#[pyfunction]
+fn read_picklist_csv_records<'py>(py: Python<'py>, path: &str) -> PyResult<Bound<'py, PyList>> {
+    let pl = PickList::read_csv(path).map_err(map_err)?;
+    picklist_to_records(py, &pl)
+}
+
+/// Write picklist records (list of dicts) to a CSV file.
+#[pyfunction]
+fn write_picklist_csv_records(records: &Bound<'_, PyList>, path: &str) -> PyResult<()> {
+    let pl = picklist_from_records(records)?;
+    pl.write_csv(path).map_err(map_err)
+}
+
+/// Return the quick-order row permutation for the given picklist records.
+/// The returned list has the same length as `records` and lists indices in
+/// the order they should be placed to obtain the optimized sequence.
+#[pyfunction]
+fn picklist_quick_order_indices(records: &Bound<'_, PyList>) -> PyResult<Vec<usize>> {
+    let pl = picklist_from_records(records)?;
+    // Rebuild an indexed pick list so we can recover the permutation.
+    let indexed: Vec<(usize, Transfer)> = pl
+        .transfers
+        .iter()
+        .cloned()
+        .enumerate()
+        .collect();
+
+    // Tag each transfer with its original index via the `extra` map.
+    const IDX_KEY: &str = "__orig_idx__";
+    let tagged: Vec<Transfer> = indexed
+        .iter()
+        .map(|(i, t)| {
+            let mut t = t.clone();
+            t.extra.insert(IDX_KEY.to_string(), i.to_string());
+            t
+        })
+        .collect();
+    let tagged_pl = PickList::new(tagged);
+    let ordered = tagged_pl
+        .optimize_well_transfer_order_quick()
+        .map_err(map_err)?;
+    ordered
+        .transfers
+        .iter()
+        .map(|t| {
+            t.extra
+                .get(IDX_KEY)
+                .ok_or_else(|| PyValueError::new_err("missing index tag"))
+                .and_then(|s| s.parse::<usize>().map_err(|e| PyValueError::new_err(e.to_string())))
+        })
+        .collect()
+}
+
+/// Validate a picklist against labware, optionally using survey data for
+/// per-plate volume bookkeeping.
+///
+/// `survey_volumes` (optional) maps plate_name → { well_name → volume_nL }.
+/// Returns `(errors, warnings)` — two lists of human-readable strings.
+#[pyfunction]
+#[pyo3(signature = (records, labware, survey_volumes=None))]
+fn validate_picklist_records(
+    records: &Bound<'_, PyList>,
+    labware: &PyLabware,
+    survey_volumes: Option<&Bound<'_, PyDict>>,
+) -> PyResult<(Vec<String>, Vec<String>)> {
+    let pl = picklist_from_records(records)?;
+    let mut sv_map: HashMap<String, HashMap<String, f64>> = HashMap::new();
+    if let Some(sv) = survey_volumes {
+        for (k, v) in sv.iter() {
+            let plate: String = k.extract()?;
+            let inner: Bound<PyDict> = v.cast_into()?;
+            let mut wells: HashMap<String, f64> = HashMap::new();
+            for (wk, wv) in inner.iter() {
+                wells.insert(wk.extract::<String>()?, wv.extract::<f64>()?);
+            }
+            sv_map.insert(plate, wells);
+        }
+    }
+    let rep = pl.validate(&labware.inner, Some(&sv_map));
+    Ok((rep.errors, rep.warnings))
+}
+
+/// Return the source→destination plate edges of the plate transfer graph.
+/// Each element is `(source_plate, dest_plate, total_volume, n_transfers)`.
+#[pyfunction]
+fn plate_transfer_graph_edges(
+    records: &Bound<'_, PyList>,
+) -> PyResult<Vec<(String, String, f64, u64)>> {
+    let pl = picklist_from_records(records)?;
+    let g = pl.plate_transfer_graph();
+    let mut out: Vec<(String, String, f64, u64)> = Vec::with_capacity(g.edge_count());
+    for e in g.edge_indices() {
+        let (a, b) = g.edge_endpoints(e).unwrap();
+        let w = &g[e];
+        out.push((g[a].clone(), g[b].clone(), w.total_volume, w.n_txs));
+    }
+    Ok(out)
+}
+
+/// Return per-row source/dest well nodes from the well transfer multigraph.
+/// Returns a list of (source_plate, source_well, dest_plate, dest_well,
+/// volume) tuples, one per transfer.
+#[pyfunction]
+fn well_transfer_multigraph_edges(
+    records: &Bound<'_, PyList>,
+) -> PyResult<Vec<(String, String, String, String, f64)>> {
+    let pl = picklist_from_records(records)?;
+    let out: Vec<_> = pl
+        .transfers
+        .iter()
+        .map(|t| {
+            (
+                t.source_plate_name.clone(),
+                t.source_well.clone(),
+                t.destination_plate_name.clone(),
+                t.destination_well.clone(),
+                t.transfer_volume,
+            )
+        })
+        .collect();
+    Ok(out)
+}
+
 #[pymodule(gil_used = false)]
 fn _native(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<PyPlateInfo>()?;
     m.add_class::<PyLabware>()?;
     m.add_function(wrap_pyfunction!(read_survey_file_records, m)?)?;
     m.add_function(wrap_pyfunction!(read_survey_str_records, m)?)?;
+    m.add_function(wrap_pyfunction!(read_picklist_csv_records, m)?)?;
+    m.add_function(wrap_pyfunction!(write_picklist_csv_records, m)?)?;
+    m.add_function(wrap_pyfunction!(picklist_quick_order_indices, m)?)?;
+    m.add_function(wrap_pyfunction!(validate_picklist_records, m)?)?;
+    m.add_function(wrap_pyfunction!(plate_transfer_graph_edges, m)?)?;
+    m.add_function(wrap_pyfunction!(well_transfer_multigraph_edges, m)?)?;
     Ok(())
 }

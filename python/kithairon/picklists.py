@@ -11,12 +11,14 @@ import polars as pl
 import rich
 from polars import LazyFrame
 
-from kithairon.surveys.surveydata import SurveyData
+from kithairon import _native
 
 from .labware import Labware, get_default_labware
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+
+    from kithairon.surveys.surveydata import SurveyData
 
 
 def _rotate_cycle(ln: Sequence[Any], elem: Any) -> Sequence[Any]:  # type: ignore
@@ -99,6 +101,34 @@ if TYPE_CHECKING:  # pragma: no cover
     from networkx import DiGraph, MultiDiGraph
 
 
+def _build_survey_volumes_dict(
+    picklist: PickList, surveys: SurveyData | None
+) -> dict[str, dict[str, float]] | None:
+    """Extract per-plate {well → volume (nL)} map from ``surveys``.
+
+    Returns ``None`` if no surveys are provided, so the Rust validator can
+    skip survey-based volume bookkeeping entirely.
+    """
+    if surveys is None:
+        return None
+    out: dict[str, dict[str, float]] = {}
+    for plate in picklist.all_plate_names():
+        try:
+            sd = surveys.find_latest_survey(plate_name=plate)
+        except KeyError:
+            continue
+        cols = sd.data.select(pl.col("well"), pl.col("volume"))
+        well_map: dict[str, float] = {}
+        for well, vol in cols.iter_rows():
+            if vol is None:
+                continue
+            # Python SurveyData.volume is μL; Rust expects nL.
+            well_map[str(well)] = float(vol) * 1000.0
+        if well_map:
+            out[str(plate)] = well_map
+    return out or None
+
+
 class PickList:
     """A PickList in Echo-software-compatible format."""
 
@@ -145,6 +175,17 @@ class PickList:
     def read_csv(cls, path: str) -> Self:
         """Read a picklist from a csv file."""
         return cls(pl.read_csv(path))
+
+    @classmethod
+    def read_csv_native(cls, path: str) -> Self:
+        """Read a picklist via the Rust parser.
+
+        Handles optional/missing columns per Echo's convention and validates
+        required columns up-front. Returns a ``PickList`` whose DataFrame has
+        only columns that appeared in the file.
+        """
+        records = _native.read_picklist_csv_records(path)
+        return cls(pl.DataFrame(records) if records else pl.DataFrame())
 
     def write_csv(self, path: str) -> None:
         """Write picklist to a csv file (usable by Labcyte/Beckman software)."""
@@ -251,307 +292,45 @@ class PickList:
             )
         ).unique(maintain_order=True)
 
-    def validate(  # noqa: PLR0912, PLR0915
+    def validate(
         self,
         surveys: SurveyData | None = None,
         labware: Labware | None = None,
         raise_on: Literal[False, True, "warning", "error"] = "error",
     ) -> tuple[list[str], list[str]]:
-        """Check the picklist for errors and potential problems."""
-        errors = []
-        warnings = []
+        """Check the picklist for errors and potential problems.
 
-        def add_warning(w):
-            rich.print(f"[orange1]{w}[/orange1]")
-            warnings.append(w)
-
-        def add_error(w):
-            rich.print(f"[red]{w}[/red]")
-            errors.append(w)
-
-        if surveys is None:
-            surveys = SurveyData()
-
-        # Check that every appearance of a Plate Name has the same Plate Type
-        dest_plate_types = self._dest_plate_type_per_name()
-        src_plate_types = self._src_plate_type_per_name()
-
+        Backed by the Rust ``validate_picklist_records`` native function.
+        """
         if labware is None:
             try:
                 labware = get_default_labware()
             except ValueError:
-                add_error("No labware definitions available.")
-                return errors, warnings
+                err = "No labware definitions available."
+                rich.print(f"[red]{err}[/red]")
+                return [err], []
 
-        labware_df = labware.to_polars()
+        survey_volumes = _build_survey_volumes_dict(self, surveys)
 
-        dest_plate_info = dest_plate_types.join(
-            labware_df,
-            on="plate_type",
-            how="left",
-        )
-        if len(x := dest_plate_info.filter(pl.col("plate_type").is_null())) > 0:
-            logger.error("Plate Type not found in labware definition: %s", x)
-            raise ValueError("Plate Type not found in labware definition")
-
-        if len(x := dest_plate_info.filter(pl.col("usage") != "DEST")) > 0:
-            logger.error("Plate Type is not a DEST plate: %s", x)
-            raise ValueError("Plate Type is not a DEST plate")
-
-        src_plate_info = src_plate_types.join(
-            labware_df,
-            on="plate_type",
-            how="left",
-        )
-        if len(x := src_plate_info.filter(pl.col("plate_type").is_null())) > 0:
-            logger.error("Plate Type not found in labware definition: %s", x)
-            raise ValueError("Plate Type not found in labware definition")
-
-        if len(x := src_plate_info.filter(pl.col("usage") != "SRC")) > 0:
-            logger.error("Plate Type is not a SRC plate: %s", x)
-            raise ValueError("Plate Type is not a SRC plate")
-
-        # TODO: add check that plates used for both source and dest have consistent
-        # plate types.
-        # all_plate_info = dest_plate_info.vstack(src_plate_info)
-        # nu = all_plate_info.group_by("plate_name").agg(
-        #     [pl.col(x).n_unique() for x in _CONSISTENT_COLS]
-        # )
-
-        p_with_lb = (
-            self.data.lazy()
-            .join(
-                labware_df.lazy(),
-                left_on="Source Plate Name",
-                right_on="plate_type",
-                how="left",
-            )
-            .join(
-                labware_df.lazy(),
-                left_on="Destination Plate Name",
-                right_on="plate_type",
-                how="left",
-                suffix="_dest",
-            )
+        records = self.data.to_dicts()
+        errors, warnings = _native.validate_picklist_records(
+            records,
+            labware._inner,
+            survey_volumes,
         )
 
-        wrongvolume = (
-            p_with_lb.with_columns(
-                tx_mod=(pl.col("Transfer Volume") % pl.col("drop_volume"))
-            )
-            .filter(pl.col("tx_mod") != 0)
-            .collect()
-        )
-
-        if len(wrongvolume) > 0:
-            add_error(
-                f"Transfer volumes are not multiples of drop volume: {wrongvolume}"
-            )
-
-        zerovolume = (
-            p_with_lb.with_columns(
-                tx_mod=(pl.col("Transfer Volume") % pl.col("drop_volume"))
-            )
-            .filter(pl.col("Transfer Volume") == 0)
-            .collect()
-        )
-
-        if len(zerovolume) > 0:
-            add_error(f"Transfer volumes are zero: {zerovolume}")
-
-        import networkx as nx
-
-        g = self.well_transfer_multigraph()
-
-        if not nx.is_directed_acyclic_graph(g):
-            c = nx.find_cycle(g)
-            add_warning(f"Well transfer multigraph has a cycle: {c}")
-
-        a = list(enumerate(nx.topological_generations(g)))
-
-        topogen = sum(([x[0]] * len(x[1]) for x in a), [])  # noqa: RUF017
-        plate = [y[0] for x in a for y in x[1]]
-        well = [y[1] for x in a for y in x[1]]
-
-        tgl = pl.DataFrame({"plate": plate, "well": well, "topogen": topogen}).lazy()
-
-        p = (
-            self.data.lazy()
-            .join(
-                tgl,
-                left_on=["Source Plate Name", "Source Well"],
-                right_on=["plate", "well"],
-                how="inner",
-            )
-            .join(
-                tgl,
-                left_on=["Destination Plate Name", "Destination Well"],
-                right_on=["plate", "well"],
-                how="inner",
-                suffix="_dest",
-            )
-            .filter(
-                pl.col("topogen")
-                >= pl.col("topogen_dest").reverse().cum_min().reverse()
-            )
-            .collect()
-        )
-
-        if len(p) > 0:
-            print("Transfers are not topologically ordered:")
-            print(p)
-            errors.append("Transfers are not topologically ordered")
-        else:
-            logger.info("Transfers are topologically ordered.")
-
-        dwi = self.data.lazy().with_row_index()
-
-        # Check that each well has only one sample name
-        if "Destination Sample Name" in self.data.columns:
-            u = pl.col("Destination Sample Name").unique()
-            sample_names = self.data.group_by(
-                ["Destination Plate Name", "Destination Well"], maintain_order=True
-            ).agg(u.alias("sample_names"), u.len().alias("n_sample_names"))
-            del u
-
-            errs = sample_names.filter(pl.col("n_sample_names") > 1)
-            if not errs.is_empty():
-                errstring = ", ".join(
-                    f"{r['Destination Plate Name']} {r['Destination Well']}: {r['sample_names']}"
-                    for r in errs.iter_rows(named=True)
-                )
-                add_error(f"Multiple sample names found in well(s): {errstring}")
-
-        for p in self.all_plate_names():
-            change_data = (
-                dwi.filter(
-                    (pl.col("Source Plate Name") == p)
-                    | (pl.col("Destination Plate Name") == p)
-                )
-                .with_columns(
-                    plate_well=pl.when(pl.col("Source Plate Name") == p)
-                    .then(pl.col("Source Well"))
-                    .otherwise(pl.col("Destination Well")),
-                    use=pl.when(pl.col("Source Plate Name") == p)
-                    .then(pl.lit("source"))
-                    .otherwise(pl.lit("dest")),
-                    volume_change=pl.when(pl.col("Source Plate Name") == p)
-                    .then(-pl.col("Transfer Volume"))
-                    .otherwise(pl.col("Transfer Volume")),
-                )
-                .join(
-                    labware_df.lazy().select(
-                        "plate_type",
-                        pl.col.plate_format.alias("source_plate_format"),
-                        (1000.0 * pl.col.min_well_vol).alias("min_well_vol"),
-                        (1000.0 * pl.col.max_well_vol).alias("max_well_vol"),
-                        "min_volume",
-                        "drop_volume",
-                        "max_vol_total",
-                    ),
-                    left_on="Source Plate Type",
-                    right_on="plate_type",
-                    how="left",
-                )
-            ).collect()
-
-            # source_ever = change_data.select((pl.col.use == "source").any())[0, 0]
-            # dest_ever = change_data.select((pl.col.use == "dest").any())[0, 0]
-
-            source_first = change_data.select((pl.col.use == "source").first())[0, 0]
-
-            # If a plate is a dest-first plate, we can assume that all wells have zero volume initially
-            # If a plate is a source-first plate, we should warn if there is no survey
-            try:
-                survey = surveys.find_latest_survey(plate_name=p)
-                change_data = pl.concat(
-                    (
-                        survey.data.select(
-                            plate_well=pl.col("well"),
-                            volume_change=pl.col("volume") * 1000,
-                            use=pl.lit("survey"),
-                        ),
-                        change_data,
-                    ),
-                    how="diagonal",
-                )
-                have_survey = True
-            except KeyError:
-                if source_first:
-                    add_warning(f"No survey data for {p}")
-                have_survey = False
-
-            change_data = change_data.with_columns(
-                volume_after=pl.col.volume_change.cum_sum().over("plate_well"),
-            ).with_columns(
-                volume_before=pl.col.volume_after - pl.col.volume_change,
-            )
-
-            # In all cases
-
-            # Is a well above max_well_vol when used as a source (before transfer)?
-            above_max = change_data.filter(
-                (pl.col.use == "source") & (pl.col.volume_before > pl.col.max_well_vol)
-            )
-            for row in above_max.iter_rows(named=True):
-                tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} ({Sample Name}) → {Destination Plate Name} {Destination Well} ({Destination Sample Name})".format(
-                    **row
-                )
-                add_warning(
-                    "{Source Plate Name} {plate_well} is above max_well_vol ({volume_before} nL > {max_well_vol} nL) before transfer {tx}".format(
-                        tx=tx, **row
-                    )
-                )
-
-            # Is a transfer above max_vol_total?
-            for row in change_data.filter(
-                pl.col.use == "source", -pl.col.volume_change > pl.col.max_vol_total
-            ).iter_rows(named=True):
-                tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} ({Sample Name}) → {Destination Plate Name} {Destination Well} ({Destination Sample Name})".format(
-                    **row
-                )
-                add_warning(
-                    "{Source Plate Name} {plate_well} has a transfer above max_vol_total ({volume_change} nL < -{max_vol_total} ) {tx}".format(
-                        tx=tx, **row
-                    )
-                )
-
-            # If we have survey data for the plate, or it is a dest-first plate (assume zero initial volume):
-            if have_survey or not source_first:
-                # Does a well go below min_well_vol as a source?
-                for row in change_data.filter(
-                    pl.col.use == "source", pl.col.volume_after < pl.col.min_well_vol
-                ).iter_rows(named=True):
-                    tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} ({Sample Name}) → {Destination Plate Name} {Destination Well} ({Destination Sample Name})".format(
-                        **row
-                    )
-                    add_warning(
-                        "{Source Plate Name} {plate_well} goes below min_well_vol ({volume_after} nL < {min_well_vol} nL) {tx}".format(
-                            tx=tx, **row
-                        )
-                    )
-            else:
-                # Does a well go below (min_well_vol - max_well_vol) when used as a source?
-                for row in change_data.filter(
-                    pl.col.use == "source",
-                    pl.col.volume_before < (pl.col.min_well_vol - pl.col.max_well_vol),
-                ).iter_rows(named=True):
-                    tx = "ix {index}, {Transfer Volume} nL, {Source Plate Name} {Source Well} ({Sample Name}) → {Destination Plate Name} {Destination Well} ({Destination Sample Name})".format(
-                        **row
-                    )
-                    add_warning(
-                        "Net transfers for {Source Plate Name} {plate_well} (no survey) go below min_well_vol-max_well_vol ({volume_before} nL) {tx}".format(
-                            tx=tx, **row
-                        )
-                    )
+        for w in warnings:
+            rich.print(f"[orange1]{w}[/orange1]")
+        for e in errors:
+            rich.print(f"[red]{e}[/red]")
 
         if raise_on == "error":
-            if len(errors) > 0:
+            if errors:
                 raise ValueError("Errors in picklist")
         elif raise_on == "warning":
-            if len(warnings) > 0:
+            if warnings:
                 raise ValueError("Warnings in picklist")
-            if len(errors) > 0:
+            if errors:
                 raise ValueError("Errors in picklist")
 
         return errors, warnings
@@ -706,60 +485,12 @@ class PickList:
             return self._optimize_well_transfer_order_full()
 
     def _optimize_well_transfer_order_quick(self) -> Self:
-        p = (
-            self.with_columns(
-                [
-                    pl.col("Source Well")
-                    .str.slice(0, 1)
-                    .alias("source_row")
-                    .cast(pl.Binary)
-                    .cast(pl.List(pl.UInt8))
-                    .list.first()
-                    - 65,
-                    pl.col("Source Well")
-                    .str.slice(1, None)
-                    .str.to_integer()
-                    .alias("source_col")
-                    .alias("source_col"),
-                    pl.col("Destination Well")
-                    .str.slice(0, 1)
-                    .alias("dest_row")
-                    .cast(pl.Binary)
-                    .cast(pl.List(pl.UInt8))
-                    .list.first()
-                    - 65,
-                    pl.col("Destination Well")
-                    .str.slice(1, None)
-                    .str.to_integer()
-                    .alias("dest_col"),
-                ]
-            )
-            .with_segment_index()
-            .select(
-                pl.all()
-                .sort_by(
-                    [
-                        pl.col("source_row"),
-                        pl.when(pl.col("source_row") % 2 == 0)
-                        .then(pl.col("source_col"))
-                        .otherwise(-pl.col("source_col")),
-                        pl.col("dest_row"),
-                        pl.when(pl.col("dest_row") % 2 == 0)
-                        .then(pl.col("dest_col"))
-                        .otherwise(-pl.col("dest_col")),
-                    ]
-                )
-                .over(["segment_index"])
-            )
-        )
-
-        p = PickList(
-            p.data.drop(
-                ["source_row", "source_col", "dest_row", "dest_col", "segment_index"]
-            )
-        )
-
-        return p
+        records = self.data.to_dicts()
+        if not records:
+            return self.__class__(self.data.clone())
+        perm = _native.picklist_quick_order_indices(records)
+        reordered = self.data[perm]
+        return self.__class__(reordered)
 
     def _optimize_well_transfer_order_full(
         self, labware: Labware | None = None

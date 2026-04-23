@@ -6,9 +6,11 @@
 //! crate.
 
 pub mod labware;
+pub mod picklist;
 pub mod surveys;
 
 pub use labware::{Labware, PlateInfo};
+pub use picklist::{PickList, Transfer};
 pub use surveys::{PlateSurvey, WellSurvey};
 
 #[cfg(feature = "python")]
@@ -56,4 +58,7 @@ pub enum LibraryError {
 
     #[error("survey report is inconsistent: {0} differs between records")]
     InconsistentReport(&'static str),
+
+    #[error("picklist CSV error: {0}")]
+    PickListCsv(String),
 }
