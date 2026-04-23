@@ -56,3 +56,10 @@ MANIFEST
 scratch*
 
 .hypothesis/
+
+# Rust build output
+target/
+Cargo.lock
+
+# maturin
+wheels/
