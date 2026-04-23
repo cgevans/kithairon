@@ -441,55 +441,27 @@ class SurveyData:
         """
         Read survey data from an Echo-produced XML file.
 
-        Parameters
-        ----------
-        path : str or os.PathLike
-            The path to the XML file.
-
-        Returns
-        -------
-        SurveyData
-            The survey data read from the XML file.
-
-        Raises
-        ------
-        ParsingError
-            If the XML file cannot be parsed.
+        The XML is parsed in Rust (`kithairon._native`) for both platesurvey
+        and surveyreport formats; the format is auto-detected.
         """
-        try:
-            d = EchoPlateSurveyXML.read_xml(path)._to_polars()
-            d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
-            return cls(d)
-        except ParsingError:
-            return EchoSurveyReport.read_xml(path).to_surveydata()
+        from kithairon._native import read_survey_file_records
+
+        records = read_survey_file_records(str(path))
+        d = pl.DataFrame(records)
+        d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
+        return cls(d)
 
     @classmethod
     def from_xml(cls, xml_str: str | bytes) -> Self:
-        """
-        Create a new instance of `SurveyData` from an XML string.
+        """Create a new instance of `SurveyData` from an XML string."""
+        from kithairon._native import read_survey_str_records
 
-        Parameters
-        ----------
-        xml_str : str or bytes
-            The XML string to parse.
-
-        Returns
-        -------
-        SurveyData
-            A new instance of `SurveyData` created from the parsed XML.
-
-        Raises
-        ------
-        ParsingError
-            If the XML string cannot be parsed.
-
-        """
-        try:
-            d = EchoPlateSurveyXML.from_xml(xml_str)._to_polars()
-            d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
-            return cls(d)
-        except ParsingError:
-            return EchoSurveyReport.from_xml(xml_str).to_surveydata()
+        if isinstance(xml_str, bytes):
+            xml_str = xml_str.decode("utf-8")
+        records = read_survey_str_records(xml_str)
+        d = pl.DataFrame(records)
+        d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
+        return cls(d)
 
     @classmethod
     def from_xml_tree(cls, xml_tree: "etree._Element") -> Self:

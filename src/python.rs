@@ -2,8 +2,11 @@
 
 use pyo3::exceptions::{PyIndexError, PyValueError};
 use pyo3::prelude::*;
+use pyo3::types::{PyDict, PyList};
 
 use crate::labware::{Labware, PlateInfo};
+use crate::surveys::platesurvey::{EchoSignal, PlateSurvey, SignalFeature, WellSurvey};
+use crate::surveys::{read_survey_file, read_survey_str};
 
 #[pyclass(name = "PlateInfo", module = "kithairon._native", frozen, from_py_object)]
 #[derive(Clone)]
@@ -211,9 +214,119 @@ fn map_err(e: crate::LibraryError) -> PyErr {
     PyValueError::new_err(e.to_string())
 }
 
+// ---------------------------------------------------------------------------
+// Survey bindings.
+//
+// We hand survey data to Python as a list of per-well dicts, with the
+// survey-level metadata duplicated on every row. Python then feeds the list
+// into `pl.DataFrame(records)` to build the canonical SurveyData frame.
+// This is the same shape the prior pydantic-xml code produced.
+
+fn feature_to_dict<'py>(py: Python<'py>, f: &SignalFeature) -> PyResult<Bound<'py, PyDict>> {
+    let d = PyDict::new(py);
+    d.set_item("feature_type", &f.feature_type)?;
+    d.set_item("tof", f.tof)?;
+    d.set_item("vpp", f.vpp)?;
+    Ok(d)
+}
+
+fn signal_to_dict<'py>(py: Python<'py>, e: &EchoSignal) -> PyResult<Bound<'py, PyDict>> {
+    let d = PyDict::new(py);
+    d.set_item("signal_type", &e.signal_type)?;
+    d.set_item("transducer_x", e.transducer_x)?;
+    d.set_item("transducer_y", e.transducer_y)?;
+    d.set_item("transducer_z", e.transducer_z)?;
+    let features = PyList::empty(py);
+    for f in &e.features {
+        features.append(feature_to_dict(py, f)?)?;
+    }
+    d.set_item("features", features)?;
+    Ok(d)
+}
+
+fn well_to_dict<'py>(
+    py: Python<'py>,
+    w: &WellSurvey,
+    survey: &PlateSurvey,
+) -> PyResult<Bound<'py, PyDict>> {
+    let d = PyDict::new(py);
+    // Well-level columns.
+    d.set_item("row", w.row)?;
+    d.set_item("column", w.column)?;
+    d.set_item("well", &w.well)?;
+    d.set_item("volume", w.volume)?;
+    d.set_item("current_volume", w.current_volume)?;
+    d.set_item("status", &w.status)?;
+    d.set_item("fluid", &w.fluid)?;
+    d.set_item("fluid_units", &w.fluid_units)?;
+    d.set_item("meniscus_x", w.meniscus_x)?;
+    d.set_item("meniscus_y", w.meniscus_y)?;
+    d.set_item("fluid_composition", w.fluid_composition)?;
+    d.set_item("dmso_homogeneous", w.dmso_homogeneous)?;
+    d.set_item("dmso_inhomogeneous", w.dmso_inhomogeneous)?;
+    d.set_item("fluid_thickness", w.fluid_thickness)?;
+    d.set_item("current_fluid_thickness", w.current_fluid_thickness)?;
+    d.set_item("bottom_thickness", w.bottom_thickness)?;
+    d.set_item("fluid_thickness_homogeneous", w.fluid_thickness_homogeneous)?;
+    d.set_item(
+        "fluid_thickness_imhomogeneous",
+        w.fluid_thickness_imhomogeneous,
+    )?;
+    d.set_item("outlier", w.outlier)?;
+    d.set_item("corrective_action", &w.corrective_action)?;
+    d.set_item(
+        "echo_signal",
+        match &w.echo_signal {
+            Some(s) => signal_to_dict(py, s)?.into_any(),
+            None => py.None().into_bound(py),
+        },
+    )?;
+    // Survey-level metadata, duplicated per row so the resulting DataFrame
+    // has constant columns.
+    d.set_item("plate_type", &survey.plate_type)?;
+    d.set_item("plate_barcode", &survey.plate_barcode)?;
+    d.set_item("timestamp", survey.timestamp)?;
+    d.set_item("instrument_serial_number", &survey.instrument_serial_number)?;
+    d.set_item("vtl", survey.vtl)?;
+    d.set_item("original", survey.original)?;
+    d.set_item("data_format_version", survey.data_format_version)?;
+    d.set_item("survey_rows", survey.survey_rows)?;
+    d.set_item("survey_columns", survey.survey_columns)?;
+    d.set_item("survey_total_wells", survey.survey_total_wells)?;
+    d.set_item("plate_name", &survey.plate_name)?;
+    d.set_item("comment", &survey.comment)?;
+    Ok(d)
+}
+
+fn survey_to_records<'py>(py: Python<'py>, ps: &PlateSurvey) -> PyResult<Bound<'py, PyList>> {
+    let list = PyList::empty(py);
+    for w in &ps.wells {
+        list.append(well_to_dict(py, w, ps)?)?;
+    }
+    Ok(list)
+}
+
+/// Parse a survey XML file (auto-detecting platesurvey vs surveyreport) and
+/// return per-well records as a list of dicts.
+#[pyfunction]
+fn read_survey_file_records<'py>(py: Python<'py>, path: &str) -> PyResult<Bound<'py, PyList>> {
+    let ps = read_survey_file(path).map_err(map_err)?;
+    survey_to_records(py, &ps)
+}
+
+/// Parse a survey XML string (auto-detecting platesurvey vs surveyreport) and
+/// return per-well records as a list of dicts.
+#[pyfunction]
+fn read_survey_str_records<'py>(py: Python<'py>, xml: &str) -> PyResult<Bound<'py, PyList>> {
+    let ps = read_survey_str(xml).map_err(map_err)?;
+    survey_to_records(py, &ps)
+}
+
 #[pymodule(gil_used = false)]
 fn _native(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<PyPlateInfo>()?;
     m.add_class::<PyLabware>()?;
+    m.add_function(wrap_pyfunction!(read_survey_file_records, m)?)?;
+    m.add_function(wrap_pyfunction!(read_survey_str_records, m)?)?;
     Ok(())
 }

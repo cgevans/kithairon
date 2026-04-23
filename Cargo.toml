@@ -23,7 +23,8 @@ abi3 = ["python", "pyo3/abi3-py311"]
 thiserror = "2.0"
 serde = { version = "1.0", features = ["derive"] }
 quick-xml = { version = "0.31", features = ["serialize"] }
-pyo3 = { version = "0.28", features = ["extension-module"], optional = true }
+chrono = { version = "0.4", default-features = false, features = ["alloc"] }
+pyo3 = { version = "0.28", features = ["extension-module", "chrono"], optional = true }
 
 [dev-dependencies]
 insta = "1.41"

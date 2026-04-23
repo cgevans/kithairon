@@ -6,7 +6,10 @@
 //! crate.
 
 pub mod labware;
+pub mod surveys;
+
 pub use labware::{Labware, PlateInfo};
+pub use surveys::{PlateSurvey, WellSurvey};
 
 #[cfg(feature = "python")]
 mod python;
@@ -21,10 +24,36 @@ pub enum LibraryError {
     XmlDeserialize(#[from] quick_xml::DeError),
 
     #[error(
-        "XML could not be parsed as either ELWX or ELW.\n  ELWX error: {elwx}\n  ELW error: {elw}"
+        "labware XML could not be parsed as either ELWX or ELW.\n  ELWX error: {elwx}\n  ELW error: {elw}"
     )]
     ParseBothFormats { elwx: String, elw: String },
 
+    #[error(
+        "survey XML could not be parsed as either platesurvey or surveyreport.\n  platesurvey error: {platesurvey}\n  surveyreport error: {surveyreport}"
+    )]
+    ParseSurveyFormats {
+        platesurvey: String,
+        surveyreport: String,
+    },
+
     #[error("a plate with type {0:?} already exists in this labware")]
     DuplicatePlateType(String),
+
+    #[error("survey declared {declared} wells but XML contained {found}")]
+    WellCountMismatch { declared: i32, found: usize },
+
+    #[error("invalid timestamp {input:?}: {reason}")]
+    InvalidTimestamp { input: String, reason: String },
+
+    #[error("invalid well name {0:?} (expected form like \"A1\", \"D12\")")]
+    InvalidWellName(String),
+
+    #[error("invalid numeric value in survey field {0}")]
+    InvalidNumber(&'static str),
+
+    #[error("survey report contained no records")]
+    EmptyReport,
+
+    #[error("survey report is inconsistent: {0} differs between records")]
+    InconsistentReport(&'static str),
 }
