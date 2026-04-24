@@ -13,8 +13,12 @@
 
 pub mod platesurvey;
 pub mod surveyreport;
+pub mod surveydata;
 
 pub use platesurvey::{EchoSignal, PlateSurvey, SignalFeature, WellSurvey};
+pub use surveydata::{
+    read_survey_parquet, read_validation_volumes_parquet, write_survey_csv, write_survey_parquet,
+};
 
 use crate::LibraryError;
 use std::fs;
