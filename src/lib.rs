@@ -56,9 +56,24 @@ pub enum LibraryError {
     #[error("survey report contained no records")]
     EmptyReport,
 
+    #[error("survey parquet contained no rows")]
+    EmptySurveyData,
+
+    #[error("survey parquet contains multiple surveys; differing column: {0}")]
+    MultipleSurveysInParquet(&'static str),
+
+    #[error("survey parquet is missing required column {0:?}")]
+    MissingSurveyDataColumn(String),
+
+    #[error("survey parquet contains an invalid value in {column:?}: {value}")]
+    InvalidSurveyDataValue { column: String, value: String },
+
     #[error("survey report is inconsistent: {0} differs between records")]
     InconsistentReport(&'static str),
 
     #[error("picklist CSV error: {0}")]
     PickListCsv(String),
+
+    #[error("polars error: {0}")]
+    Polars(#[from] polars::error::PolarsError),
 }

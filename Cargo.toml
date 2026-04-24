@@ -28,6 +28,7 @@ csv = "1.3"
 petgraph = "0.8"
 indexmap = { version = "2", features = ["serde"] }
 log = "0.4"
+polars = { version = "0.53", default-features = false, features = ["fmt", "parquet", "dtype-datetime", "dtype-struct"] }
 pyo3 = { version = "0.28", features = ["extension-module", "chrono"], optional = true }
 
 [dev-dependencies]
