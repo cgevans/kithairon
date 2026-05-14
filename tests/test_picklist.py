@@ -97,6 +97,15 @@ def test_quick_order_reorders_in_place_and_preserves_rows(labware: Labware):
     assert before == after
 
 
+def test_validate_without_destination_sample_name(labware: Labware):
+    # "Destination Sample Name" is an optional column. Validate must not
+    # require it — picklists that omit it should still validate cleanly.
+    pl_obj = _basic_picklist()
+    assert "Destination Sample Name" not in pl_obj.data.columns
+    errors, warnings = pl_obj.validate(labware=labware, raise_on=False)
+    assert errors == []
+
+
 def test_read_csv_native_roundtrip(tmp_path: Path, labware: Labware):
     pl_obj = _basic_picklist()
     csv_path = tmp_path / "pick.csv"

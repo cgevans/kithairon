@@ -6,7 +6,7 @@ import polars as pl
 import pytest
 
 from kithairon import Labware
-from kithairon.labware import PlateInfo
+from kithairon.labware import PlateInfo, plate_shape_from_labware
 
 TEST_DATA = Path(__file__).parent / "test_data"
 
@@ -47,6 +47,24 @@ def test_to_polars_roundtrip_preserves_types():
     assert frame.schema["plate_type"] == pl.String
     assert frame.schema["rows"] == pl.Int64
     assert frame.schema["drop_volume"] == pl.Float64
+
+
+def test_plate_shape_from_labware_works_for_nonstandard_names():
+    # Plate names that don't begin with a digit (e.g. "EnduraF96_cge_v1.0.0")
+    # used to break the regex-based plate_shape_from_name helper. The
+    # labware-based lookup should handle them since shape comes from
+    # the PlateInfo, not the name.
+    lw = Labware.from_file(TEST_DATA / "Labware.elwx")
+    assert (
+        plate_shape_from_labware("Greiner_384PS_781096", lw)
+        == lw["Greiner_384PS_781096"].shape
+    )
+
+
+def test_plate_shape_from_labware_raises_for_unknown_plate():
+    lw = Labware.from_file(TEST_DATA / "Labware.elwx")
+    with pytest.raises(KeyError):
+        plate_shape_from_labware("not-a-real-plate", lw)
 
 
 def test_xml_roundtrip_preserves_plates():

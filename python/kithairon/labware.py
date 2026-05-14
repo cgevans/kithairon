@@ -21,7 +21,7 @@ from kithairon._native import PlateInfo
 if TYPE_CHECKING:
     import os
 
-__all__ = ["Labware", "PlateInfo", "get_default_labware"]
+__all__ = ["Labware", "PlateInfo", "get_default_labware", "plate_shape_from_labware"]
 
 logger = logging.getLogger(__name__)
 
@@ -141,3 +141,18 @@ def get_default_labware() -> Labware:
     if DEFAULT_LABWARE is None:
         raise ValueError("No default labware defined.")
     return DEFAULT_LABWARE
+
+
+def plate_shape_from_labware(
+    plate_type: str, labware: Labware | None = None
+) -> tuple[int, int]:
+    """Return the ``(rows, cols)`` shape of ``plate_type`` from the labware definition.
+
+    Uses the supplied ``labware`` if given, otherwise the default labware.
+    Raises ``KeyError`` if the plate type is not defined in the labware.
+    """
+    if labware is None:
+        labware = get_default_labware()
+    if plate_type not in labware:
+        raise KeyError(f"Plate type {plate_type!r} not found in labware definition.")
+    return labware[plate_type].shape

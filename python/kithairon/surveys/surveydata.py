@@ -19,11 +19,11 @@ import numpy as np
 import polars as pl
 
 from kithairon._util import (
-    PLATE_SHAPE_FROM_SIZE,
     _polars_df_from_json_dict,
     _polars_df_to_json_dict,
     plot_plate_array,
 )
+from kithairon.labware import plate_shape_from_labware
 
 from .platesurvey import EchoPlateSurveyXML
 
@@ -183,32 +183,25 @@ class SurveyData:
     def plate_shape(self) -> tuple[int, int]:
         """Shape of the full plate, in (rows, columns).
 
-        Calculated based on the standard Echo source
-        plate name format, which includes the number of wells at the beginning.  May fail for unusual
-        plates. Single survey only.
+        Looked up from the default labware via the survey's ``plate_type``,
+        so it works for any plate type registered there. Single survey only.
 
         Returns
         -------
         tuple[int, int]
-
-        See Also
-        --------
-        :any:`plate_size`
         """
-        size = self.plate_total_wells
-        return PLATE_SHAPE_FROM_SIZE[size[0, 0]]
+        types = self.data.get_column("plate_type").unique()
+        if len(types) != 1:
+            raise ValueError(
+                f"Expected exactly one plate type, got {len(types)}: {types}"
+            )
+        return plate_shape_from_labware(types[0])
 
     @cached_property
-    def plate_total_wells(self):
+    def plate_total_wells(self) -> int:
         """Total number of wells in the plate (not survey). Single survey only."""
-        size = self.data.select(
-            pl.col("plate_type").str.extract(r"(\d+)").unique().cast(int)
-        )
-        if len(size) != 1:
-            raise ValueError(
-                f"Expected exactly one plate type, got {len(size)}: {size}"
-            )
-        return size
+        rows, cols = self.plate_shape
+        return rows * cols
 
     @cached_property
     def surveys(self) -> pl.DataFrame:
