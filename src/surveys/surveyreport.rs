@@ -226,8 +226,7 @@ impl TryFrom<RawReport> for PlateSurvey {
 mod tests {
     use super::*;
 
-    const SURVEY_REPORT_XML: &str =
-        include_str!("../../tests/test_data/surveyreport-cp.xml");
+    const SURVEY_REPORT_XML: &str = include_str!("../../tests/test_data/surveyreport-cp.xml");
 
     #[test]
     fn parses_surveyreport_fixture() {
@@ -240,7 +239,11 @@ mod tests {
     #[test]
     fn surveyreport_well_names_decode_correctly() {
         let ps = parse_surveyreport(SURVEY_REPORT_XML).expect("parse");
-        let c8 = ps.wells.iter().find(|w| w.well == "C8").expect("C8 present");
+        let c8 = ps
+            .wells
+            .iter()
+            .find(|w| w.well == "C8")
+            .expect("C8 present");
         // C8 → row 2 (A=0,B=1,C=2), column 7 (0-indexed from 8)
         assert_eq!(c8.row, 2);
         assert_eq!(c8.column, 7);

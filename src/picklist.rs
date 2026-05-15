@@ -107,7 +107,10 @@ impl PickList {
                 }
             }
         }
-        Self { transfers, extra_headers }
+        Self {
+            transfers,
+            extra_headers,
+        }
     }
 
     pub fn transfers(&self) -> &[Transfer] {
@@ -211,7 +214,9 @@ impl PickList {
                 source_plate_name: get(col::SOURCE_PLATE_NAME)
                     .map(str::to_string)
                     .unwrap_or_default(),
-                source_well: get(col::SOURCE_WELL).map(str::to_string).unwrap_or_default(),
+                source_well: get(col::SOURCE_WELL)
+                    .map(str::to_string)
+                    .unwrap_or_default(),
                 destination_plate_name: get(col::DEST_PLATE_NAME)
                     .map(str::to_string)
                     .unwrap_or_default(),
@@ -221,17 +226,22 @@ impl PickList {
                 source_plate_barcode: get(col::SOURCE_PLATE_BARCODE).map(str::to_string),
                 sample_name: get(col::SAMPLE_NAME).map(str::to_string),
                 source_concentration: parse_opt_f64(col::SOURCE_CONCENTRATION)?,
-                source_concentration_units: get(col::SOURCE_CONCENTRATION_UNITS).map(str::to_string),
+                source_concentration_units: get(col::SOURCE_CONCENTRATION_UNITS)
+                    .map(str::to_string),
                 destination_plate_type: get(col::DEST_PLATE_TYPE).map(str::to_string),
                 destination_plate_barcode: get(col::DEST_PLATE_BARCODE).map(str::to_string),
                 destination_sample_name: get(col::DEST_SAMPLE_NAME).map(str::to_string),
                 destination_concentration: parse_opt_f64(col::DEST_CONCENTRATION)?,
-                destination_concentration_units: get(col::DEST_CONCENTRATION_UNITS).map(str::to_string),
+                destination_concentration_units: get(col::DEST_CONCENTRATION_UNITS)
+                    .map(str::to_string),
                 extra,
             });
         }
 
-        Ok(Self { transfers, extra_headers })
+        Ok(Self {
+            transfers,
+            extra_headers,
+        })
     }
 
     pub fn read_csv(path: impl AsRef<Path>) -> Result<Self, LibraryError> {
@@ -268,7 +278,8 @@ impl PickList {
             wtr.write_record(&row)
                 .map_err(|e| LibraryError::PickListCsv(e.to_string()))?;
         }
-        wtr.flush().map_err(|e| LibraryError::PickListCsv(e.to_string()))?;
+        wtr.flush()
+            .map_err(|e| LibraryError::PickListCsv(e.to_string()))?;
         Ok(())
     }
 
@@ -340,7 +351,10 @@ impl PickList {
             let d = *nodes
                 .entry(t.destination_plate_name.clone())
                 .or_insert_with(|| graph.add_node(t.destination_plate_name.clone()));
-            let e = edges.entry((s, d)).or_insert_with(|| PlateEdge { total_volume: 0.0, n_txs: 0 });
+            let e = edges.entry((s, d)).or_insert_with(|| PlateEdge {
+                total_volume: 0.0,
+                n_txs: 0,
+            });
             e.total_volume += t.transfer_volume;
             e.n_txs += 1;
         }
@@ -358,8 +372,12 @@ impl PickList {
         for t in &self.transfers {
             let s_key = (t.source_plate_name.clone(), t.source_well.clone());
             let d_key = (t.destination_plate_name.clone(), t.destination_well.clone());
-            let s = *nodes.entry(s_key.clone()).or_insert_with(|| graph.add_node(s_key));
-            let d = *nodes.entry(d_key.clone()).or_insert_with(|| graph.add_node(d_key));
+            let s = *nodes
+                .entry(s_key.clone())
+                .or_insert_with(|| graph.add_node(s_key));
+            let d = *nodes
+                .entry(d_key.clone())
+                .or_insert_with(|| graph.add_node(d_key));
             graph.add_edge(s, d, t.transfer_volume);
         }
         graph
@@ -403,9 +421,7 @@ impl PickList {
             .collect();
         self.transfers
             .iter()
-            .filter(|t| {
-                !dests.contains(&(t.source_plate_name.clone(), t.source_well.clone()))
-            })
+            .filter(|t| !dests.contains(&(t.source_plate_name.clone(), t.source_well.clone())))
             .cloned()
             .collect()
     }
@@ -473,7 +489,10 @@ impl PickList {
             .map(|(i, ..)| self.transfers[i].clone())
             .collect();
 
-        Ok(PickList { transfers, extra_headers: self.extra_headers.clone() })
+        Ok(PickList {
+            transfers,
+            extra_headers: self.extra_headers.clone(),
+        })
     }
 
     // ----- Validation ---------------------------------------------------
@@ -569,10 +588,7 @@ impl PickList {
                 .iter()
                 .map(|t| {
                     *gen_of
-                        .get(&(
-                            t.destination_plate_name.clone(),
-                            t.destination_well.clone(),
-                        ))
+                        .get(&(t.destination_plate_name.clone(), t.destination_well.clone()))
                         .unwrap_or(&0)
                 })
                 .collect();
@@ -584,9 +600,7 @@ impl PickList {
                 running = running.min(dst_gens[i]);
                 suffix_min[i] = running;
             }
-            let bad: Vec<usize> = (0..n)
-                .filter(|&i| src_gens[i] >= suffix_min[i])
-                .collect();
+            let bad: Vec<usize> = (0..n).filter(|&i| src_gens[i] >= suffix_min[i]).collect();
             if !bad.is_empty() {
                 errors.push(format!(
                     "Transfers are not topologically ordered (first offending row {})",
@@ -989,7 +1003,10 @@ SrcB,384PP_AQ_BP,C5,DstA,384LDV_Plus_AQ_GP,D7,75
         assert_eq!(pl.transfers[0].source_plate_name, "SrcA");
         assert_eq!(pl.transfers[0].source_well, "A1");
         assert_eq!(pl.transfers[0].transfer_volume, 25.0);
-        assert_eq!(pl.transfers[0].source_plate_type.as_deref(), Some("384PP_AQ_BP"));
+        assert_eq!(
+            pl.transfers[0].source_plate_type.as_deref(),
+            Some("384PP_AQ_BP")
+        );
     }
 
     #[test]
@@ -1009,7 +1026,10 @@ SrcA,A1,DstA,B2,25,hello
 SrcA,A2,DstA,B3,50,world
 ";
         let pl = PickList::from_csv_reader(csv.as_bytes()).unwrap();
-        assert_eq!(pl.transfers[0].extra.get("Note").map(|s| s.as_str()), Some("hello"));
+        assert_eq!(
+            pl.transfers[0].extra.get("Note").map(|s| s.as_str()),
+            Some("hello")
+        );
         let mut out: Vec<u8> = Vec::new();
         pl.to_csv_writer(&mut out).unwrap();
         let written = String::from_utf8(out).unwrap();
@@ -1073,8 +1093,8 @@ SrcA,A2,DstA,B3,50,world
             bottom_inset: 0.0,
             center_well_pos_x: 0.0,
             center_well_pos_y: 0.0,
-            min_well_vol: Some(15.0),  // μL
-            max_well_vol: Some(65.0),  // μL
+            min_well_vol: Some(15.0), // μL
+            max_well_vol: Some(65.0), // μL
             max_vol_total: Some(1000.0),
             min_volume: Some(25.0),
             drop_volume: Some(25.0),
@@ -1118,7 +1138,9 @@ SrcA,384PP_AQ_BP,A1,DstA,384LDV_Plus_AQ_GP,B2,30
         let pl = PickList::from_csv_reader(csv.as_bytes()).unwrap();
         let rep = pl.validate(&tiny_labware(), None);
         assert!(
-            rep.errors.iter().any(|e| e.contains("not a multiple of drop volume")),
+            rep.errors
+                .iter()
+                .any(|e| e.contains("not a multiple of drop volume")),
             "expected drop-volume error: {:?}",
             rep.errors
         );
@@ -1133,7 +1155,9 @@ SrcA,384PP_AQ_BP,A1,DstA,384LDV_Plus_AQ_GP,B2,0
         let pl = PickList::from_csv_reader(csv.as_bytes()).unwrap();
         let rep = pl.validate(&tiny_labware(), None);
         assert!(
-            rep.errors.iter().any(|e| e.contains("transfer volume is zero")),
+            rep.errors
+                .iter()
+                .any(|e| e.contains("transfer volume is zero")),
             "expected zero-volume error: {:?}",
             rep.errors
         );
@@ -1166,7 +1190,9 @@ SrcA,384PP_AQ_BP,A2,DstA,384LDV_Plus_AQ_GP,B2,beta,25
         let pl = PickList::from_csv_reader(csv.as_bytes()).unwrap();
         let rep = pl.validate(&tiny_labware(), None);
         assert!(
-            rep.errors.iter().any(|e| e.contains("Multiple sample names")),
+            rep.errors
+                .iter()
+                .any(|e| e.contains("Multiple sample names")),
             "expected dest-sample-name error: {:?}",
             rep.errors
         );
@@ -1189,7 +1215,11 @@ S,B3,D,B3,25
         assert_eq!(opt.len(), pl.len());
         // Row A (even parity) ascending column, then row B (odd parity)
         // descending column.
-        let seq: Vec<_> = opt.transfers.iter().map(|t| t.source_well.clone()).collect();
+        let seq: Vec<_> = opt
+            .transfers
+            .iter()
+            .map(|t| t.source_well.clone())
+            .collect();
         assert_eq!(seq, vec!["A1", "A2", "A3", "B3", "B2", "B1"]);
     }
 }
