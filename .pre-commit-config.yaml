@@ -77,3 +77,12 @@ repos:
     # Run the formatter.
     - id: ruff-format
       types_or: [ python, pyi, jupyter ]
+
+- repo: local
+  hooks:
+    - id: cargo-fmt
+      name: cargo fmt
+      entry: cargo fmt --
+      language: system
+      types: [rust]
+      pass_filenames: false
