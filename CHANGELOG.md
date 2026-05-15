@@ -38,7 +38,6 @@ All notable changes to `kithairon` will be documented in this file.
 ### Changed
 
 - Build system migrated to `uv` (replacing previous setup).
-- Removed the `kithairon_extra` wildcard import; its functionality now lives in the separate `kithairon-link` package.
 - `requires-python` declared in pyproject metadata.
 - GitHub Actions CI refactored.
 
