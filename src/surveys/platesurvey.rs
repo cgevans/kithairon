@@ -128,7 +128,11 @@ struct RawPlateSurvey {
     cols: i32,
     #[serde(rename = "@totalWells")]
     total_wells: i32,
-    #[serde(rename = "@plate_name", default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "@plate_name",
+        default,
+        skip_serializing_if = "Option::is_none"
+    )]
     plate_name: Option<String>,
     #[serde(rename = "@note", default, skip_serializing_if = "Option::is_none")]
     note: Option<String>,
@@ -428,7 +432,11 @@ mod tests {
     fn platesurvey_well_zero_volume_becomes_none() {
         let ps = PlateSurvey::from_platesurvey_xml(PLATESURVEY_XML).expect("parse");
         // A2 has vl="0" and a "Data missing" status per the fixture.
-        let a2 = ps.wells.iter().find(|w| w.well == "A2").expect("A2 present");
+        let a2 = ps
+            .wells
+            .iter()
+            .find(|w| w.well == "A2")
+            .expect("A2 present");
         assert!(a2.volume.is_none());
         assert!(a2.status.contains("Data missing"));
     }
@@ -436,7 +444,11 @@ mod tests {
     #[test]
     fn platesurvey_well_echo_signal_features_preserved() {
         let ps = PlateSurvey::from_platesurvey_xml(PLATESURVEY_XML).expect("parse");
-        let a1 = ps.wells.iter().find(|w| w.well == "A1").expect("A1 present");
+        let a1 = ps
+            .wells
+            .iter()
+            .find(|w| w.well == "A1")
+            .expect("A1 present");
         let signal = a1.echo_signal.as_ref().expect("A1 has an echo signal");
         assert_eq!(signal.signal_type, "AVG");
         assert_eq!(signal.features.len(), 3);
@@ -449,9 +461,7 @@ mod tests {
         // equal the first. We don't compare XML strings byte-for-byte
         // because the parser normalises a few quirks (vl="0" ↔ None).
         let original = PlateSurvey::from_platesurvey_xml(PLATESURVEY_XML).expect("parse");
-        let serialized = original
-            .to_platesurvey_xml()
-            .expect("serialize");
+        let serialized = original.to_platesurvey_xml().expect("serialize");
         let reparsed = PlateSurvey::from_platesurvey_xml(&serialized).expect("re-parse");
         assert_eq!(reparsed, original);
     }

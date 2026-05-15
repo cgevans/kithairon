@@ -135,9 +135,8 @@ impl Labware {
                     .collect(),
             },
         };
-        let mut buf = String::from(
-            "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n",
-        );
+        let mut buf =
+            String::from("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n");
         let mut ser = quick_xml::se::Serializer::with_root(&mut buf, Some("EchoLabware"))?;
         ser.indent(' ', 2);
         raw.serialize(ser)?;
@@ -155,7 +154,12 @@ impl Labware {
             raw.source_plates.plates.len() + raw.destination_plates.plates.len(),
         );
         plates.extend(raw.source_plates.plates.into_iter().map(PlateInfo::from));
-        plates.extend(raw.destination_plates.plates.into_iter().map(PlateInfo::from));
+        plates.extend(
+            raw.destination_plates
+                .plates
+                .into_iter()
+                .map(PlateInfo::from),
+        );
         Self { plates }
     }
 

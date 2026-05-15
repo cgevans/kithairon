@@ -12,8 +12,8 @@
 //! Polars DataFrame in Python (or, eventually, in Rust).
 
 pub mod platesurvey;
-pub mod surveyreport;
 pub mod surveydata;
+pub mod surveyreport;
 
 pub use platesurvey::{EchoSignal, PlateSurvey, SignalFeature, WellSurvey};
 pub use surveydata::{

@@ -1,5 +1,5 @@
-use std::fs::File;
 use std::collections::HashMap;
+use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 
@@ -65,41 +65,42 @@ pub fn write_survey_csv_to_writer<W: Write>(
     survey: &PlateSurvey,
 ) -> Result<(), LibraryError> {
     let mut writer = csv::Writer::from_writer(sink);
-    writer.write_record([
-        "row",
-        "column",
-        "well",
-        "volume",
-        "current_volume",
-        "status",
-        "fluid",
-        "fluid_units",
-        "meniscus_x",
-        "meniscus_y",
-        "fluid_composition",
-        "dmso_homogeneous",
-        "dmso_inhomogeneous",
-        "fluid_thickness",
-        "current_fluid_thickness",
-        "bottom_thickness",
-        "fluid_thickness_homogeneous",
-        "fluid_thickness_imhomogeneous",
-        "outlier",
-        "corrective_action",
-        "plate_type",
-        "plate_barcode",
-        "timestamp",
-        "instrument_serial_number",
-        "vtl",
-        "original",
-        "data_format_version",
-        "survey_rows",
-        "survey_columns",
-        "survey_total_wells",
-        "plate_name",
-        "comment",
-    ])
-    .map_err(csv_err)?;
+    writer
+        .write_record([
+            "row",
+            "column",
+            "well",
+            "volume",
+            "current_volume",
+            "status",
+            "fluid",
+            "fluid_units",
+            "meniscus_x",
+            "meniscus_y",
+            "fluid_composition",
+            "dmso_homogeneous",
+            "dmso_inhomogeneous",
+            "fluid_thickness",
+            "current_fluid_thickness",
+            "bottom_thickness",
+            "fluid_thickness_homogeneous",
+            "fluid_thickness_imhomogeneous",
+            "outlier",
+            "corrective_action",
+            "plate_type",
+            "plate_barcode",
+            "timestamp",
+            "instrument_serial_number",
+            "vtl",
+            "original",
+            "data_format_version",
+            "survey_rows",
+            "survey_columns",
+            "survey_total_wells",
+            "plate_name",
+            "comment",
+        ])
+        .map_err(csv_err)?;
     for well in &survey.wells {
         writer
             .write_record([
@@ -168,18 +169,10 @@ fn survey_from_dataframe(df: &DataFrame) -> Result<PlateSurvey, LibraryError> {
             current_fluid_thickness: optional_f64(df, "current_fluid_thickness", idx)?
                 .unwrap_or_default(),
             bottom_thickness: optional_f64(df, "bottom_thickness", idx)?.unwrap_or_default(),
-            fluid_thickness_homogeneous: optional_f64(
-                df,
-                "fluid_thickness_homogeneous",
-                idx,
-            )?
-            .unwrap_or_default(),
-            fluid_thickness_imhomogeneous: optional_f64(
-                df,
-                "fluid_thickness_imhomogeneous",
-                idx,
-            )?
-            .unwrap_or_default(),
+            fluid_thickness_homogeneous: optional_f64(df, "fluid_thickness_homogeneous", idx)?
+                .unwrap_or_default(),
+            fluid_thickness_imhomogeneous: optional_f64(df, "fluid_thickness_imhomogeneous", idx)?
+                .unwrap_or_default(),
             outlier: optional_f64(df, "outlier", idx)?.unwrap_or_default(),
             corrective_action: optional_string(df, "corrective_action", idx)?.unwrap_or_default(),
             echo_signal: optional_echo_signal(df, idx)?,
@@ -199,8 +192,8 @@ fn survey_from_dataframe(df: &DataFrame) -> Result<PlateSurvey, LibraryError> {
             as i32,
         survey_columns: optional_i64(df, "survey_columns", 0)?
             .unwrap_or_else(|| inferred_columns(df)) as i32,
-        survey_total_wells: optional_i64(df, "survey_total_wells", 0)?
-            .unwrap_or(df.height() as i64) as i32,
+        survey_total_wells: optional_i64(df, "survey_total_wells", 0)?.unwrap_or(df.height() as i64)
+            as i32,
         plate_name: optional_string(df, "plate_name", 0)?,
         comment: optional_string(df, "comment", 0)?,
         wells,
@@ -270,181 +263,216 @@ fn dataframe_from_survey(survey: &PlateSurvey) -> Result<DataFrame, LibraryError
     let echo_signal_series =
         Series::from_any_values("echo_signal".into(), &echo_signal_values, false)?;
 
-    DataFrame::new(n, vec![
-        Series::new(
-            "row".into(),
-            survey.wells.iter().map(|w| w.row as i64).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "column".into(),
-            survey.wells.iter().map(|w| w.column as i64).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "well".into(),
-            survey.wells.iter().map(|w| w.well.as_str()).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "volume".into(),
-            survey.wells.iter().map(|w| w.volume).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "current_volume".into(),
-            survey.wells.iter().map(|w| w.current_volume).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "status".into(),
-            survey.wells.iter().map(|w| w.status.as_str()).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "fluid".into(),
-            survey.wells.iter().map(|w| w.fluid.as_str()).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "fluid_units".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.fluid_units.as_str())
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "meniscus_x".into(),
-            survey.wells.iter().map(|w| w.meniscus_x).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "meniscus_y".into(),
-            survey.wells.iter().map(|w| w.meniscus_y).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "fluid_composition".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.fluid_composition)
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "dmso_homogeneous".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.dmso_homogeneous)
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "dmso_inhomogeneous".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.dmso_inhomogeneous)
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "fluid_thickness".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.fluid_thickness)
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "current_fluid_thickness".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.current_fluid_thickness)
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "bottom_thickness".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.bottom_thickness)
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "fluid_thickness_homogeneous".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.fluid_thickness_homogeneous)
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "fluid_thickness_imhomogeneous".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.fluid_thickness_imhomogeneous)
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "outlier".into(),
-            survey.wells.iter().map(|w| w.outlier).collect::<Vec<_>>(),
-        )
-        .into(),
-        Series::new(
-            "corrective_action".into(),
-            survey
-                .wells
-                .iter()
-                .map(|w| w.corrective_action.as_str())
-                .collect::<Vec<_>>(),
-        )
-        .into(),
-        echo_signal_series.into(),
-        Series::new("plate_type".into(), vec![survey.plate_type.as_str(); n]).into(),
-        Series::new(
-            "plate_barcode".into(),
-            vec![survey.plate_barcode.as_deref(); n],
-        )
-        .into(),
-        timestamp_series.into(),
-        Series::new(
-            "instrument_serial_number".into(),
-            vec![survey.instrument_serial_number.as_str(); n],
-        )
-        .into(),
-        Series::new("vtl".into(), vec![survey.vtl as i64; n]).into(),
-        Series::new("original".into(), vec![survey.original as i64; n]).into(),
-        Series::new(
-            "data_format_version".into(),
-            vec![survey.data_format_version as i64; n],
-        )
-        .into(),
-        Series::new("survey_rows".into(), vec![survey.survey_rows as i64; n]).into(),
-        Series::new(
-            "survey_columns".into(),
-            vec![survey.survey_columns as i64; n],
-        )
-        .into(),
-        Series::new(
-            "survey_total_wells".into(),
-            vec![survey.survey_total_wells as i64; n],
-        )
-        .into(),
-        Series::new("plate_name".into(), vec![survey.plate_name.as_deref(); n]).into(),
-        Series::new("comment".into(), vec![survey.comment.as_deref(); n]).into(),
-    ])
+    DataFrame::new(
+        n,
+        vec![
+            Series::new(
+                "row".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.row as i64)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "column".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.column as i64)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "well".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.well.as_str())
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "volume".into(),
+                survey.wells.iter().map(|w| w.volume).collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "current_volume".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.current_volume)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "status".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.status.as_str())
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "fluid".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.fluid.as_str())
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "fluid_units".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.fluid_units.as_str())
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "meniscus_x".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.meniscus_x)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "meniscus_y".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.meniscus_y)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "fluid_composition".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.fluid_composition)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "dmso_homogeneous".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.dmso_homogeneous)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "dmso_inhomogeneous".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.dmso_inhomogeneous)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "fluid_thickness".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.fluid_thickness)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "current_fluid_thickness".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.current_fluid_thickness)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "bottom_thickness".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.bottom_thickness)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "fluid_thickness_homogeneous".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.fluid_thickness_homogeneous)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "fluid_thickness_imhomogeneous".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.fluid_thickness_imhomogeneous)
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "outlier".into(),
+                survey.wells.iter().map(|w| w.outlier).collect::<Vec<_>>(),
+            )
+            .into(),
+            Series::new(
+                "corrective_action".into(),
+                survey
+                    .wells
+                    .iter()
+                    .map(|w| w.corrective_action.as_str())
+                    .collect::<Vec<_>>(),
+            )
+            .into(),
+            echo_signal_series.into(),
+            Series::new("plate_type".into(), vec![survey.plate_type.as_str(); n]).into(),
+            Series::new(
+                "plate_barcode".into(),
+                vec![survey.plate_barcode.as_deref(); n],
+            )
+            .into(),
+            timestamp_series.into(),
+            Series::new(
+                "instrument_serial_number".into(),
+                vec![survey.instrument_serial_number.as_str(); n],
+            )
+            .into(),
+            Series::new("vtl".into(), vec![survey.vtl as i64; n]).into(),
+            Series::new("original".into(), vec![survey.original as i64; n]).into(),
+            Series::new(
+                "data_format_version".into(),
+                vec![survey.data_format_version as i64; n],
+            )
+            .into(),
+            Series::new("survey_rows".into(), vec![survey.survey_rows as i64; n]).into(),
+            Series::new(
+                "survey_columns".into(),
+                vec![survey.survey_columns as i64; n],
+            )
+            .into(),
+            Series::new(
+                "survey_total_wells".into(),
+                vec![survey.survey_total_wells as i64; n],
+            )
+            .into(),
+            Series::new("plate_name".into(), vec![survey.plate_name.as_deref(); n]).into(),
+            Series::new("comment".into(), vec![survey.comment.as_deref(); n]).into(),
+        ],
+    )
     .map_err(Into::into)
 }
 
@@ -483,11 +511,7 @@ fn required_string(df: &DataFrame, name: &str, idx: usize) -> Result<String, Lib
         .ok_or_else(|| LibraryError::MissingSurveyDataColumn(name.to_string()))
 }
 
-fn optional_string(
-    df: &DataFrame,
-    name: &str,
-    idx: usize,
-) -> Result<Option<String>, LibraryError> {
+fn optional_string(df: &DataFrame, name: &str, idx: usize) -> Result<Option<String>, LibraryError> {
     let Ok(col) = df.column(name) else {
         return Ok(None);
     };
@@ -586,16 +610,22 @@ fn parse_timestamp(value: &str) -> Result<NaiveDateTime, LibraryError> {
 fn timestamp_from_epoch(value: i64, unit: TimeUnit) -> Result<NaiveDateTime, LibraryError> {
     let dt = match unit {
         TimeUnit::Nanoseconds => DateTime::<Utc>::from_timestamp_nanos(value),
-        TimeUnit::Microseconds => DateTime::<Utc>::from_timestamp_micros(value)
-            .ok_or_else(|| LibraryError::InvalidTimestamp {
-                input: value.to_string(),
-                reason: "microsecond timestamp out of range".into(),
-            })?,
-        TimeUnit::Milliseconds => DateTime::<Utc>::from_timestamp_millis(value)
-            .ok_or_else(|| LibraryError::InvalidTimestamp {
-                input: value.to_string(),
-                reason: "millisecond timestamp out of range".into(),
-            })?,
+        TimeUnit::Microseconds => {
+            DateTime::<Utc>::from_timestamp_micros(value).ok_or_else(|| {
+                LibraryError::InvalidTimestamp {
+                    input: value.to_string(),
+                    reason: "microsecond timestamp out of range".into(),
+                }
+            })?
+        }
+        TimeUnit::Milliseconds => {
+            DateTime::<Utc>::from_timestamp_millis(value).ok_or_else(|| {
+                LibraryError::InvalidTimestamp {
+                    input: value.to_string(),
+                    reason: "millisecond timestamp out of range".into(),
+                }
+            })?
+        }
     };
     Ok(dt.naive_utc())
 }
@@ -777,8 +807,7 @@ fn feature_any_value(feature: &SignalFeature) -> AnyValue<'static> {
 mod tests {
     use super::*;
 
-    const PLATE_SURVEY_XML: &str =
-        include_str!("../../tests/test_data/platesurvey.xml");
+    const PLATE_SURVEY_XML: &str = include_str!("../../tests/test_data/platesurvey.xml");
 
     #[test]
     fn surveydata_parquet_round_trip_preserves_core_fields() {

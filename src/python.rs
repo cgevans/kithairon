@@ -11,7 +11,12 @@ use crate::picklist::{PickList, Transfer};
 use crate::surveys::platesurvey::{EchoSignal, PlateSurvey, SignalFeature, WellSurvey};
 use crate::surveys::{read_survey_file, read_survey_str};
 
-#[pyclass(name = "PlateInfo", module = "kithairon._native", frozen, from_py_object)]
+#[pyclass(
+    name = "PlateInfo",
+    module = "kithairon._native",
+    frozen,
+    from_py_object
+)]
 #[derive(Clone)]
 struct PyPlateInfo {
     inner: PlateInfo,
@@ -181,11 +186,20 @@ impl PyLabware {
     }
 
     fn keys(&self) -> Vec<String> {
-        self.inner.keys().into_iter().map(|s| s.to_string()).collect()
+        self.inner
+            .keys()
+            .into_iter()
+            .map(|s| s.to_string())
+            .collect()
     }
 
     fn plates(&self) -> Vec<PyPlateInfo> {
-        self.inner.plates().iter().cloned().map(PyPlateInfo::from).collect()
+        self.inner
+            .plates()
+            .iter()
+            .cloned()
+            .map(PyPlateInfo::from)
+            .collect()
     }
 
     fn add(&mut self, plate: PyPlateInfo) -> PyResult<()> {
@@ -451,12 +465,7 @@ fn write_picklist_csv_records(records: &Bound<'_, PyList>, path: &str) -> PyResu
 fn picklist_quick_order_indices(records: &Bound<'_, PyList>) -> PyResult<Vec<usize>> {
     let pl = picklist_from_records(records)?;
     // Rebuild an indexed pick list so we can recover the permutation.
-    let indexed: Vec<(usize, Transfer)> = pl
-        .transfers
-        .iter()
-        .cloned()
-        .enumerate()
-        .collect();
+    let indexed: Vec<(usize, Transfer)> = pl.transfers.iter().cloned().enumerate().collect();
 
     // Tag each transfer with its original index via the `extra` map.
     const IDX_KEY: &str = "__orig_idx__";
@@ -479,7 +488,10 @@ fn picklist_quick_order_indices(records: &Bound<'_, PyList>) -> PyResult<Vec<usi
             t.extra
                 .get(IDX_KEY)
                 .ok_or_else(|| PyValueError::new_err("missing index tag"))
-                .and_then(|s| s.parse::<usize>().map_err(|e| PyValueError::new_err(e.to_string())))
+                .and_then(|s| {
+                    s.parse::<usize>()
+                        .map_err(|e| PyValueError::new_err(e.to_string()))
+                })
         })
         .collect()
 }
