@@ -1,6 +1,5 @@
 import io
 import json
-import re
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -122,22 +121,6 @@ def wells_to_start_and_shape(
         raise ValueError("Wells must be in order from top left to bottom right.")
 
     return (row_start, col_start), (row_end - row_start + 1, col_end - col_start + 1)
-
-
-PLATE_SHAPE_FROM_SIZE: dict[int, tuple[int, int]] = {
-    384: (16, 24),
-    1536: (32, 48),
-    6: (2, 3),
-    96: (8, 12),
-}
-
-
-def plate_shape_from_name(plate_type: str) -> tuple[int, int]:
-    """Return the shape of a plate given its name."""
-    total_wells_match = re.match(r"^(\d+)", plate_type)
-    if total_wells_match is None:
-        raise ValueError(f"Could not parse plate type {plate_type}")
-    return PLATE_SHAPE_FROM_SIZE[int(total_wells_match.group(1))]
 
 
 def _polars_df_to_json_dict(df: pl.DataFrame) -> dict[str, Any]:

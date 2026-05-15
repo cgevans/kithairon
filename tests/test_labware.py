@@ -50,7 +50,7 @@ def test_to_polars_roundtrip_preserves_types():
 
 
 def test_plate_shape_from_labware_works_for_nonstandard_names():
-    # Plate names that don't begin with a digit (e.g. "EnduraF96_cge_v1.0.0")
+    # Plate names that don't begin with a digit (e.g. "EnduraF96_cge_v1")
     # used to break the regex-based plate_shape_from_name helper. The
     # labware-based lookup should handle them since shape comes from
     # the PlateInfo, not the name.
