@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::collections::HashMap;
+use std::io::Write;
 use std::path::Path;
 
 use chrono::{DateTime, NaiveDateTime, Utc};
@@ -12,16 +13,30 @@ use super::platesurvey::{EchoSignal, PlateSurvey, SignalFeature, WellSurvey};
 use crate::LibraryError;
 
 pub fn read_survey_parquet(path: impl AsRef<Path>) -> Result<PlateSurvey, LibraryError> {
-    let file = File::open(path)?;
-    let df = ParquetReader::new(file).finish()?;
+    read_survey_parquet_from_reader(File::open(path)?)
+}
+
+pub fn read_survey_parquet_from_reader<R>(reader: R) -> Result<PlateSurvey, LibraryError>
+where
+    R: polars::io::mmap::MmapBytesReader,
+{
+    let df = ParquetReader::new(reader).finish()?;
     survey_from_dataframe(&df)
 }
 
 pub fn read_validation_volumes_parquet(
     path: impl AsRef<Path>,
 ) -> Result<HashMap<String, HashMap<String, f64>>, LibraryError> {
-    let file = File::open(path)?;
-    let df = ParquetReader::new(file).finish()?;
+    read_validation_volumes_parquet_from_reader(File::open(path)?)
+}
+
+pub fn read_validation_volumes_parquet_from_reader<R>(
+    reader: R,
+) -> Result<HashMap<String, HashMap<String, f64>>, LibraryError>
+where
+    R: polars::io::mmap::MmapBytesReader,
+{
+    let df = ParquetReader::new(reader).finish()?;
     validation_volumes_from_dataframe(&df)
 }
 
@@ -29,14 +44,27 @@ pub fn write_survey_parquet(
     path: impl AsRef<Path>,
     survey: &PlateSurvey,
 ) -> Result<(), LibraryError> {
-    let mut file = File::create(path)?;
+    write_survey_parquet_to_writer(File::create(path)?, survey)
+}
+
+pub fn write_survey_parquet_to_writer<W: Write>(
+    sink: W,
+    survey: &PlateSurvey,
+) -> Result<(), LibraryError> {
     let mut df = dataframe_from_survey(survey)?;
-    ParquetWriter::new(&mut file).finish(&mut df)?;
+    ParquetWriter::new(sink).finish(&mut df)?;
     Ok(())
 }
 
 pub fn write_survey_csv(path: impl AsRef<Path>, survey: &PlateSurvey) -> Result<(), LibraryError> {
-    let mut writer = csv::Writer::from_path(path).map_err(csv_err)?;
+    write_survey_csv_to_writer(File::create(path)?, survey)
+}
+
+pub fn write_survey_csv_to_writer<W: Write>(
+    sink: W,
+    survey: &PlateSurvey,
+) -> Result<(), LibraryError> {
+    let mut writer = csv::Writer::from_writer(sink);
     writer.write_record([
         "row",
         "column",

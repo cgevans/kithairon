@@ -17,7 +17,9 @@ pub mod surveydata;
 
 pub use platesurvey::{EchoSignal, PlateSurvey, SignalFeature, WellSurvey};
 pub use surveydata::{
-    read_survey_parquet, read_validation_volumes_parquet, write_survey_csv, write_survey_parquet,
+    read_survey_parquet, read_survey_parquet_from_reader, read_validation_volumes_parquet,
+    read_validation_volumes_parquet_from_reader, write_survey_csv, write_survey_csv_to_writer,
+    write_survey_parquet, write_survey_parquet_to_writer,
 };
 
 use crate::LibraryError;
