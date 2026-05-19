@@ -1,6 +1,19 @@
 # Changelog
 
-All notable changes to `kithairon` will be documented in this file.
+## [0.4.1] - 2026-05-19
+
+### Fixed
+
+- `SurveyData.read_xml` / `from_xml`: stop relying on Polars schema
+  inference.
+
+### Added
+
+- Out-of-package test (`tests/test_real_surveys.py`) that loads every
+  `survey-raw-*.xml(.gz)` it finds under `$KITHAIRON_LOCAL_STORE_DIR`
+  and asserts schema/row-count integrity plus a parquet round-trip.
+  Skips silently when the env var is unset. Verified against 323
+  real instrument surveys from `~/.local/share/kithairon/local_store`.
 
 ## [0.4.0] - 2026-05-15
 

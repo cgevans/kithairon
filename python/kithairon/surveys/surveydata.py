@@ -71,6 +71,67 @@ SURVEY_SCHEMA = {
     "comment": str,
 }
 
+# Full schema for the per-well dicts produced by the Rust
+# `read_survey_*_records` PyO3 functions. Passed as `schema=` to
+# `pl.DataFrame(...)` so Polars doesn't have to infer types from a sample
+# — real surveys regularly have entire columns of `None` (e.g. `echo_signal`
+# when no transducer trace is present), which made inference unreliable.
+_ECHO_SIGNAL_DTYPE = pl.Struct(
+    {
+        "signal_type": pl.String,
+        "transducer_x": pl.Float64,
+        "transducer_y": pl.Float64,
+        "transducer_z": pl.Float64,
+        "features": pl.List(
+            pl.Struct(
+                {
+                    "feature_type": pl.String,
+                    "tof": pl.Float64,
+                    "vpp": pl.Float64,
+                }
+            )
+        ),
+    }
+)
+
+_RECORDS_SCHEMA: dict[str, Any] = {
+    # Well-level columns (from `well_to_dict` in src/python.rs).
+    "row": pl.Int64,
+    "column": pl.Int64,
+    "well": pl.String,
+    "volume": pl.Float64,
+    "current_volume": pl.Float64,
+    "status": pl.String,
+    "fluid": pl.String,
+    "fluid_units": pl.String,
+    "meniscus_x": pl.Float64,
+    "meniscus_y": pl.Float64,
+    "fluid_composition": pl.Float64,
+    "dmso_homogeneous": pl.Float64,
+    "dmso_inhomogeneous": pl.Float64,
+    "fluid_thickness": pl.Float64,
+    "current_fluid_thickness": pl.Float64,
+    "bottom_thickness": pl.Float64,
+    "fluid_thickness_homogeneous": pl.Float64,
+    "fluid_thickness_imhomogeneous": pl.Float64,
+    "outlier": pl.Float64,
+    "corrective_action": pl.String,
+    "echo_signal": _ECHO_SIGNAL_DTYPE,
+    # Survey-level metadata, duplicated per row.
+    "plate_type": pl.String,
+    "plate_barcode": pl.String,
+    "timestamp": pl.Datetime("us"),
+    "instrument_serial_number": pl.String,
+    "vtl": pl.Int64,
+    "original": pl.Int64,
+    "data_format_version": pl.Int64,
+    "survey_rows": pl.Int64,
+    "survey_columns": pl.Int64,
+    "survey_total_wells": pl.Int64,
+    "plate_name": pl.String,
+    "comment": pl.String,
+}
+
 
 def _empty_df() -> pl.DataFrame:
     return pl.DataFrame(schema=SURVEY_SCHEMA)
@@ -81,19 +142,11 @@ class SurveyData:
     """A container for Echo survey data, potentially from many plates.
 
     `SurveyData` holds Echo survey data, potentially from many individual surveys and sources,
-    in a Polars :py:class:`DataFrame <polars:polars.DataFrame>`.  It is intended to allow for easy
-    access and use of individual surveys, while allowing for extensive analysis when required.
-    It is primarily intended to ingest PlateSurvey XML files from `Echo Liquid Handler`_ software
-    (accessible directly via :py:class:`platesurvey.EchoPlateSurveyXML`).  The format is Kithairon-specific, but
-    can export back to EchoPlateSurveyXML format.  It can be easily and compactly written to
-    and read from Parquet files, with compression making them smaller than the originals despite
-    increased verbosity.
+    in a Polars :py:class:`DataFrame <polars:polars.DataFrame>`.
 
     All data is held in a single DataFrame, :py:attr:`data`, and every row is self-contained,
     with all survey metadata duplicated for each well, and all well, signal, and feature data included.
-    This allows for easy multi-survey analyses and selections of data.  Like a DataFramee, SurveyData
-    is immutable: manipulation and selection operations efficiently return new SurveyData objects,
-    only copying data when required.
+    TLike a DataFramee, SurveyData is immutable: manipulation and selection operations efficiently return new SurveyData objects, only copying data when required.
 
     .. _Echo Liquid Handler: echo/echo-liquid-handler
     """
@@ -442,8 +495,7 @@ class SurveyData:
         from kithairon._native import read_survey_file_records
 
         records = read_survey_file_records(str(path))
-        d = pl.DataFrame(records)
-        d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
+        d = pl.DataFrame(records, schema=_RECORDS_SCHEMA)
         return cls(d)
 
     @classmethod
@@ -454,8 +506,7 @@ class SurveyData:
         if isinstance(xml_str, bytes):
             xml_str = xml_str.decode("utf-8")
         records = read_survey_str_records(xml_str)
-        d = pl.DataFrame(records)
-        d = d.cast({k: v for k, v in SURVEY_SCHEMA.items() if k in d.columns})
+        d = pl.DataFrame(records, schema=_RECORDS_SCHEMA)
         return cls(d)
 
     @classmethod
