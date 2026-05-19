@@ -51,7 +51,7 @@ Documentation = "https://kithairon.readthedocs.io/en/latest/"
 [tool.maturin]
 python-source = "python"
 module-name = "kithairon._native"
-features = ["python"]
+features = ["abi3"]
 bindings = "pyo3"
 
 [tool.ruff]
